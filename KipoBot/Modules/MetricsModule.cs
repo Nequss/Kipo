@@ -16,6 +16,7 @@ namespace KipoBot.Modules
         public MetricsModule()
         {
             MetricsModule tmp = getSystemData();
+            readOsPlatform();
             memoryMax = tmp.memoryMax;
             memoryUsed = tmp.memoryUsed;
             memoryFree = tmp.memoryFree;
