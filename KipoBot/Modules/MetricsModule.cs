@@ -7,30 +7,47 @@ namespace KipoBot.Modules
 {
     public class MetricsModule
     {
-        public double memoryMax { get; }
-        public double memoryUsed { get; }
-        public double memoryFree { get; }
+        public int memoryMax { get; private set;}
+        public int memoryUsed { get; private set; }
+        public int memoryFree { get; private set; }
+
+
+        public MetricsModule()
+        {
+            MetricsModule tmp = getMemoryData();
+            memoryMax = tmp.memoryMax;
+            memoryUsed = tmp.memoryUsed;
+            memoryFree = tmp.memoryFree;
+        }
       
-        private MetricsModule(double max, double used, double free)
+        private MetricsModule(int max, int used)
         {
             memoryMax = max;
-            memoryFree = free;
             memoryUsed = used;
+            memoryFree = memoryMax - memoryUsed;
         }
         
         // Returns used memory in %
         public float getUsedPercent()
         {
-            return (float)memoryUsed / (float)memoryMax;
+            return ((float)memoryUsed / (float)memoryMax)*100;
         }
 
         // Returns free memory in %
         public float getFreePercent()
         {
-            return (float) memoryFree / (float)memoryMax;
+            return  ((float)memoryFree / (float)memoryMax)*100;
         }
 
-        public static MetricsModule getMemoryData()
+        // Converts stored values to GB - this operation cannot be reverted
+        public void convertToGB()
+        {
+            memoryMax /= 1024;
+            memoryFree /= 1024;
+            memoryUsed /= 1024;
+        }
+
+        private static MetricsModule getMemoryData()
         {
             if (isUnix())
             {
@@ -39,7 +56,7 @@ namespace KipoBot.Modules
             }
             else
             {
-                return new MetricsModule(1,0,0);
+                return new MetricsModule(1,0);
                 //Windows functions
             }
         }
@@ -54,7 +71,7 @@ namespace KipoBot.Modules
         private static MetricsModule getWindowsMetrics()
         {
             //TODO
-            return new MetricsModule(1, 0, 0);
+            return new MetricsModule(1, 0);
         }
 
         private static MetricsModule getUnixMetrics()
@@ -70,17 +87,15 @@ namespace KipoBot.Modules
                 var output=process.StandardOutput.ReadToEnd();
                 var lines = output.Split("\n");
                 var memory = lines[1].Split(" ", StringSplitOptions.RemoveEmptyEntries);
-
-                double memMax = double.Parse(memory[1]); // Obtain max system ram
-                double memUsed = double.Parse(memory[2]); // Obtain used system ram
-                double memFree = memMax - memUsed; // Calculate free ram
+                int memMax = Int32.Parse(memory[1]); // Obtain max system ram
+                int memUsed = Int32.Parse(memory[2]); // Obtain used system ram
                 
-                return new MetricsModule(memMax, memUsed, memFree);
+                return new MetricsModule(memMax, memUsed);
             }
             catch (Exception e)
             {
                 Console.WriteLine(e);
-                return new MetricsModule(1, 0, 0);
+                return new MetricsModule(1, 0);
             }
         }
     }
