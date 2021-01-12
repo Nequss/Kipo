@@ -51,13 +51,11 @@ namespace KipoBot.Modules
         {
             if (isUnix())
             {
-                //Unix functions
                 return getUnixMetrics();
             }
             else
             {
-                return new MetricsModule(1,0);
-                //Windows functions
+                return getWindowsMetrics();
             }
         }
 
