@@ -53,6 +53,7 @@ namespace KipoBot.Modules
 
         private static MetricsModule getWindowsMetrics()
         {
+            //TODO
             return new MetricsModule(1, 0, 0);
         }
 
