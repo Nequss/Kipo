@@ -7,14 +7,15 @@ namespace KipoBot.Modules
 {
     public class MetricsModule
     {
-        public int memoryMax { get; private set;}
-        public int memoryUsed { get; private set; }
-        public int memoryFree { get; private set; }
+        private String platform="";
+        private int memoryMax;
+        private int memoryUsed;
+        private int memoryFree; 
 
 
         public MetricsModule()
         {
-            MetricsModule tmp = getMemoryData();
+            MetricsModule tmp = getSystemData();
             memoryMax = tmp.memoryMax;
             memoryUsed = tmp.memoryUsed;
             memoryFree = tmp.memoryFree;
@@ -39,15 +40,32 @@ namespace KipoBot.Modules
             return  ((float)memoryFree / (float)memoryMax)*100;
         }
 
-        // Converts stored values to GB - this operation cannot be reverted
-        public void convertToGB()
+        public int getMemoryMaxGB()
         {
-            memoryMax /= 1024;
-            memoryFree /= 1024;
-            memoryUsed /= 1024;
+            return memoryMax / 1024;
         }
+        public int getMemoryUsedGB()
+        {
+            return memoryUsed / 1024;
+        }
+        public int getMemoryFreeGB()
+        {
+            return memoryFree / 1024;
+        }
+         public int getMemoryMaxMB()
+         {
+             return memoryMax;
+         }
+         public int getMemoryUsedMB()
+         {
+             return memoryUsed;
+         }
+         public int getMemoryFreeMB()
+         {
+             return memoryFree;
+         }
 
-        private static MetricsModule getMemoryData()
+        private static MetricsModule getSystemData()
         {
             if (isUnix())
             {
@@ -57,6 +75,21 @@ namespace KipoBot.Modules
             {
                 return getWindowsMetrics();
             }
+        }
+
+        public String getOsPlatform()
+        {
+            return platform;
+        }
+
+        private void readOsPlatform()
+        {
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+                platform = "Linux";
+            else if(RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+                platform = "MacOS";
+            else
+                platform = "Windows";
         }
 
         private static bool isUnix()
@@ -82,7 +115,7 @@ namespace KipoBot.Modules
             try
             {
                 var process = Process.Start(info);
-                var output=process.StandardOutput.ReadToEnd();
+                var output = process.StandardOutput.ReadToEnd();
                 var lines = output.Split("\n");
                 var memory = lines[1].Split(" ", StringSplitOptions.RemoveEmptyEntries);
                 int memMax = Int32.Parse(memory[1]); // Obtain max system ram
