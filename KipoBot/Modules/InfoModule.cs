@@ -49,18 +49,7 @@ namespace KipoBot.Modules
         [Command("stats")]
         public async Task Stats()
         {
-            ObjectQuery wql = new ObjectQuery("SELECT * FROM Win32_OperatingSystem");
-            ManagementObjectSearcher searcher = new ManagementObjectSearcher(wql);
-            ManagementObjectCollection results = searcher.Get();
-
-            string total = String.Empty;
-            string used = String.Empty;
-
-            foreach (ManagementObject result in results)
-            {
-                total = String.Format("{0:0.00}", Int32.Parse(result["TotalVisibleMemorySize"].ToString()) / (1024.0 * 1024.0));
-                used = String.Format("{0:0.00}", Int32.Parse(result["TotalVisibleMemorySize"].ToString()) / (1024.0 * 1024.0) - Int32.Parse(result["FreePhysicalMemory"].ToString()) / (1024.0 * 1024.0));
-            }
+            MetricsModule memoryInfo = MetricsModule.getMemoryData();
 
             int users = 0;
             foreach (SocketGuild guild in Context.Client.Guilds)
@@ -80,7 +69,7 @@ namespace KipoBot.Modules
             embedBuilder.AddField("Version", "1.0", true);
             embedBuilder.AddField("Created", Context.Client.CurrentUser.CreatedAt.UtcDateTime, true);
             embedBuilder.AddField("ID", Context.Client.CurrentUser.Id, true);
-            embedBuilder.AddField("RAM", used + "GB / " + total + "GB", true);
+            embedBuilder.AddField("RAM", memoryInfo.memoryUsed + "MB / " + memoryInfo.memoryMax + "MB", true);
             embedBuilder.AddField("Library", "Discord.Net 2.2.0", true);
             embedBuilder.AddField("Creator", "Nequs#6848", true);
             embedBuilder.AddField("Support server", "link", true);
