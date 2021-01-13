@@ -7,7 +7,7 @@ namespace KipoBot.Modules
 {
     public class MetricsModule
     {
-        private String platform="";
+        private OS platform = OS.OTHER;
         private int memoryMax;
         private int memoryUsed;
         private int memoryFree; 
@@ -15,8 +15,8 @@ namespace KipoBot.Modules
 
         public MetricsModule()
         {
-            MetricsModule tmp = getSystemData();
             readOsPlatform();
+            MetricsModule tmp = getSystemData();
             memoryMax = tmp.memoryMax;
             memoryUsed = tmp.memoryUsed;
             memoryFree = tmp.memoryFree;
@@ -24,6 +24,9 @@ namespace KipoBot.Modules
       
         private MetricsModule(int max, int used)
         {
+            if (max <= 0)
+                max = 1;
+            
             memoryMax = max;
             memoryUsed = used;
             memoryFree = memoryMax - memoryUsed;
@@ -66,47 +69,74 @@ namespace KipoBot.Modules
              return memoryFree;
          }
 
-        private static MetricsModule getSystemData()
+        private MetricsModule getSystemData()
         {
-            if (isUnix())
+            switch (platform)
             {
-                return getUnixMetrics();
+                case OS.LINUX:
+                    return getLinuxMemoryInfo();
+                    break;
+                case OS.WINDOWS:
+                    return getWindowsMemoryInfo();
+                    break;
+                case OS.MACOS:
+                    //TODO
+                    return getMacOSMemoryInfo();
+                    break;
+                case OS.OTHER:
+                    //TODO
+                    return getEmptyModule();
+                    break;
+                default:
+                    //TODO
+                    return getEmptyModule();
+                    break;
             }
-            else
-            {
-                return getWindowsMetrics();
-            }
+        }
+
+        private MetricsModule getEmptyModule()
+        {
+            return new MetricsModule(1, 0);
         }
 
         public String getOsPlatform()
         {
-            return platform;
+            switch (platform)
+            {
+                case OS.LINUX:
+                    return "Linux";
+                    break;
+                case OS.WINDOWS:
+                    return "Windows";
+                    break;
+                case OS.MACOS:
+                    return "MacOS";
+                    break;
+                default:
+                    return "Other";
+                    break;
+            }
         }
 
         private void readOsPlatform()
         {
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
-                platform = "Linux";
-            else if(RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
-                platform = "MacOS";
+                platform = OS.LINUX;
+            else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+                platform = OS.MACOS;
+            else if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                platform = OS.WINDOWS;
             else
-                platform = "Windows";
+                platform = OS.OTHER;
         }
 
-        private static bool isUnix()
-        {
-            var isUnix = RuntimeInformation.IsOSPlatform(OSPlatform.Linux) ||
-                         RuntimeInformation.IsOSPlatform(OSPlatform.OSX);
-            return isUnix;
-        }
-
-        private static MetricsModule getWindowsMetrics()
+        private static MetricsModule getWindowsMemoryInfo()
         {
             //TODO
-            return new MetricsModule(1, 0);
+            return new MetricsModule(0, 0);
         }
 
-        private static MetricsModule getUnixMetrics()
+        private static MetricsModule getLinuxMemoryInfo()
         {
             var info = new ProcessStartInfo("free -m");
             info.FileName = "/bin/bash";
@@ -127,8 +157,23 @@ namespace KipoBot.Modules
             catch (Exception e)
             {
                 Console.WriteLine(e);
-                return new MetricsModule(1, 0);
+                return new MetricsModule(0, 0);
             }
+        }
+
+        private static MetricsModule getMacOSMemoryInfo()
+        {
+            //TODO
+            return new MetricsModule(0,0);
+        }
+        
+        private enum OS
+        {
+            WINDOWS,
+            LINUX,
+            MACOS,
+            OTHER
+            
         }
     }
 }
