@@ -109,7 +109,7 @@ namespace KipoBot.Modules
         private static MetricsModule getUnixMetrics()
         {
             var info = new ProcessStartInfo("free -m");
-            info.FileName = "/bin/sh";
+            info.FileName = "/bin/bash";
             info.Arguments = "-c \"free -m\"";
             info.RedirectStandardOutput = true;
 
