@@ -1,7 +1,6 @@
 # Kipo
 The cutest bot in the universe!
 
-
 ### Linux Dependencies:
 ```bash```
 ```top```
