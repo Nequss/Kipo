@@ -83,6 +83,7 @@ namespace Kipo.Modules
         }
 
         [Command("imgur")]
+        [Summary("Searches for a random imgur image \n +imgur [phrase]")]
         public async Task RandomSearch(params string[] objects) => await GetRandomImage(string.Join(" ", objects));
     }
 }

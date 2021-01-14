@@ -23,6 +23,7 @@ namespace KipoBot.Modules
         public InfoModule(CommandService service) => _service = service;
 
         [Command("help")]
+        [Summary("Shows this command")]
         public async Task Help()
         {
             EmbedBuilder embedBuilder = new EmbedBuilder();
@@ -37,16 +38,18 @@ namespace KipoBot.Modules
             foreach (var module in _service.Modules)
                 foreach (var cmd in module.Commands)
                     if (cmd.Name != "help")
-                        embedBuilder.AddField("+" + cmd.Name, "summary", inline: true);
+                        embedBuilder.AddField("+" + cmd.Name, cmd.Summary, inline: true);
 
 
             await ReplyAsync(embed: embedBuilder.Build());
         }
 
         [Command("latency")]
+        [Summary("Shows kipo's response time")]
         public async Task Latency() => await ReplyAsync("My response time is " + Context.Client.Latency + " ms.");
 
         [Command("stats")]
+        [Summary("Shows kipo's statistics")]
         public async Task Stats()
         {
             ObjectQuery wql = new ObjectQuery("SELECT * FROM Win32_OperatingSystem");
@@ -90,6 +93,7 @@ namespace KipoBot.Modules
         }
 
         [Command("userinfo")]
+        [Summary("Shows user's information \n +userinfo [user]")]
         public async Task Info(SocketGuildUser user = null)
         {
             user = user ?? Context.User as SocketGuildUser;
@@ -124,6 +128,7 @@ namespace KipoBot.Modules
         }
 
         [Command("contact")]
+        [Summary("Shows information about kipo's owner")]
         public async Task Contact()
         {
         }

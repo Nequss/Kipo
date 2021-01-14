@@ -17,6 +17,7 @@ namespace KipoBot.Modules
         }
 
         [Command("neko")]
+        [Summary("Sends random anime neko image")]
         public async Task RandomNekoAsync()
         {
             HttpClient client = new HttpClient();
@@ -34,6 +35,7 @@ namespace KipoBot.Modules
         }
 
         [Command("smug")]
+        [Summary("Sends random anime smug image")]
         public async Task RandomSmugAsync()
         {
             HttpClient client = new HttpClient();
@@ -51,6 +53,7 @@ namespace KipoBot.Modules
         }
 
         [Command("slap")]
+        [Summary("Sends a random anime slap gif \n +slap [user]")]
         public async Task RandomSlapAsync(IUser user)
         {
             HttpClient client = new HttpClient();
@@ -68,6 +71,7 @@ namespace KipoBot.Modules
         }
 
         [Command("kiss")]
+        [Summary("Sends a random anime kiss gif \n +kiss [user]")]
         public async Task RandomKissAsync(IUser user)
         {
             HttpClient client = new HttpClient();
@@ -85,6 +89,7 @@ namespace KipoBot.Modules
         }
 
         [Command("poke")]
+        [Summary("Sends a random anime poke gif \n +poke [user]")]
         public async Task RandomPokeAsync(IUser user)
         {
             HttpClient client = new HttpClient();
@@ -102,6 +107,7 @@ namespace KipoBot.Modules
         }
 
         [Command("hug")]
+        [Summary("Sends a random anime hug gif \n +hug [user]")]
         public async Task RandomHugAsync(IUser user)
         {
             HttpClient client = new HttpClient();
@@ -119,6 +125,7 @@ namespace KipoBot.Modules
         }
 
         [Command("baka")]
+        [Summary("Sends a random anime baka gif \n +baka [user]")]
         public async Task RandomBakaAsync(IUser user)
         {
             HttpClient client = new HttpClient();
@@ -136,6 +143,7 @@ namespace KipoBot.Modules
         }
 
         [Command("pat")]
+        [Summary("Sends a random anime pat gif \n +pat [user]")]
         public async Task RandomPatAsync(IUser user)
         {
             HttpClient client = new HttpClient();

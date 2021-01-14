@@ -15,7 +15,7 @@ namespace KipoBot.Modules
     {
 
 
-
+        /*
         // [Remainder] takes the rest of the command's arguments as one argument, rather than splitting every space
         [Command("echo")]
         public Task EchoAsync([Remainder] string text)
@@ -33,5 +33,6 @@ namespace KipoBot.Modules
         [RequireContext(ContextType.Guild, ErrorMessage = "Sorry, this command must be ran from within a server, not a DM!")]
         public Task GuildOnlyCommand()
             => ReplyAsync("Nothing to see here!");
+            */
     }
 }
