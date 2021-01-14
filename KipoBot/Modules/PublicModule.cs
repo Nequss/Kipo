@@ -14,6 +14,8 @@ namespace KipoBot.Modules
     public class PublicModule : ModuleBase<SocketCommandContext>
     {
 
+
+
         // [Remainder] takes the rest of the command's arguments as one argument, rather than splitting every space
         [Command("echo")]
         public Task EchoAsync([Remainder] string text)

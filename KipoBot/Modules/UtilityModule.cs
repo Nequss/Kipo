@@ -1,4 +1,5 @@
 ﻿using Discord;
+using System.Collections.Generic;
 using Discord.Webhook;
 using Discord.WebSocket;
 using Discord.Commands;
@@ -12,46 +13,42 @@ using KipoBot.Services;
 using System.Diagnostics;
 using System.Threading;
 using System.Management;
+using System.Linq;
 
 namespace KipoBot.Modules
 {
     public class UtilityModule : ModuleBase<SocketCommandContext>
     {
-        [Command("ban")]
+        [Command("ban", RunMode = RunMode.Async)]
         [RequireContext(ContextType.Guild)]
-        [RequireUserPermission(GuildPermission.BanMembers, ErrorMessage = "You don't have required permission to ban bad people! UwU")]
-        [RequireBotPermission(GuildPermission.BanMembers, ErrorMessage = "I dont have required permission to ban bad people! UwU")]
-        public async Task BanUserAsync(IGuildUser user, [Remainder] string reason)
+        [RequireUserPermission(GuildPermission.BanMembers, ErrorMessage = "You don't have required permission to ban people!")]
+        [RequireBotPermission(GuildPermission.BanMembers, ErrorMessage = "I dont have required permission to ban people!")]
+        public async Task BanUserAsync(IGuildUser user, [Remainder]string reason)
         {
             await user.Guild.AddBanAsync(user, reason: reason);
-            await ReplyAsync("The bad nyan has been banned! UwU");
+            await ReplyAsync(user.Username + "#" + user.DiscriminatorValue + " has been banned!");
         }
 
-        [Command("kick")]
+        [Command("kick", RunMode = RunMode.Async)]
         [RequireContext(ContextType.Guild)]
-        [RequireUserPermission(GuildPermission.KickMembers, ErrorMessage = "You don't have required permission to kick bad people! UwU")]
-        [RequireBotPermission(GuildPermission.KickMembers, ErrorMessage = "I dont have required permission to kick people! UwU")]
-        public async Task KickUserAsync(IGuildUser user, [Remainder] string reason)
+        [RequireUserPermission(GuildPermission.KickMembers, ErrorMessage = "You don't have required permission to kick people!")]
+        [RequireBotPermission(GuildPermission.KickMembers, ErrorMessage = "I dont have required permission to kick people!")]
+        public async Task KickUserAsync(IGuildUser user, [Remainder]string reason)
         {
             await user.KickAsync(reason: reason);
-            await ReplyAsync("The bad nyan has been kicked! UwU");
+            await ReplyAsync(user.Username + "#" + user.DiscriminatorValue + " has been kicked!");
         }
 
-        [Command("purge")]
+        [Command("purge", RunMode = RunMode.Async)]
         [RequireContext(ContextType.Guild)]
-        [RequireUserPermission(GuildPermission.ManageMessages, ErrorMessage = "You don't have required permission to delete messages! UwU")]
-        [RequireBotPermission(ChannelPermission.ManageMessages, ErrorMessage = "I have required permission to delete messages! UwU")]
+        [RequireUserPermission(GuildPermission.ManageMessages, ErrorMessage = "You don't have required permission to delete messages!")]
+        [RequireBotPermission(ChannelPermission.ManageMessages, ErrorMessage = "I have required permission to delete messages!")]
         public async Task ClearAsync(int i)
         {
-            if (i > 99)
-            {
-
-            }
-            else
-            {
-                var messages = await Context.Channel.GetMessagesAsync(i + 1).FlattenAsync();
-                await (Context.Channel as SocketTextChannel).DeleteMessagesAsync(messages);
-            }
+            var messages = await Context.Channel.GetMessagesAsync(i).FlattenAsync();
+            var filteredMessages = messages.Where(x => (DateTimeOffset.UtcNow - x.Timestamp).TotalDays <= 14);
+            await (Context.Channel as SocketTextChannel).DeleteMessagesAsync(filteredMessages);
         }
+
     }
 }

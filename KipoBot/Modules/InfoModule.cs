@@ -64,7 +64,7 @@ namespace KipoBot.Modules
 
             int users = 0;
             foreach (SocketGuild guild in Context.Client.Guilds)
-            users += guild.Users.Count;
+                users += guild.Users.Count;
 
             EmbedBuilder embedBuilder = new EmbedBuilder();
             embedBuilder.Color = Color.Purple;
@@ -114,6 +114,7 @@ namespace KipoBot.Modules
 
             embedBuilder.AddField("Joined", user.JoinedAt.Value.UtcDateTime, true);
             embedBuilder.AddField("Registered", user.CreatedAt.UtcDateTime, true);
+
             embedBuilder.AddField("Status", user.Status, false);
             embedBuilder.AddField("Roles", roles, false);
             embedBuilder.AddField("Permissions", permissions, false);
