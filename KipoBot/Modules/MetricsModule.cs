@@ -74,12 +74,18 @@ namespace KipoBot.Modules
             {
                 var process = Process.Start(info);
                 var output = process.StandardOutput.ReadToEnd();
-                var lines = output.Split("\n");
-                var usage = lines[1].Split(" ", StringSplitOptions.RemoveEmptyEntries);
+                Console.WriteLine(output);
+                var usage = output.Split(' ', StringSplitOptions.RemoveEmptyEntries);
                 float sum = 0;
                 foreach (var number in usage)
                 {
-                    sum += Int32.Parse(number);
+                    try
+                    {
+                        sum += float.Parse(number);
+                    }
+                    catch (Exception e)
+                    {
+                    }
                 }
                 return (int)Math.Round(sum);
             }
