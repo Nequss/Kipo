@@ -70,7 +70,7 @@ namespace KipoBot.Modules
             embedBuilder.AddField("Created", Context.Client.CurrentUser.CreatedAt.UtcDateTime, true);
             embedBuilder.AddField("ID", Context.Client.CurrentUser.Id, true);
             embedBuilder.AddField("RAM", systemInfo.getMemoryUsedGB() + "GB / " + systemInfo.getMemoryMaxGB() + "GB", true);
-            embedBuilder.AddField("CPU", systemInfo.getCpuNow(), true);
+            embedBuilder.AddField("CPU", systemInfo.getCpuNow()+"%", true);
             embedBuilder.AddField("Host OS", systemInfo.getOsPlatform(), true);
             embedBuilder.AddField("Library", "Discord.Net 2.2.0", true);
             embedBuilder.AddField("Creator", "Nequs#6848", true);
