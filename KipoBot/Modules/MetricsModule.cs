@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
 using System.Diagnostics;
+using System.Linq;
 using System.Management;
+using System.Net;
 using System.Runtime.InteropServices;
 namespace KipoBot.Modules
 {
@@ -30,6 +32,62 @@ namespace KipoBot.Modules
             memoryMax = max;
             memoryUsed = used;
             memoryFree = memoryMax - memoryUsed;
+        }
+
+        public int getCpuNow()
+        {
+            switch (platform)
+            {
+                case OS.LINUX:
+                    return getCpuLinux();
+                    break;
+                case OS.WINDOWS:
+                    return getCpuWindows();
+                    break;
+                case OS.MACOS:
+                    return getCpuMacOS();
+                    break;
+                default:
+                    return 0;
+                    break;
+            }
+        }
+
+        private int getCpuMacOS()
+        {
+            return 0;
+        }
+
+        private int getCpuWindows()
+        {
+            return 0;
+        }
+
+        private int getCpuLinux()
+        {
+            var info = new ProcessStartInfo("top -bn 1 | grep '%Cpu(s):' | sed 's/%Cpu(s)://; s/us,//g; s/sy,//g; s/ni//g; s/,/./g' | cut -c 2-18");
+            info.FileName = "/bin/bash";
+            info.Arguments = "-c \"top -bn 1 | grep '%Cpu(s):' | sed 's/%Cpu(s)://; s/us,//g; s/sy,//g; s/ni//g; s/,/./g' | cut -c 2-18\"";
+            info.RedirectStandardOutput = true; 
+                
+            try
+            {
+                var process = Process.Start(info);
+                var output = process.StandardOutput.ReadToEnd();
+                var lines = output.Split("\n");
+                var usage = lines[1].Split(" ", StringSplitOptions.RemoveEmptyEntries);
+                float sum = 0;
+                foreach (var number in usage)
+                {
+                    sum += Int32.Parse(number);
+                }
+                return (int)Math.Round(sum);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return 0;
+            } 
         }
         
         // Returns used memory in %
