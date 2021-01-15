@@ -25,10 +25,21 @@ namespace KipoBot.Modules
         [RequireContext(ContextType.Guild)]
         [RequireUserPermission(GuildPermission.BanMembers, ErrorMessage = "You don't have required permission to ban people!")]
         [RequireBotPermission(GuildPermission.BanMembers, ErrorMessage = "I don't have required permission to ban people!")]
-        public async Task BanUserAsync(IGuildUser user, [Remainder]string reason)
+        public async Task Ban(IGuildUser user = null, string reason = null)
         {
-            await user.Guild.AddBanAsync(user, reason: reason);
+            if (user == null)
+                await ReplyAsync("User not found! \n +ban [user] (reason)");
+            else
+                await user.BanAsync(reason: reason);
+
             await ReplyAsync(user.Username + "#" + user.DiscriminatorValue + " has been banned!");
+        }
+
+        //TODO +unban [user]
+        [Command("unban", RunMode = RunMode.Async)]
+        public async Task UnBan()
+        {
+
         }
 
         [Command("kick", RunMode = RunMode.Async)]
@@ -36,9 +47,13 @@ namespace KipoBot.Modules
         [RequireContext(ContextType.Guild)]
         [RequireUserPermission(GuildPermission.KickMembers, ErrorMessage = "You don't have required permission to kick people!")]
         [RequireBotPermission(GuildPermission.KickMembers, ErrorMessage = "I don't have required permission to kick people!")]
-        public async Task KickUserAsync(IGuildUser user, [Remainder]string reason)
+        public async Task Kick(IGuildUser user = null, string reason = null)
         {
-            await user.KickAsync(reason: reason);
+            if (user == null)
+                await ReplyAsync("User not found! \n +kick [user] (reason)");
+            else
+                await user.KickAsync(reason: reason);
+
             await ReplyAsync(user.Username + "#" + user.DiscriminatorValue + " has been kicked!");
         }
 
@@ -47,12 +62,21 @@ namespace KipoBot.Modules
         [RequireContext(ContextType.Guild)]
         [RequireUserPermission(GuildPermission.ManageMessages, ErrorMessage = "You don't have required permission to delete messages!")]
         [RequireBotPermission(ChannelPermission.ManageMessages, ErrorMessage = "I don't have required permission to delete messages!")]
-        public async Task ClearAsync(int i)
+        public async Task Purge(string i = null)
         {
-            var messages = await Context.Channel.GetMessagesAsync(i).FlattenAsync();
-            var filteredMessages = messages.Where(x => (DateTimeOffset.UtcNow - x.Timestamp).TotalDays <= 14);
+            IEnumerable<IMessage> messages;
 
-            await (Context.Channel as SocketTextChannel).DeleteMessagesAsync(filteredMessages);
+            if (Int32.TryParse(i, out _))
+            {
+                messages = await Context.Channel.GetMessagesAsync(Int32.Parse(i)).FlattenAsync();
+            }
+            else
+            {
+                await Context.Channel.SendMessageAsync("Amount must be a number! \n +purge [amount]");
+                return;
+            }
+
+            await (Context.Channel as SocketTextChannel).DeleteMessagesAsync(messages.Where(x => (DateTimeOffset.UtcNow - x.Timestamp).TotalDays <= 14));
         }
 
         [Command("say", RunMode = RunMode.Async)]
@@ -63,10 +87,93 @@ namespace KipoBot.Modules
             await Context.Message.DeleteAsync();
 
             if (text == null)
-                await Context.Channel.SendMessageAsync("You forgot something to say! +say [Text] (TextChannel)");
+            { 
+                await Context.Channel.SendMessageAsync("You forgot something to say! \n +say [Text] (TextChannel)");
+                return;
+            }
 
             guildChannel = guildChannel ?? Context.Channel;
             await guildChannel.SendMessageAsync(text);
         }
+
+        //TODO - +setnick [user] [name]
+        [Command("setnick", RunMode = RunMode.Async)]
+        public async Task SetNick()
+        {
+
+        }
+
+        //TODO +setnicks [role] [name]
+        [Command("setnicks", RunMode = RunMode.Async)]
+        public async Task SetNicks()
+        {
+
+        }
+
+        //TODO +setglobal [name]
+        [Command("setglobal", RunMode = RunMode.Async)]
+        public async Task SetGlobal()
+        {
+
+        }
+
+        //TODO +createrole [role_name] (hex colour)
+        [Command("createrole", RunMode = RunMode.Async)]
+        public async Task CreateRole()
+        {
+
+        }
+
+        //TODO +delrole [role]
+        [Command("delrole", RunMode = RunMode.Async)]
+        public async Task DelRole()
+        {
+
+        }
+
+        //TODO +roles [user]
+        [Command("roles", RunMode = RunMode.Async)]
+        public async Task Roles()
+        {
+
+        }
+
+        //TODO +rolecolor [role] [hex color]
+        [Command("rolecolor", RunMode = RunMode.Async)]
+        public async Task RoleColor()
+        {
+
+        }
+
+        //TODO +rolename [role] [new_name]
+        [Command("rolename", RunMode = RunMode.Async)]
+        public async Task RoleName()
+        {
+
+        }
+
+        //TODO +members [role]
+        [Command("members", RunMode = RunMode.Async)]
+        public async Task Members()
+        {
+
+        }
+
+        //TODO
+        //+lock Locks a channel. No permission to send messages for standard users.
+        //+lock [channel]
+        [Command("lock", RunMode = RunMode.Async)]
+        public async Task Lock()
+        {
+
+        }
+        //TODO
+        //+unlock [channel]
+        [Command("unlock", RunMode = RunMode.Async)]
+        public async Task UnLock()
+        {
+
+        }
+
     }
 }

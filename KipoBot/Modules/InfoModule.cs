@@ -16,13 +16,19 @@ using System.Management;
 
 namespace KipoBot.Modules
 {
+    [Summary("Info Module contains all needed commands get information about servers, users and kipo.")]
     public class InfoModule : ModuleBase<SocketCommandContext>
     {
         private readonly CommandService _service;
 
         public InfoModule(CommandService service) => _service = service;
 
-        [Command("help")]
+        //TODO 
+        //Max. field limit in discord embed: 25
+        //If it exceeds limit -> iterate and send more embed messages
+        //eventually -> categorize commands by modules and each embed is a different module
+        //but still if it exceeds -> iterate
+        [Command("help", RunMode = RunMode.Async)]
         [Summary("Shows this command")]
         public async Task Help()
         {
@@ -38,17 +44,17 @@ namespace KipoBot.Modules
             foreach (var module in _service.Modules)
                 foreach (var cmd in module.Commands)
                     if (cmd.Name != "help")
-                        embedBuilder.AddField("+" + cmd.Name, cmd.Summary, inline: true);
+                        embedBuilder.AddField("+" + cmd.Name, cmd.Summary == null ? "summary" : cmd.Summary, inline: true); //added check for test commands without summary
 
 
             await ReplyAsync(embed: embedBuilder.Build());
         }
 
-        [Command("latency")]
+        [Command("latency", RunMode = RunMode.Async)]
         [Summary("Shows kipo's response time")]
         public async Task Latency() => await ReplyAsync("My response time is " + Context.Client.Latency + " ms.");
 
-        [Command("stats")]
+        [Command("kipoinfo", RunMode = RunMode.Async)]
         [Summary("Shows kipo's statistics")]
         public async Task Stats()
         {
@@ -92,7 +98,7 @@ namespace KipoBot.Modules
             await Context.Channel.SendMessageAsync(embed: embedBuilder.Build());
         }
 
-        [Command("userinfo")]
+        [Command("userinfo", RunMode = RunMode.Async)]
         [Summary("Shows user's information \n +userinfo [user]")]
         public async Task Info(SocketGuildUser user = null)
         {
@@ -127,10 +133,34 @@ namespace KipoBot.Modules
             await Context.Channel.SendMessageAsync(embed: embedBuilder.Build());
         }
 
-        [Command("contact")]
-        [Summary("Shows information about kipo's owner")]
-        public async Task Contact()
+        //TODO 
+        [Command("serverinfo", RunMode = RunMode.Async)]
+        [Summary("Shows information about current guild the command is executed in")]
+        public async Task ServerInfo()
         {
+
+        }
+
+        //TODO 
+        [Command("avatar", RunMode = RunMode.Async)]
+        [Summary("Sends link to user's avatar")]
+        public async Task Avatar()
+        {
+
+        }
+
+        //TODO +emotes Gets a list of server emojis.	
+        [Command("emotes", RunMode = RunMode.Async)]
+        public async Task Emotes()
+        {
+
+        }
+
+        //TODO - leave it for now
+        [Command("support", RunMode = RunMode.Async)]
+        public async Task Support()
+        {
+
         }
     }
 }
