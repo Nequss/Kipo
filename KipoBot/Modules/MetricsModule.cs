@@ -65,16 +65,15 @@ namespace KipoBot.Modules
 
         private int getCpuLinux()
         {
-            var info = new ProcessStartInfo("top -bn 1 | grep '%Cpu(s):' | sed 's/%Cpu(s)://; s/us,//g; s/sy,//g; s/ni//g; s/,/./g' | cut -c 2-18");
+            var info = new ProcessStartInfo("-c \"top -bn 1 | grep '%Cpu(s):' | sed 's/%Cpu(s)://; s/[0-9][0-9],[0-9] id,//g; s/[a-z][a-z],//g; s/,/./g; s/st//g'\"");
             info.FileName = "/bin/bash";
-            info.Arguments = "-c \"top -bn 1 | grep '%Cpu(s):' | sed 's/%Cpu(s)://; s/us,//g; s/sy,//g; s/ni//g; s/,/./g' | cut -c 2-18\"";
+            info.Arguments = "-c \"top -bn 1 | grep '%Cpu(s):' | sed 's/%Cpu(s)://; s/[0-9][0-9],[0-9] id,//g; s/[a-z][a-z],//g; s/,/./g; s/st//g'\"";
             info.RedirectStandardOutput = true; 
                 
             try
             {
                 var process = Process.Start(info);
                 var output = process.StandardOutput.ReadToEnd();
-                Console.WriteLine(output);
                 var usage = output.Split(' ', StringSplitOptions.RemoveEmptyEntries);
                 float sum = 0;
                 foreach (var number in usage)
