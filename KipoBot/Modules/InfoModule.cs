@@ -11,6 +11,8 @@ using System;
 using KipoBot.Services;
 using System.Diagnostics;
 using System.Threading;
+using ImageMagick;
+using Kipo.Modules;
 
 namespace KipoBot.Modules
 {
@@ -159,6 +161,19 @@ namespace KipoBot.Modules
         public async Task Support()
         {
 
+        }
+        
+        [Command("welcome",RunMode = RunMode.Async)]
+        public async Task test()
+        {
+            Context.Channel.SendFileAsync(ImageMaker.createBasicWelcomeBanner(Context.User.Username), "banner.png");
+        }
+
+        [Command("testbg", RunMode = RunMode.Async)]
+        public async Task testbg()
+        {
+            Context.Channel.SendFileAsync(ImageMaker.createWelcomeBannerWithImage(Context.User.Username, "banner1.jpg"),
+                "bg_banner.png");
         }
     }
 }
