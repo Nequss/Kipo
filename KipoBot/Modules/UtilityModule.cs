@@ -12,14 +12,14 @@ using System;
 using KipoBot.Services;
 using System.Diagnostics;
 using System.Threading;
-using System.Management;
 using System.Linq;
 
 namespace KipoBot.Modules
 {
-    [Summary("Utility Module contains all needed commands to manage a server.")]
+    [Name("utility")]
+    [Summary("Contains all needed commands to manage a server.")]
     public class UtilityModule : ModuleBase<SocketCommandContext>
-    {
+    { 
         [Command("ban", RunMode = RunMode.Async)]
         [Summary("Bans specified user \n +ban [user] (reason)")]
         [RequireContext(ContextType.Guild)]

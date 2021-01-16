@@ -12,6 +12,8 @@ using System.Collections.Generic;
 
 namespace KipoBot.Modules
 {
+    [Name("public")]
+    [Summary("Contains commands available for standard users")]
     public class PublicModule : ModuleBase<SocketCommandContext>
     {
         private static readonly Random getrandom = new Random();
@@ -61,7 +63,7 @@ namespace KipoBot.Modules
             public string Url { get; set; }
         }
 
-        [Command("neko")]
+        [Command("neko", RunMode = RunMode.Async)]
         [Summary("Sends random anime neko image")]
         public async Task RandomNekoAsync()
         {
@@ -79,7 +81,7 @@ namespace KipoBot.Modules
             await Context.Channel.SendMessageAsync(embed: embed.Build());
         }
 
-        [Command("smug")]
+        [Command("smug", RunMode = RunMode.Async)]
         [Summary("Sends random anime smug image")]
         public async Task RandomSmugAsync()
         {
@@ -97,7 +99,7 @@ namespace KipoBot.Modules
             await Context.Channel.SendMessageAsync(embed: embed.Build());
         }
 
-        [Command("slap")]
+        [Command("slap", RunMode = RunMode.Async)]
         [Summary("Sends a random anime slap gif \n +slap [user]")]
         public async Task RandomSlapAsync(IUser user)
         {
@@ -115,7 +117,7 @@ namespace KipoBot.Modules
             await Context.Channel.SendMessageAsync(embed: embed.Build());
         }
 
-        [Command("kiss")]
+        [Command("kiss", RunMode = RunMode.Async)]
         [Summary("Sends a random anime kiss gif \n +kiss [user]")]
         public async Task RandomKissAsync(IUser user)
         {
@@ -133,7 +135,7 @@ namespace KipoBot.Modules
             await Context.Channel.SendMessageAsync(embed: embed.Build());
         }
 
-        [Command("poke")]
+        [Command("poke", RunMode = RunMode.Async)]
         [Summary("Sends a random anime poke gif \n +poke [user]")]
         public async Task RandomPokeAsync(IUser user)
         {
@@ -151,7 +153,7 @@ namespace KipoBot.Modules
             await Context.Channel.SendMessageAsync(embed: embed.Build());
         }
 
-        [Command("hug")]
+        [Command("hug", RunMode = RunMode.Async)]
         [Summary("Sends a random anime hug gif \n +hug [user]")]
         public async Task RandomHugAsync(IUser user)
         {
@@ -169,7 +171,7 @@ namespace KipoBot.Modules
             await Context.Channel.SendMessageAsync(embed: embed.Build());
         }
 
-        [Command("baka")]
+        [Command("baka", RunMode = RunMode.Async)]
         [Summary("Sends a random anime baka gif \n +baka [user]")]
         public async Task RandomBakaAsync(IUser user)
         {
@@ -187,7 +189,7 @@ namespace KipoBot.Modules
             await Context.Channel.SendMessageAsync(embed: embed.Build());
         }
 
-        [Command("pat")]
+        [Command("pat", RunMode = RunMode.Async)]
         [Summary("Sends a random anime pat gif \n +pat [user]")]
         public async Task RandomPatAsync(IUser user)
         {
@@ -236,7 +238,7 @@ namespace KipoBot.Modules
             }
         }
 
-        [Command("imgur")]
+        [Command("imgur", RunMode = RunMode.Async)]
         [Summary("Searches for a random imgur image \n +imgur [phrase]")]
         public async Task RandomSearch(params string[] objects) => await GetRandomImage(string.Join(" ", objects));
 

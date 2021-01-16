@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Diagnostics;
 using System.Linq;
-using System.Management;
 using System.Net;
 using System.Runtime.InteropServices;
 namespace KipoBot.Modules

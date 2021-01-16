@@ -11,12 +11,11 @@ using System;
 using KipoBot.Services;
 using System.Diagnostics;
 using System.Threading;
-using System.Management;
-
 
 namespace KipoBot.Modules
 {
-    [Summary("Info Module contains all needed commands get information about servers, users and kipo.")]
+    [Name("info")]
+    [Summary("Contains all needed commands get information about servers, users and a kipo.")]
     public class InfoModule : ModuleBase<SocketCommandContext>
     {
         private readonly CommandService _service;
@@ -28,27 +27,17 @@ namespace KipoBot.Modules
         //If it exceeds limit -> iterate and send more embed messages
         //eventually -> categorize commands by modules and each embed is a different module
         //but still if it exceeds -> iterate
-        [Command("help", RunMode = RunMode.Async)]
-        [Summary("Shows this command")]
-        public async Task Help()
-        {
-            EmbedBuilder embedBuilder = new EmbedBuilder();
 
-            embedBuilder.Color = Color.Purple;
-            embedBuilder.WithAuthor(author =>
-            {
-                author.WithName("Kipo is always ready to help!");
-                author.WithIconUrl(Context.Client.CurrentUser.GetAvatarUrl());
-            });
+        //public async Task<Embed> GetHelp(string options)
+        //{
+            //EmbedBuilder embedBuilder = new EmbedBuilder();
 
-            foreach (var module in _service.Modules)
-                foreach (var cmd in module.Commands)
-                    if (cmd.Name != "help")
-                        embedBuilder.AddField("+" + cmd.Name, cmd.Summary == null ? "summary" : cmd.Summary, inline: true); //added check for test commands without summary
+            //return embedBuilder.Build();
+        //}
 
+        //[Command("help", RunMode = RunMode.Async)]
+        //public async Task Help(string arg = null) => await ReplyAsync(embed: await GetHelp(arg == null ? null : arg));
 
-            await ReplyAsync(embed: embedBuilder.Build());
-        }
 
         [Command("latency", RunMode = RunMode.Async)]
         [Summary("Shows kipo's response time")]
