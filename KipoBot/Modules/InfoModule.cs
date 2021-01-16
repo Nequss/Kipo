@@ -22,21 +22,46 @@ namespace KipoBot.Modules
 
         public InfoModule(CommandService service) => _service = service;
 
-        //TODO 
-        //Max. field limit in discord embed: 25
-        //If it exceeds limit -> iterate and send more embed messages
-        //eventually -> categorize commands by modules and each embed is a different module
-        //but still if it exceeds -> iterate
+        public async Task<Embed> GetHelp(string options)
+        {
+            EmbedBuilder embedBuilder = new EmbedBuilder();
 
-        //public async Task<Embed> GetHelp(string options)
-        //{
-            //EmbedBuilder embedBuilder = new EmbedBuilder();
+            //check for specified module
+            foreach (var module in _service.Modules)
+            {
+                if(options == module.Name)
+                {
+                    embedBuilder.Color = Color.Purple;
+                    embedBuilder.WithAuthor(author =>
+                    {
+                        author.WithName("Kipo | " + char.ToUpper(module.Name[0]) + module.Name.Substring(1) + " Module");
+                        author.WithIconUrl(Context.Client.CurrentUser.GetAvatarUrl());
+                    });
 
-            //return embedBuilder.Build();
-        //}
+                    foreach (var command in module.Commands)
+                        if (command.Name != "help")
+                            embedBuilder.AddField("+" + command.Name, command.Summary == null ? "No Summary" : command.Summary, true);
 
-        //[Command("help", RunMode = RunMode.Async)]
-        //public async Task Help(string arg = null) => await ReplyAsync(embed: await GetHelp(arg == null ? null : arg));
+                    return embedBuilder.Build();
+                }
+            }
+
+            //if module not found
+            embedBuilder.Color = Color.Purple;
+            embedBuilder.WithAuthor(author =>
+            {
+                author.WithName("Kipo is always ready to help!");
+                author.WithIconUrl(Context.Client.CurrentUser.GetAvatarUrl());
+            });
+
+            foreach (var module in _service.Modules)
+                embedBuilder.AddField(char.ToUpper(module.Name[0]) + module.Name.Substring(1) + " Module | +help " + module.Name, module.Summary, false);
+
+            return embedBuilder.Build();
+        }
+
+        [Command("help", RunMode = RunMode.Async)]
+        public async Task Help(string arg = null) => await ReplyAsync(embed: await GetHelp(arg == null ? null : arg));
 
 
         [Command("latency", RunMode = RunMode.Async)]
