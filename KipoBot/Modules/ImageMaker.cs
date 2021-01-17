@@ -1,14 +1,17 @@
 using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using ImageMagick;
+using KipoBot;
 
 namespace Kipo.Modules
 {
     public class ImageMaker
     {
-        public static String[] backgrounds = {"banner1.jpg","banner2.jpg","banner3.jpg"};
         
-        private static List<MagickImage> banners;
+        private static List<MagickImage> banners = new List<MagickImage>();
 
         ImageMaker()
         {
@@ -21,79 +24,59 @@ namespace Kipo.Modules
 
         public static void loadBanners(String path)
         {
-            var files = Directory.GetFiles(path);
+            var files = Directory
+                .EnumerateFiles(Directory.GetCurrentDirectory() +"/"+ path, "*.*", SearchOption.TopDirectoryOnly).Select(p=>Path.GetFileName(p));
+            
+            if (files.Count() <= 0)
+            {
+                Console.WriteLine($"No banners found in: {Directory.GetCurrentDirectory()+"/"+path}\nAdd banners and rerun Kipo.");
+                Process.GetCurrentProcess().Kill();
+            }
+            
             foreach (var file in files)
             { 
-                Console.WriteLine(file);
                 try
                 {
-                    addBanner(new MagickImage(file));
-                    Console.WriteLine($"Banner: {file} added!");
+                    addBanner(new MagickImage(path+file));
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine($"Failed to add banners: {file}");
                     Console.WriteLine(e);
                 }
             }
         }
 
-        public static Stream createBasicBannerWithCaption(String caption)
+        public static Stream createWelcomeBannerWithText(String text, MagickImage background)
         {
-            byte[] imageBytes;
-            var settings = new MagickReadSettings()
+            var textOptions = new MagickReadSettings()
             {
                 Font = "fonts/font.ttf",
-                StrokeColor = MagickColors.White,
+                StrokeWidth = 2,
+                FontWeight = FontWeight.Bold,
                 FillColor = MagickColors.White,
-                BackgroundColor = MagickColors.Black,
-                Width = 512,
-                Height = 128,
-                TextGravity = Gravity.Center
+                StrokeColor = MagickColors.Black,
+                TextGravity = Gravity.Center,
+                BackgroundColor = MagickColors.Transparent,
+                Width = background.Width,
+                Height = background.Height
             };
             
-            using (var image = new MagickImage($"caption:{caption}!",settings))
+            background.Alpha(AlphaOption.Opaque);
+            byte[] imageBytes;
+
+            using (var label = new MagickImage($"label:{text}",textOptions))
             {
-                image.Composite(image,0,0,CompositeOperator.Over);
-                image.Format = MagickFormat.Png;
-                imageBytes = image.ToByteArray();
+                background.Composite(label,0,0,CompositeOperator.Over);
+                imageBytes = background.ToByteArray();
             }
 
             return new MemoryStream(imageBytes);
         }
 
-        public static Stream createBasicWelcomeBanner(String username)
+        public static Stream welcomeUser(string username)
         {
-            return createBasicBannerWithCaption($"Hi, {username}!");
-        }
-
-        public static Stream createWelcomeBannerWithImage(String usrname, String path)
-        {
-            byte[] imageBytes;
-            var settings = new MagickReadSettings()
-            {
-                Font = "fonts/font.ttf",
-                StrokeColor = MagickColors.White,
-                FillColor = MagickColors.White,
-                BackgroundColor = MagickColors.Black,
-                Width = 512,
-                Height = 128,
-                TextGravity = Gravity.Center
-            };
-
             Random r = new Random();
-            MagickImage banner = new MagickImage($"banners/banner{r.Next(backgrounds.Length+1)}.jpg");
-            Random r = new Random();
-
-            using (MagickImage image = new MagickImage($"caption:Hi, {usrname}!\nWelcome to the server!",settings))
-            {
-                image.Composite(image,0,0,CompositeOperator.Over);
-                image.Composite(banner,0,0,CompositeOperator.Over);
-                image.Format = MagickFormat.Png;
-                imageBytes = image.ToByteArray();
-            }
-
-            return new MemoryStream(imageBytes); 
+            return createWelcomeBannerWithText($"Hi, {username}!\nWelcome to the server!", banners[r.Next(banners.Count)]);
         }
     }
 }
