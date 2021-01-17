@@ -177,5 +177,10 @@ namespace KipoBot.Modules
         {
 
         }
+        
+        [Command("welcome",RunMode = RunMode.Async)]
+        public async Task WelcomeUser()
+        {
+            Context.Channel.SendFileAsync(ImageMaker.welcomeUser(Context.User.Username),"banner.png");
+        }
     }
-}
