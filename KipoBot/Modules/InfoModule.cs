@@ -11,7 +11,6 @@ using System;
 using KipoBot.Services;
 using System.Diagnostics;
 using System.Threading;
-using ImageMagick;
 using Kipo.Modules;
 
 namespace KipoBot.Modules

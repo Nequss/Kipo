@@ -8,8 +8,34 @@ namespace Kipo.Modules
     {
         public static String[] backgrounds = {"banner1.jpg","banner2.jpg","banner3.jpg"};
         
+        private static List<MagickImage> banners;
+
         ImageMaker()
         {
+        }
+
+        public static void addBanner(MagickImage banner)
+        {
+            banners.Add(banner);
+        }
+
+        public static void loadBanners(String path)
+        {
+            var files = Directory.GetFiles(path);
+            foreach (var file in files)
+            { 
+                Console.WriteLine(file);
+                try
+                {
+                    addBanner(new MagickImage(file));
+                    Console.WriteLine($"Banner: {file} added!");
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine($"Failed to add banners: {file}");
+                    Console.WriteLine(e);
+                }
+            }
         }
 
         public static Stream createBasicBannerWithCaption(String caption)
@@ -57,6 +83,7 @@ namespace Kipo.Modules
 
             Random r = new Random();
             MagickImage banner = new MagickImage($"banners/banner{r.Next(backgrounds.Length+1)}.jpg");
+            Random r = new Random();
 
             using (MagickImage image = new MagickImage($"caption:Hi, {usrname}!\nWelcome to the server!",settings))
             {
@@ -69,3 +96,4 @@ namespace Kipo.Modules
             return new MemoryStream(imageBytes); 
         }
     }
+}
