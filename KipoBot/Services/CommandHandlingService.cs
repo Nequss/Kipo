@@ -12,13 +12,15 @@ namespace KipoBot.Services
     {
         private readonly CommandService _commands;
         private readonly DiscordSocketClient _discord;
+        private readonly ConfigurationService _config;
         private readonly IServiceProvider _services;
 
-        public CommandHandlingService(IServiceProvider services)
+        public CommandHandlingService(IServiceProvider services, DiscordSocketClient client)
         {
             _commands = services.GetRequiredService<CommandService>();
-            _discord = services.GetRequiredService<DiscordSocketClient>();
+            _discord = client;
             _services = services;
+            _config = services.GetRequiredService<ConfigurationService>();
 
             _commands.CommandExecuted += CommandExecutedAsync;
             _discord.MessageReceived += MessageReceivedAsync;
@@ -35,7 +37,7 @@ namespace KipoBot.Services
             if (message.Source != MessageSource.User) return;
 
             var prefPos = 0;
-            if (!message.HasCharPrefix('+', ref prefPos)) return;
+            if (!message.HasCharPrefix(char.Parse(_config.prefix), ref prefPos)) return;
 
             var context = new SocketCommandContext(_discord, message);
 

@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System;
-using KipoBot.Services;
 using System.Diagnostics;
 using System.Threading;
+using KipoBot.Services;
 
 namespace KipoBot.Modules
 {
@@ -19,8 +19,13 @@ namespace KipoBot.Modules
     public class InfoModule : ModuleBase<SocketCommandContext>
     {
         private readonly CommandService _service;
+        private readonly ConfigurationService _config;
 
-        public InfoModule(CommandService service) => _service = service;
+        public InfoModule(CommandService service, ConfigurationService config)
+        {
+            _config = config;
+            _service = service;
+        }
 
         public async Task<Embed> GetHelp(string options)
         {
@@ -40,7 +45,7 @@ namespace KipoBot.Modules
                 {
                     foreach (var command in module.Commands)
                         if (command.Name != "help")
-                            embedBuilder.AddField("+" + command.Name, command.Summary == null ? "No Summary" : command.Summary, true);
+                            embedBuilder.AddField(_config.prefix + command.Name, command.Summary == null ? "No Summary" : command.Summary, true);
 
                     return embedBuilder.Build();
                 }
@@ -48,7 +53,7 @@ namespace KipoBot.Modules
 
             //if module not found
             foreach (var module in _service.Modules)
-                embedBuilder.AddField(char.ToUpper(module.Name[0]) + module.Name.Substring(1) + " Module | +help " + module.Name, module.Summary, false);
+                embedBuilder.AddField(char.ToUpper(module.Name[0]) + module.Name.Substring(1) + " Module | " + _config.prefix + "help " + module.Name, module.Summary, false);
 
             return embedBuilder.Build();
         }
@@ -83,6 +88,7 @@ namespace KipoBot.Modules
             embedBuilder.AddField("Guilds", Context.Client.Guilds.Count, true);
             embedBuilder.AddField("Users", users, true);
             embedBuilder.AddField("Version", "1.0", true);
+            embedBuilder.AddField("Prefix", _config.prefix, true);
             embedBuilder.AddField("Created", Context.Client.CurrentUser.CreatedAt.UtcDateTime, true);
             embedBuilder.AddField("ID", Context.Client.CurrentUser.Id, true);
             embedBuilder.AddField("RAM", systemInfo.getMemoryUsedGB() + "GB / " + systemInfo.getMemoryMaxGB() + "GB", true);
@@ -136,7 +142,18 @@ namespace KipoBot.Modules
         [Summary("Shows information about current guild the command is executed in")]
         public async Task ServerInfo()
         {
+            EmbedBuilder embedBuilder = new EmbedBuilder();
+            embedBuilder.Color = Color.Purple;
 
+            embedBuilder.WithAuthor(author =>
+            {
+                author.WithName(Context.Guild.Name);
+                author.WithIconUrl(Context.Guild.IconUrl);
+            });
+
+            embedBuilder.AddField("", Context.Guild, true);
+
+            await Context.Channel.SendMessageAsync(embed: embedBuilder.Build());
         }
 
         //TODO 

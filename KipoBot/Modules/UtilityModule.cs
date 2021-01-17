@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System;
-using KipoBot.Services;
 using System.Diagnostics;
 using System.Threading;
 using System.Linq;

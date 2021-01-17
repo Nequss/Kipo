@@ -9,13 +9,18 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using System;
 using System.Collections.Generic;
+using KipoBot.Services;
+
 
 namespace KipoBot.Modules
-{
+{ 
     [Name("public")]
     [Summary("Contains commands available for standard users")]
     public class PublicModule : ModuleBase<SocketCommandContext>
     {
+        private readonly ConfigurationService _config;
+        public PublicModule(ConfigurationService config) => _config = config;
+
         private static readonly Random getrandom = new Random();
 
         public class Image
@@ -210,7 +215,7 @@ namespace KipoBot.Modules
         public async Task GetRandomImage(string command)
         {
 
-            string id = "7f6c96ad9740937";
+            string id = _config.imgurid;
 
             HttpClient imgurClient = new HttpClient();
             imgurClient.DefaultRequestHeaders.Add("Authorization", "Client-ID " + id);

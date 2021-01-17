@@ -2,11 +2,13 @@
 using Discord.Commands;
 using Discord.WebSocket;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
 using KipoBot.Services;
-
+using System.IO;
+using System.Linq;
 
 namespace KipoBot
 {
@@ -19,19 +21,21 @@ namespace KipoBot
             using (var services = ConfigureServices())
             {
                 var client = services.GetRequiredService<DiscordSocketClient>();
+                var config = services.GetRequiredService<ConfigurationService>();
 
                 client.Log += LogAsync;
                 services.GetRequiredService<CommandService>().Log += LogAsync;
 
-                await client.LoginAsync(TokenType.Bot, "NDUyNTQxMzIyNjY3MjI5MTk0.XqWWWA.bWj77sNfnnt2wwaVxPhghGQg8E4");
+                await client.LoginAsync(TokenType.Bot, config.token);
                 await client.StartAsync();
 
                 await services.GetRequiredService<CommandHandlingService>().InitializeAsync();
-                await client.SetGameAsync("+help");
+                await client.SetGameAsync(config.prefix + "help");
 
                 await Task.Delay(-1);
             }
         }
+        
 
         private Task LogAsync(LogMessage log)
         {
@@ -43,10 +47,18 @@ namespace KipoBot
         private ServiceProvider ConfigureServices()
         {
             return new ServiceCollection()
-                .AddSingleton<DiscordSocketClient>()
-                .AddSingleton<CommandService>()
+                .AddSingleton(new DiscordSocketClient(new DiscordSocketConfig {
+                    MessageCacheSize = 100,
+                    ExclusiveBulkDelete = true,
+                    LogLevel = LogSeverity.Debug
+                }))
+                .AddSingleton(new CommandService(new CommandServiceConfig
+                {
+                    LogLevel = LogSeverity.Debug
+                }))
                 .AddSingleton<CommandHandlingService>()
                 .AddSingleton<HttpClient>()
+                .AddSingleton<ConfigurationService>()
                 .BuildServiceProvider();
         }
     }
