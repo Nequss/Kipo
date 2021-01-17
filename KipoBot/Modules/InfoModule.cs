@@ -10,6 +10,7 @@ using System.Text.Json.Serialization;
 using System;
 using System.Diagnostics;
 using System.Threading;
+using Kipo.Modules;
 using KipoBot.Services;
 
 namespace KipoBot.Modules
@@ -184,3 +185,4 @@ namespace KipoBot.Modules
             Context.Channel.SendFileAsync(ImageMaker.welcomeUser(Context.User.Username),"banner.png");
         }
     }
+}
