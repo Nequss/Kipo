@@ -69,4 +69,3 @@ namespace Kipo.Modules
             return new MemoryStream(imageBytes); 
         }
     }
-}
