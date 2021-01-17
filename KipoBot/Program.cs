@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Kipo.Modules;
 using KipoBot.Services;
 
 
@@ -16,6 +17,8 @@ namespace KipoBot
 
         public async Task MainAsync()
         {
+            ImageMaker.loadBanners($"banners/");
+            
             using (var services = ConfigureServices())
             {
                 var client = services.GetRequiredService<DiscordSocketClient>();
