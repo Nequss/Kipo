@@ -4,7 +4,6 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using ImageMagick;
-using KipoBot;
 
 namespace Kipo.Modules
 {
