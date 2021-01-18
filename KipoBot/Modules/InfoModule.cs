@@ -10,6 +10,7 @@ using System.Text.Json.Serialization;
 using System;
 using System.Diagnostics;
 using System.Threading;
+using Kipo.Modules;
 using KipoBot.Services;
 
 namespace KipoBot.Modules
@@ -208,6 +209,12 @@ namespace KipoBot.Modules
 
             if (animated != "| ")
                 await Context.Channel.SendMessageAsync(animated);
+        }
+        
+        [Command("welcome",RunMode = RunMode.Async)]
+        public async Task WelcomeUser()
+        {
+            Context.Channel.SendFileAsync(ImageMaker.welcomeUser(Context.User.Username),"banner.png");
         }
     }
 }
