@@ -96,7 +96,7 @@ namespace KipoBot.Modules
             embedBuilder.AddField("Host OS", systemInfo.getOsPlatform(), true);
             embedBuilder.AddField("Library", "Discord.Net 2.2.0", true);
             embedBuilder.AddField("Creator", "Nequs#6848", true);
-            embedBuilder.AddField("Support server", "link", true);
+            embedBuilder.AddField("Support server", "discord.gg/XAWgDHSw", true);
 
 
             await Context.Channel.SendMessageAsync(embed: embedBuilder.Build());
@@ -137,7 +137,6 @@ namespace KipoBot.Modules
             await Context.Channel.SendMessageAsync(embed: embedBuilder.Build());
         }
 
-        //TODO 
         [Command("serverinfo", RunMode = RunMode.Async)]
         [Summary("Shows information about current guild the command is executed in")]
         public async Task ServerInfo()
@@ -151,31 +150,64 @@ namespace KipoBot.Modules
                 author.WithIconUrl(Context.Guild.IconUrl);
             });
 
-            embedBuilder.AddField("", Context.Guild, true);
+            embedBuilder.AddField("Created", Context.Guild.CreatedAt.UtcDateTime, true);
+            embedBuilder.AddField("Channel categories", Context.Guild.CategoryChannels.Count, true);
+            embedBuilder.AddField("Text channels", Context.Guild.TextChannels.Count, true);
+            embedBuilder.AddField("Voice channels", Context.Guild.VoiceChannels.Count, true);
+            embedBuilder.AddField("Emotes", Context.Guild.Emotes.Count, true);
+            embedBuilder.AddField("ID", Context.Guild.Id, true);
+            embedBuilder.AddField("Members", Context.Guild.MemberCount, true);
+            embedBuilder.AddField("Owner", Context.Guild.Owner.Username + "#" + Context.Guild.Owner.DiscriminatorValue, true);
+            embedBuilder.AddField("Owner's ID", Context.Guild.Owner.Id, true);
+            embedBuilder.AddField("Roles", Context.Guild.Roles.Count, true);
+            embedBuilder.AddField("Boost tier", Context.Guild.PremiumTier, true);
+            embedBuilder.AddField("Boosts", Context.Guild.PremiumSubscriptionCount, true);
+            embedBuilder.AddField("Icon", Context.Guild.IconUrl, true);
 
             await Context.Channel.SendMessageAsync(embed: embedBuilder.Build());
         }
 
-        //TODO 
         [Command("avatar", RunMode = RunMode.Async)]
         [Summary("Sends link to user's avatar")]
-        public async Task Avatar()
+        public async Task Avatar(SocketGuildUser user = null)
         {
-
+            user = user ?? Context.User as SocketGuildUser;
+            await Context.Channel.SendMessageAsync(user.GetAvatarUrl(size: 8128));
         }
-
-        //TODO +emotes Gets a list of server emojis.	
+      
         [Command("emotes", RunMode = RunMode.Async)]
         public async Task Emotes()
         {
+            string standard = "| ";
+            string animated = "| ";
+            int i = 1;
 
-        }
+            foreach (var emote in Context.Guild.Emotes)
+            {
+                if (emote.Animated)
+                {
+                    await Context.Channel.SendMessageAsync(emote.Url);
+                    
+                }
+                else
+                {
+                    if (standard.Length > 1500)
+                    {
+                        await Context.Channel.SendMessageAsync(standard);
+                        standard = "| ";
+                    }
+                    else
+                    {
+                        standard += "<:" + emote.Name + ":" + emote.Id + "> | ";
+                    }
+                }
+            }
 
-        //TODO - leave it for now
-        [Command("support", RunMode = RunMode.Async)]
-        public async Task Support()
-        {
+            if (standard != "| ")
+                await Context.Channel.SendMessageAsync();
 
+            if (animated != "| ")
+                await Context.Channel.SendMessageAsync(animated);
         }
     }
 }

@@ -214,11 +214,8 @@ namespace KipoBot.Modules
 
         public async Task GetRandomImage(string command)
         {
-
-            string id = _config.imgurid;
-
             HttpClient imgurClient = new HttpClient();
-            imgurClient.DefaultRequestHeaders.Add("Authorization", "Client-ID " + id);
+            imgurClient.DefaultRequestHeaders.Add("Authorization", "Client-ID " + _config.imgurid);
 
             var response = await imgurClient.GetStringAsync("https://api.imgur.com/3/gallery/t/" + command);
             Root root = JsonSerializer.Deserialize<Root>(response);
