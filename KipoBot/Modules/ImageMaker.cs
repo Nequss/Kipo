@@ -21,6 +21,13 @@ namespace Kipo.Modules
             banners.Add(banner);
         }
 
+        public static void reloadBanners(String path)
+        {
+            banners = new List<MagickImage>();
+            loadBanners(path);
+
+        }
+
         public static void loadBanners(String path)
         {
             var files = Directory
@@ -45,7 +52,7 @@ namespace Kipo.Modules
             }
         }
 
-        public static Stream createWelcomeBannerWithText(String text, MagickImage background)
+        private static Stream createWelcomeBannerWithText(String text, MagickImage background)
         {
             var textOptions = new MagickReadSettings()
             {
