@@ -95,26 +95,94 @@ namespace KipoBot.Modules
             await guildChannel.SendMessageAsync(text);
         }
 
-        //TODO - +setnick [user] [name]
-        [Command("setnick", RunMode = RunMode.Async)]
-        public async Task SetNick()
+        [Command("showemotes", RunMode = RunMode.Async)]
+        [Summary("Lists all of a guild emotes. \n +emotes")]
+        [RequireContext(ContextType.Guild)]
+        [RequireUserPermission(GuildPermission.ManageEmojis, ErrorMessage = "Lack of required permission: Manage Emojis")]
+        public async Task ShowEmotes()
         {
+            List<GuildEmote> animated = new List<GuildEmote>(Context.Guild.Emotes.Where(x => x.Animated));
+            List<GuildEmote> standard = new List<GuildEmote>(Context.Guild.Emotes.Where(x => !x.Animated));
 
+            string emotes = "";
+
+            await Context.Channel.SendMessageAsync("Standard emotes | " + standard.Count);
+
+            for (int i = 1 ; i <= standard.Count; i++)
+            {
+                if (i % 9 == 0)
+                {
+                    emotes += "<:" + standard[i - 1].Name + ":" + standard[i - 1].Id + ">";
+                    await Context.Channel.SendMessageAsync(emotes);
+                    emotes = "";
+                }
+                else
+                {
+                    emotes += "<:" + standard[i - 1].Name + ":" + standard[i - 1].Id + ">";
+                }
+                Console.WriteLine(i-1);
+            }
+
+            if (emotes != "")
+                await Context.Channel.SendMessageAsync(emotes);
+
+            await Context.Channel.SendMessageAsync("\nAnimated emotes | " + animated.Count);
+
+            emotes = "";
+
+            for (int i = 1; i <= animated.Count; i++)
+            {
+                if (i % 9 == 0)
+                {
+                    emotes += "<a:" + animated[i - 1].Name + ":" + animated[i - 1].Id + ">";
+                    await Context.Channel.SendMessageAsync(emotes);
+                    emotes = "";
+                }
+                else
+                {
+                    emotes += "<a:" + animated[i - 1].Name + ":" + animated[i - 1].Id + ">";
+                }
+                Console.WriteLine(i-1);
+            }
+
+            if (emotes != "")
+                await Context.Channel.SendMessageAsync(emotes);
+        }
+
+        [Command("setnick", RunMode = RunMode.Async)]
+        [Summary("Set new nickname for a user. No name - Resets the nicknames \n +setnick [user] (name)")]
+        [RequireUserPermission(GuildPermission.ManageNicknames, ErrorMessage = "You don't have required permission: Manage Nicknames")]
+        [RequireBotPermission(GuildPermission.ManageNicknames, ErrorMessage = "Lack of required permission: Manage Nicknames")]
+        public async Task SetNick(SocketGuildUser user = null, string name = null)
+        {
+            if (user == null)
+            {
+                await Context.Channel.SendMessageAsync("User not found!");
+                return;
+            }
+
+            await user.ModifyAsync(x => x.Nickname = name == null ? user.Username : name);
         }
 
         //TODO +setnicks [role] [name]
         [Command("setnicks", RunMode = RunMode.Async)]
-        public async Task SetNicks()
+        [Summary("Set new nicknames for users with specific role. No name - Resets the nicknames \n +setnick [role] (name)")]
+        [RequireUserPermission(GuildPermission.ManageNicknames, ErrorMessage = "You don't have required permission: Manage Nicknames")]
+        [RequireBotPermission(GuildPermission.ManageNicknames, ErrorMessage = "Lack of required permission: Manage Nicknames")]
+        public async Task SetNicks(SocketRole userRole = null, string name = null)
         {
+            if (userRole == null)
+            {
+                await Context.Channel.SendMessageAsync("Role not found! \n+setnicks [role] [name]");
+                return;
+            }
 
+            foreach (SocketRole role in Context.Guild.Roles)
+                if (role.Name == userRole.Name)
+                    foreach (SocketGuildUser user in role.Members)
+                        await user.ModifyAsync(x => x.Nickname = name == null ? user.Username : name);
         }
 
-        //TODO +setglobal [name]
-        [Command("setglobal", RunMode = RunMode.Async)]
-        public async Task SetGlobal()
-        {
-
-        }
 
         //TODO +createrole [role_name] (hex colour)
         [Command("createrole", RunMode = RunMode.Async)]

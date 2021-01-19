@@ -14,8 +14,9 @@ namespace KipoBot.Services
 {
     public class ConfigurationService
     {
-        //right path = Appcontext.BaseDirectory, path for debug purposes
-        private string myConfig = File.ReadAllText(Directory.GetCurrentDirectory() + "/config.json");
+        //nequs's path = C:\Users\Nequs\Desktop\projects\KipoBot\KipoBot\config.json
+        //Directory.GetCurrentDirectory() + "/config.json
+        private string myConfig = File.ReadAllText(@"C:\Users\Nequs\Desktop\projects\KipoBot\KipoBot\config.json");
 
         public string token;
         public string prefix;

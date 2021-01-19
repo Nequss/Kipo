@@ -175,46 +175,11 @@ namespace KipoBot.Modules
             user = user ?? Context.User as SocketGuildUser;
             await Context.Channel.SendMessageAsync(user.GetAvatarUrl(size: 8128));
         }
-      
-        [Command("emotes", RunMode = RunMode.Async)]
-        public async Task Emotes()
-        {
-            string standard = "| ";
-            string animated = "| ";
-            int i = 1;
-
-            foreach (var emote in Context.Guild.Emotes)
-            {
-                if (emote.Animated)
-                {
-                    await Context.Channel.SendMessageAsync(emote.Url);
-                    
-                }
-                else
-                {
-                    if (standard.Length > 1500)
-                    {
-                        await Context.Channel.SendMessageAsync(standard);
-                        standard = "| ";
-                    }
-                    else
-                    {
-                        standard += "<:" + emote.Name + ":" + emote.Id + "> | ";
-                    }
-                }
-            }
-
-            if (standard != "| ")
-                await Context.Channel.SendMessageAsync();
-
-            if (animated != "| ")
-                await Context.Channel.SendMessageAsync(animated);
-        }
         
         [Command("welcome",RunMode = RunMode.Async)]
         public async Task WelcomeUser()
         {
-            Context.Channel.SendFileAsync(ImageMaker.welcomeUser(Context.User.Username),"banner.png");
+            //Context.Channel.SendFileAsync(ImageMaker.welcomeUser(Context.User.Username),"banner.png");
         }
     }
 }
