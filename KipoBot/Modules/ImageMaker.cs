@@ -83,5 +83,52 @@ namespace Kipo.Modules
             Random r = new Random();
             return createWelcomeBannerWithText($"Hi, {username}!\nWelcome to the server!", banners[r.Next(banners.Count)]);
         }
+
+        public static Stream composeMeme(MagickImage image, String topText, String bottomText)
+        {
+            float strokeSize = 2;
+            int padding = 5;
+            var font = "fonts/font.ttf";
+            var composedImage = image;
+            composedImage.Format = MagickFormat.Png;
+
+            var topTextSettings = new MagickReadSettings()
+            {
+                TextGravity = Gravity.Center,
+                Font = font,
+                FillColor = MagickColors.White,
+                StrokeColor = MagickColors.Black,
+                BackgroundColor = MagickColors.Transparent,
+                StrokeWidth = strokeSize,
+                Width = image.Width-padding,
+                Height = image.Height/5-padding,
+                AntiAlias = true,
+            };
+            
+            var bottomTextSettings = new MagickReadSettings()
+            {
+                TextGravity = Gravity.Center,
+                Font = font,
+                FillColor = MagickColors.White,
+                StrokeColor = MagickColors.Black,
+                BackgroundColor = MagickColors.Transparent,
+                StrokeWidth = strokeSize,
+                Width = image.Width-padding,
+                Height = image.Height/5-padding,
+                AntiAlias = true,
+            };
+
+            using (var imgTopText = new MagickImage($"label:{topText}",topTextSettings))
+            {
+                composedImage.Composite(imgTopText,0+padding,0+padding,CompositeOperator.Over);
+            }
+
+            using (var imgBottomText = new MagickImage($"label:{bottomText}",bottomTextSettings))
+            {
+                composedImage.Composite(imgBottomText,0+padding,(image.Height-image.Height/5)-padding,CompositeOperator.Over);
+            }
+
+            return new MemoryStream(composedImage.ToByteArray());
+        }
     }
 }
