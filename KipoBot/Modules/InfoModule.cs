@@ -199,7 +199,10 @@ namespace KipoBot.Modules
             ImageMaker.reloadBanners("banners/");
         }
 
+        
+        // usage +meme top text;bottom text
         [Command("meme", RunMode = RunMode.Async)]
+        [Summary("Creates memes from attached image and two phrases separated by ;")]
         public async Task memeFrom(String text)
         {
             try
