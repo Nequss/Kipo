@@ -164,7 +164,6 @@ namespace KipoBot.Modules
             await user.ModifyAsync(x => x.Nickname = name == null ? user.Username : name);
         }
 
-        //TODO +setnicks [role] [name]
         [Command("setnicks", RunMode = RunMode.Async)]
         [Summary("Set new nicknames for users with specific role. No name - Resets the nicknames \n +setnick [role] (name)")]
         [RequireUserPermission(GuildPermission.ManageNicknames, ErrorMessage = "You don't have required permission: Manage Nicknames")]
@@ -183,11 +182,36 @@ namespace KipoBot.Modules
                         await user.ModifyAsync(x => x.Nickname = name == null ? user.Username : name);
         }
 
-
-        //TODO +createrole [role_name] (hex colour)
-        [Command("createrole", RunMode = RunMode.Async)]
-        public async Task CreateRole()
+        [Command("setglobal", RunMode = RunMode.Async)]
+        [Summary("Set new nickname for a user. No name - Resets the nicknames \n +setnick [user] (name)")]
+        [RequireUserPermission(GuildPermission.ManageNicknames, ErrorMessage = "You don't have required permission: Manage Nicknames")]
+        [RequireBotPermission(GuildPermission.ManageNicknames, ErrorMessage = "Lack of required permission: Manage Nicknames")]
+        public async Task SetNickss(string name = null)
         {
+            foreach(SocketGuildUser user in Context.Guild.Users)
+                await user.ModifyAsync(x => x.Nickname = name == null ? user.Username : name);
+        }
+
+        [Command("createrole", RunMode = RunMode.Async)]
+        [Summary("Creates a role with a specified anme and optional hex color.\n +createrole [role_name] (hex colour)")]
+        [RequireUserPermission(GuildPermission.ManageRoles, ErrorMessage = "You don't have required permission: Manage Roles")]
+        [RequireBotPermission(GuildPermission.ManageRoles, ErrorMessage = "Lack of required permission: Manage Roles")]
+        public async Task CreateRole(string name = null, string color = null)
+        {
+            if (name == null)
+            {
+                await Context.Channel.SendMessageAsync("Set a role name first! \n+createrole [name] (#hexvalue)");
+                return;
+            }
+
+            if (color == null)
+            {
+                await Context.Channel.SendMessageAsync("Set a role name first! \n+createrole [name] (#hexvalue)");
+
+            }
+
+            Color newColor = new Color(UInt32.Parse(color[0] + color.Substring(1), System.Globalization.NumberStyles.HexNumber));
+            await Context.Guild.CreateRoleAsync(name, null, newColor, false, null);
 
         }
 
