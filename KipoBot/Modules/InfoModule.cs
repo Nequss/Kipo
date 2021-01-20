@@ -179,7 +179,20 @@ namespace KipoBot.Modules
         [Command("welcome",RunMode = RunMode.Async)]
         public async Task WelcomeUser()
         {
-            //Context.Channel.SendFileAsync(ImageMaker.welcomeUser(Context.User.Username),"banner.png");
+            try
+            {
+                Context.Channel.SendFileAsync(ImageMaker.welcomeUser(Context.User.Username),"banner.png");
+            }
+            catch (Exception e)
+            {
+                Context.Channel.SendMessageAsync($"Sorry {Context.User.Mention} i couldn't create a banner for you.");
+            }
+        }
+
+        [Command("reloadbanners",RunMode = RunMode.Async)]
+        public async Task RefreshBanners()
+        {
+            ImageMaker.reloadBanners("banners/");
         }
     }
 }
