@@ -173,9 +173,10 @@ namespace KipoBot.Modules
         public async Task Avatar(SocketGuildUser user = null)
         {
             user = user ?? Context.User as SocketGuildUser;
-            await Context.Channel.SendMessageAsync(user.GetAvatarUrl(size: 8128));
+            await Context.Channel.SendMessageAsync(user.GetAvatarUrl(size: 1024));
         }
         
+        /*
         [Command("welcome",RunMode = RunMode.Async)]
         public async Task WelcomeUser()
         {
@@ -194,5 +195,6 @@ namespace KipoBot.Modules
         {
             ImageMaker.reloadBanners("banners/");
         }
+        */
     }
 }
