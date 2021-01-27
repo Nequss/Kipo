@@ -9,7 +9,11 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using System;
 using System.Diagnostics;
+using System.Linq;
+using System.Net;
+using System.Text;
 using System.Threading;
+using ImageMagick;
 using Kipo.Modules;
 using KipoBot.Services;
 
@@ -195,6 +199,32 @@ namespace KipoBot.Modules
         {
             ImageMaker.reloadBanners("banners/");
         }
-        */
+
+        
+        // usage +meme top text;bottom text
+        [Command("meme", RunMode = RunMode.Async)]
+        [Summary("Creates memes from attached image and two phrases separated by ;")]
+        public async Task memeFrom(String text)
+        {
+            try
+            {
+                HttpClient client = new HttpClient();
+                var attachments = Context.Message.Attachments;
+                String imageURL = Context.Message.Attachments.ElementAt(0).Url;
+                String memeText = text;
+                var buffer = await client.GetByteArrayAsync(imageURL);
+                MagickImage memeImg = new MagickImage(buffer);
+                String[] memeTextSplit = memeText.Split(';');
+
+                var composedMeme = ImageMaker.composeMeme(memeImg,memeTextSplit[0],memeTextSplit[1]);
+                Context.Channel.SendFileAsync(composedMeme, "image.png",Context.User.Mention);
+                Context.Message.DeleteAsync();
+
+            }
+            catch (Exception e)
+            {
+                Context.Channel.SendMessageAsync($"Invalid format.");
+            }
+        }
     }
 }
