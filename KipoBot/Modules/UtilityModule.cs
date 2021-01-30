@@ -12,6 +12,7 @@ using System;
 using System.Diagnostics;
 using System.Threading;
 using System.Linq;
+using KipoBot.Utils;
 
 namespace KipoBot.Modules
 {
@@ -24,14 +25,32 @@ namespace KipoBot.Modules
         [RequireContext(ContextType.Guild)]
         [RequireUserPermission(GuildPermission.BanMembers, ErrorMessage = "You don't have required permission to ban people!")]
         [RequireBotPermission(GuildPermission.BanMembers, ErrorMessage = "I don't have required permission to ban people!")]
-        public async Task Ban(IGuildUser user = null, string reason = null)
+        public async Task Ban([Remainder]String command)
         {
+            IGuildUser user = Helpers.extractUser(Context, command);
+            bool hasReason = command.Contains("-r");
+            String reason = "Not specified";
+            
             if (user == null)
-                await ReplyAsync("User not found!\n+ban [user] (reason)");
-            else
-                await user.BanAsync(reason: reason);
+            {
+                await Context.Channel.SendMessageAsync($"User not found.");
+                return;
+            }
+            
+            try{
+                if (hasReason)
+                {
+                    reason.TrimStart();
+                    reason = command.Split("-r")[1];
+                }
 
-            await ReplyAsync(user.Username + "#" + user.DiscriminatorValue + " has been banned! ID: "+ user.Id);
+                await user.BanAsync(reason: reason);
+                await Context.Channel.SendMessageAsync($"Banned: {user.Mention}\nFor: {reason}");
+            }
+            catch (Exception e)
+            {
+                await Context.Channel.SendMessageAsync($"Invalid format.");
+            }
         }
 
         [Command("unban", RunMode = RunMode.Async)]
