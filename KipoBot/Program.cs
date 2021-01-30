@@ -19,7 +19,7 @@ namespace KipoBot
 
         public async Task MainAsync()
         {
-            //ImageMaker.loadBanners($"banners/");
+            ImageMaker.loadBanners($"banners/");
             
             using (var services = ConfigureServices())
             {

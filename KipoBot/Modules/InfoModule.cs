@@ -180,17 +180,16 @@ namespace KipoBot.Modules
             await Context.Channel.SendMessageAsync(user.GetAvatarUrl(size: 1024));
         }
         
-        /*
         [Command("welcome",RunMode = RunMode.Async)]
         public async Task WelcomeUser()
         {
             try
             {
-                Context.Channel.SendFileAsync(ImageMaker.welcomeUser(Context.User.Username),"banner.png");
+                await Context.Channel.SendFileAsync(ImageMaker.welcomeUser(Context.User.Username),"banner.png");
             }
             catch (Exception e)
             {
-                Context.Channel.SendMessageAsync($"Sorry {Context.User.Mention} i couldn't create a banner for you.");
+                await Context.Channel.SendMessageAsync($"Sorry {Context.User.Mention} i couldn't create a banner for you.");
             }
         }
 
@@ -217,13 +216,13 @@ namespace KipoBot.Modules
                 String[] memeTextSplit = memeText.Split(';');
 
                 var composedMeme = ImageMaker.composeMeme(memeImg,memeTextSplit[0],memeTextSplit[1]);
-                Context.Channel.SendFileAsync(composedMeme, "image.png",Context.User.Mention);
-                Context.Message.DeleteAsync();
+                await Context.Channel.SendFileAsync(composedMeme, "image.png",Context.User.Mention);
+                await Context.Message.DeleteAsync();
 
             }
             catch (Exception e)
             {
-                Context.Channel.SendMessageAsync($"Invalid format.");
+                await Context.Channel.SendMessageAsync($"Invalid format.");
             }
         }
     }
