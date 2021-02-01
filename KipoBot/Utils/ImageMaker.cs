@@ -78,10 +78,13 @@ namespace Kipo.Modules
             return new MemoryStream(imageBytes);
         }
 
-        public static Stream welcomeUser(string username)
+        public static Stream welcomeUser(string username, string welcomeText)
         {
             Random r = new Random();
-            return createWelcomeBannerWithText($"Hi, {username}!\nWelcome to the server!", banners[r.Next(banners.Count)]);
+            string processedString = welcomeText;
+            processedString.Replace("%USERNAME%",username);
+
+            return createWelcomeBannerWithText($"{welcomeText}", banners[r.Next(banners.Count)]);
         }
 
         public static Stream composeMeme(MagickImage image, String topText, String bottomText)

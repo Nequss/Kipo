@@ -25,7 +25,7 @@ namespace KipoBot.Modules
         Manager manager = new Manager();
 
         [Command("setwelcome", RunMode = RunMode.Async)]
-        public async Task SetWelcome(SocketTextChannel channel_id, int image) => await manager.InsertWelcome(Context.Guild.Id.ToString(), channel_id.Id.ToString(), image);
+        public async Task SetWelcome(SocketTextChannel channel_id) => await manager.InsertWelcome(Context.Guild.Id.ToString(), channel_id.Id.ToString());
 
         [Command("removewelcome", RunMode = RunMode.Async)]
         public async Task RemoveWelcome() => await manager.DeleteWelcome(Context.Guild.Id.ToString());
