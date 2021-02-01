@@ -82,7 +82,7 @@ namespace Kipo.Modules
         {
             Random r = new Random();
             string processedString = welcomeText;
-            processedString.Replace("%USERNAME%",username);
+             processedString = processedString.Replace("%USERNAME%",username);
 
             return createWelcomeBannerWithText($"{processedString}", banners[r.Next(banners.Count)]);
         }
