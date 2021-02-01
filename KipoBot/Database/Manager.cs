@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.Threading;
 using System.Linq;
 using System.Data.SQLite;
+using Discord.Commands;
 
 namespace KipoBot.Database
 {
@@ -57,7 +58,6 @@ namespace KipoBot.Database
                     command.Prepare();
 
                     command.ExecuteNonQuery();
-                    Console.WriteLine("Done");
                 }
 
                 connection.Close();
@@ -117,6 +117,26 @@ namespace KipoBot.Database
             else
             {
                 return String.Empty;
+            }
+        }
+
+        public async Task setBannerText(SocketCommandContext context, string text)
+        {
+            using (var connection = new SQLiteConnection("Data Source=" + Directory.GetCurrentDirectory() + "/" + DB_FILE))
+            {
+                connection.Open();
+
+                using (var command = new SQLiteCommand(connection))
+                {
+                    command.CommandText = "UPDATE servers SET welcomeBannerText = @text WHERE guild_id = @guild_id ";
+                    command.Parameters.AddWithValue("@text", text);
+                    command.Parameters.AddWithValue("@guild_id", context.Guild.Id.ToString());
+                    command.Prepare();
+                    
+                    command.ExecuteNonQuery();
+                }
+
+                connection.Close();
             }
         }
     }
