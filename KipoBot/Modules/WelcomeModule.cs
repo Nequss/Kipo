@@ -32,5 +32,8 @@ namespace KipoBot.Modules
 
         [Command("setbannertext", RunMode = RunMode.Async)]
         public async Task SetWelcomeBannerText([Remainder] String text) => await manager.setBannerText(Context, text);
+        
+        [Command("setbannermsg", RunMode = RunMode.Async)]
+        public async Task SetWelcomeBannerDesc([Remainder] String text) => await manager.setBannerDesc(Context, text);
     }
 }
