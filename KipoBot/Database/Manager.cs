@@ -28,7 +28,12 @@ namespace KipoBot.Database
                     command.CommandText = "DROP TABLE IF EXISTS users";
                     command.ExecuteNonQuery();
 
-                    command.CommandText = @"CREATE TABLE servers(guild_id TEXT PRIMARY KEY, channel_id TEXT, banner INTEGER)";
+                    command.CommandText = @"CREATE TABLE servers(
+                                            guild_id TEXT PRIMARY KEY, 
+                                            channel_id TEXT, 
+                                            banner INTEGER, 
+                                            welcomeBannerText TEXT DEFAULT 'Hello %USERNAME%!\nWelcome to the server!',
+                                            welcomeBannerDesc TEXT DEFAULT '')";
                     command.ExecuteNonQuery();
                 }
 
@@ -36,7 +41,7 @@ namespace KipoBot.Database
             }
         }
 
-        public async Task InsertWelcome(string guild_id, string channel_id, int banner)
+        public async Task InsertWelcome(string guild_id, string channel_id)
         {
             using (var connection = new SQLiteConnection("Data Source=" + Directory.GetCurrentDirectory() + @"\KipoDB.db"))
             {
@@ -44,14 +49,13 @@ namespace KipoBot.Database
 
                 using (var command = new SQLiteCommand(connection))
                 {
-                    command.CommandText = "INSERT INTO servers(guild_id, channel_id, banner) VALUES(@guild_id, @channel_id, @banner)";
-
+                    command.CommandText = "INSERT INTO servers(guild_id, channel_id) VALUES(@guild_id, @channel_id)";
                     command.Parameters.AddWithValue("@guild_id", guild_id);
                     command.Parameters.AddWithValue("@channel_id", channel_id);
-                    command.Parameters.AddWithValue("@banner", banner);
                     command.Prepare();
 
                     command.ExecuteNonQuery();
+                    Console.WriteLine("Done");
                 }
 
                 connection.Close();
@@ -77,7 +81,8 @@ namespace KipoBot.Database
         public async Task<string> GetWelcome(string id)
         {
             string channel_id = string.Empty;
-            int banner = 0;
+            string welcomeBannerText = string.Empty;
+            string welcomeBannerDesc = string.Empty;
 
             using (var connection = new SQLiteConnection("Data Source=" + Directory.GetCurrentDirectory() + @"\KipoDB.db"))
             {
@@ -85,7 +90,7 @@ namespace KipoBot.Database
 
                 using (var command = new SQLiteCommand(connection))
                 {
-                    command.CommandText = "SELECT channel_id, banner FROM servers WHERE guild_id=@guild_id";
+                    command.CommandText = "SELECT channel_id, welcomeBannerText, welcomeBannerDesc FROM servers WHERE guild_id=@guild_id";
                     command.Parameters.AddWithValue("@guild_id", id);
                     command.Prepare();
 
@@ -94,7 +99,8 @@ namespace KipoBot.Database
                         while (reader.Read())
                         {
                             channel_id = reader.GetString(0);
-                            banner = reader.GetInt32(1);
+                            welcomeBannerText = reader.GetString(1);
+                            welcomeBannerDesc = reader.GetString(2);
                         }
                     }
                 }
@@ -104,7 +110,7 @@ namespace KipoBot.Database
 
             if (channel_id != string.Empty)
             {
-                return channel_id + ";" + banner.ToString();
+                return channel_id + ";" + welcomeBannerText + ";" + welcomeBannerDesc;
             }
             else
             {
