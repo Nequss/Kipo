@@ -84,7 +84,7 @@ namespace Kipo.Modules
             string processedString = welcomeText;
             processedString.Replace("%USERNAME%",username);
 
-            return createWelcomeBannerWithText($"{welcomeText}", banners[r.Next(banners.Count)]);
+            return createWelcomeBannerWithText($"{processedString}", banners[r.Next(banners.Count)]);
         }
 
         public static Stream composeMeme(MagickImage image, String topText, String bottomText)
