@@ -44,7 +44,6 @@ namespace KipoBot
             }
         }
 
-        //TODO
         private Task UserJoined(SocketGuildUser user)
         {
             string results = manager.GetWelcome(user.Guild.Id.ToString()).Result;
@@ -55,13 +54,10 @@ namespace KipoBot
             }
             else
             {
-                Console.WriteLine("results 0 -" + results[0]);
-                Console.WriteLine("results 1 -" + results[1]);
-
                 string[] data = results.Split(";");
                 SocketTextChannel channel = user.Guild.GetTextChannel(UInt64.Parse(data[0]));
                 Stream file = ImageMaker.welcomeUser(user.Username);
-                channel.SendFileAsync(file, "welcome.png");
+                channel.SendFileAsync(file, "welcome.png", "Welcome to the " + user.Guild.Name + "! " + user.Mention);
                 return Task.CompletedTask;
             }
         }

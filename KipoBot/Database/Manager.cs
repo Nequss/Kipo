@@ -76,28 +76,39 @@ namespace KipoBot.Database
 
         public async Task<string> GetWelcome(string id)
         {
+            string channel_id = string.Empty;
+            int banner = 0;
+
             using (var connection = new SQLiteConnection("Data Source=" + Directory.GetCurrentDirectory() + @"\KipoDB.db"))
             {
                 connection.Open();
 
                 using (var command = new SQLiteCommand(connection))
                 {
-                    command.CommandText = "SELECT FROM servers WHERE " + id;
+                    command.CommandText = "SELECT channel_id, banner FROM servers WHERE guild_id=@guild_id";
+                    command.Parameters.AddWithValue("@guild_id", id);
+                    command.Prepare();
 
                     using (var reader = command.ExecuteReader())
                     {
-                        if (!reader.IsDBNull(0))
+                        while (reader.Read())
                         {
-                            connection.Close();
-                            return reader.GetString(1) + ";" + reader.GetInt32(2).ToString();
-                        }
-                        else
-                        {
-                            connection.Close();
-                            return String.Empty;
+                            channel_id = reader.GetString(0);
+                            banner = reader.GetInt32(1);
                         }
                     }
                 }
+
+                connection.Close();
+            }
+
+            if (channel_id != string.Empty)
+            {
+                return channel_id + ";" + banner.ToString();
+            }
+            else
+            {
+                return String.Empty;
             }
         }
     }
