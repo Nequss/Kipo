@@ -26,12 +26,10 @@ namespace KipoBot.Modules
 
         [Command("createdb", RunMode = RunMode.Async)]
         [Summary("Creates new database file.")]
-        [RequireOwner(ErrorMessage = "Avaiable only for bot owner.")]
         public async Task CreateDB() => await manager.CreateDatabase();
 
         [Command("configure", RunMode = RunMode.Async)]
         [Summary("Configures new database or cleans existing one.")]
-        [RequireOwner(ErrorMessage = "Avaiable only for bot owner.")]
         public async Task Configure() => await manager.Configure();
     }
 }

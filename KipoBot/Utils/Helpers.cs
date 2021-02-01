@@ -1,5 +1,3 @@
-using Discord;
-using Discord.Webhook;
 using Discord.WebSocket;
 using Discord.Commands;
 using System;
