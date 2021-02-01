@@ -12,11 +12,13 @@ namespace KipoBot.Database
 {
     public class Manager
     {
+        private String DB_FILE = "KipoDB.db";
+
         public async Task CreateDatabase() => SQLiteConnection.CreateFile("KipoDB.db");
 
         public async Task Configure()
         {
-            using (var connection = new SQLiteConnection("Data Source=" + Directory.GetCurrentDirectory() + "/KipoDB.db"))
+            using (var connection = new SQLiteConnection("Data Source=" + Directory.GetCurrentDirectory() + "/" + DB_FILE))
             {
                 connection.Open();
 
@@ -43,7 +45,7 @@ namespace KipoBot.Database
 
         public async Task InsertWelcome(string guild_id, string channel_id)
         {
-            using (var connection = new SQLiteConnection("Data Source=" + Directory.GetCurrentDirectory() + "/KipoDB.db"))
+            using (var connection = new SQLiteConnection("Data Source=" + Directory.GetCurrentDirectory() + "/" + DB_FILE))
             {
                 connection.Open();
 
@@ -64,7 +66,7 @@ namespace KipoBot.Database
 
         public async Task DeleteWelcome(string id)
         {
-            using (var connection = new SQLiteConnection("Data Source=" + Directory.GetCurrentDirectory() + "/KipoDB.db"))
+            using (var connection = new SQLiteConnection("Data Source=" + Directory.GetCurrentDirectory() + "/" + DB_FILE))
             {
                 connection.Open();
 
@@ -84,7 +86,7 @@ namespace KipoBot.Database
             string welcomeBannerText = string.Empty;
             string welcomeBannerDesc = string.Empty;
 
-            using (var connection = new SQLiteConnection("Data Source=" + Directory.GetCurrentDirectory() + "/KipoDB.db"))
+            using (var connection = new SQLiteConnection("Data Source=" + Directory.GetCurrentDirectory() + "/" + DB_FILE))
             {
                 connection.Open();
 
