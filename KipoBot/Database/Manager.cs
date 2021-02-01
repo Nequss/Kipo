@@ -139,5 +139,25 @@ namespace KipoBot.Database
                 connection.Close();
             }
         }
+        
+        public async Task setBannerDesc(SocketCommandContext context, string text)
+        {
+            using (var connection = new SQLiteConnection("Data Source=" + Directory.GetCurrentDirectory() + "/" + DB_FILE))
+            {
+                connection.Open();
+
+                using (var command = new SQLiteCommand(connection))
+                {
+                    command.CommandText = "UPDATE servers SET welcomeBannerDesc = @text WHERE guild_id = @guild_id ";
+                    command.Parameters.AddWithValue("@text", text);
+                    command.Parameters.AddWithValue("@guild_id", context.Guild.Id.ToString());
+                    command.Prepare();
+                    
+                    command.ExecuteNonQuery();
+                }
+
+                connection.Close();
+            }
+        }
     }
 }
