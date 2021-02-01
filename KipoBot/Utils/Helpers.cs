@@ -1,49 +1,40 @@
+using Discord;
+using Discord.Webhook;
+using Discord.WebSocket;
+using Discord.Commands;
 using System;
 using System.Linq;
-using Discord;
-using Discord.Commands;
 
 namespace KipoBot.Utils
 {
     public static class Helpers
     {
-        public static IGuildUser extractUser(SocketCommandContext ctx, String message)
+        public static SocketGuildUser extractUser(SocketCommandContext ctx, string message)
         {
-            String impliedUser = message.Split('-')[0];
-            IGuildUser identifiedUser = null;
-            impliedUser = impliedUser.TrimStart().TrimEnd();
-            
+            string impliedUser = message.TrimStart().TrimEnd();
+
             if (impliedUser.StartsWith("<@"))
             {
-                foreach (var user in ctx.Guild.Users)
-                {
-                    if (user.Id.Equals(ctx.Message.MentionedUsers.First().Id))
-                    {
-                        identifiedUser = user;
-                        return user;
-                    }
-                }
+                return ctx.Guild.GetUser(ctx.Message.MentionedUsers.First().Id);
             }
             else
             {
-                foreach (var user in ctx.Guild.Users)
+                try
                 {
-                    if (user.Nickname == impliedUser || user.Username == impliedUser)
-                    {
-                        identifiedUser = user;
-                        return user;
-                    }
+                    return ctx.Guild.GetUser(UInt64.Parse(impliedUser));
                 }
-
-                foreach (var user in ctx.Guild.Users)
+                catch
                 {
-                    if (user.Id.ToString().Equals(impliedUser))
+                    foreach (var user in ctx.Guild.Users)
                     {
-                        identifiedUser = user;
-                        return user;
+                        if (user.Nickname == impliedUser || user.Username == impliedUser)
+                        {
+                            return user;
+                        }
                     }
                 }
             }
+
             return null;
         }
     }
