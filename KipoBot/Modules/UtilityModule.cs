@@ -21,7 +21,7 @@ namespace KipoBot.Modules
     public class UtilityModule : ModuleBase<SocketCommandContext>
     {
         [Command("ban", RunMode = RunMode.Async)]
-        [Summary("Bans specified user\n+ban [user] (reason)")]
+        [Summary("Bans specified user\n+ban [user]")]
         [RequireContext(ContextType.Guild)]
         [RequireUserPermission(GuildPermission.BanMembers, ErrorMessage = "You don't have required permission to ban people!")]
         [RequireBotPermission(GuildPermission.BanMembers, ErrorMessage = "I don't have required permission to ban people!")]
@@ -42,8 +42,10 @@ namespace KipoBot.Modules
         [RequireContext(ContextType.Guild)]
         [RequireUserPermission(GuildPermission.BanMembers, ErrorMessage = "You don't have required permission to unban people!")]
         [RequireBotPermission(GuildPermission.BanMembers, ErrorMessage = "I don't have required permission to unban people!")]
-        public async Task UnBan(IUser user = null, string reason = null)
+        public async Task UnBan([Remainder]string command)
         {
+            SocketGuildUser user = Helpers.extractUser(Context, command);
+
             if (user == null)
                 await ReplyAsync("User not found!\n+unban [user]");
             else
@@ -53,16 +55,18 @@ namespace KipoBot.Modules
         }
 
         [Command("kick", RunMode = RunMode.Async)]
-        [Summary("Kicks specified user\n+kick [user] (reason)")]
+        [Summary("Kicks specified user\n+kick [user]")]
         [RequireContext(ContextType.Guild)]
         [RequireUserPermission(GuildPermission.KickMembers, ErrorMessage = "You don't have required permission to kick people!")]
         [RequireBotPermission(GuildPermission.KickMembers, ErrorMessage = "I don't have required permission to kick people!")]
-        public async Task Kick(IGuildUser user = null, string reason = null)
+        public async Task Kick([Remainder]string command)
         {
+            SocketGuildUser user = Helpers.extractUser(Context, command);
+
             if (user == null)
-                await ReplyAsync("User not found!\n+kick [user] (reason)");
+                await ReplyAsync("User not found!\n+kick [user]");
             else
-                await user.KickAsync(reason: reason);
+                await user.KickAsync();
 
             await ReplyAsync(user.Username + "#" + user.DiscriminatorValue + " has been kicked!");
         }
@@ -98,7 +102,6 @@ namespace KipoBot.Modules
 
             if (text == null)
             { 
-                await Context.Channel.SendMessageAsync("You forgot something to say!\n+say [Text] (TextChannel)");
                 return;
             }
 
