@@ -181,18 +181,6 @@ namespace KipoBot.Modules
             await Context.Channel.SendMessageAsync(user.GetAvatarUrl(size: 1024));
         }
         
-        [Command("welcome",RunMode = RunMode.Async)]
-        public async Task WelcomeUser()
-        {
-            try
-            {
-                await Context.Channel.SendFileAsync(ImageMaker.welcomeUser(Context.User.Username),"banner.png");
-            }
-            catch (Exception e)
-            {
-                await Context.Channel.SendMessageAsync($"Sorry {Context.User.Mention} i couldn't create a banner for you.");
-            }
-        }
 
         [Command("reloadbanners",RunMode = RunMode.Async)]
         public async Task RefreshBanners()
@@ -225,6 +213,6 @@ namespace KipoBot.Modules
             {
                 await Context.Channel.SendMessageAsync($"Invalid format.");
             }
-        }*/
+        }
     }
 }

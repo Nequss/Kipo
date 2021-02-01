@@ -16,17 +16,22 @@ using System.Threading;
 using KipoBot.Services;
 using KipoBot.Database;
 
-namespace Kipo.Modules
+namespace KipoBot.Modules
 {
     [Name("database")]
     [Summary("Database configuration module.")]
     public class DatabaseModule : ModuleBase<SocketCommandContext>
     {
+        Manager manager = new Manager();
+
         [Command("createdb", RunMode = RunMode.Async)]
-        [Summary("Creates new database or cleans existing one.")]
+        [Summary("Creates new database file.")]
         [RequireOwner(ErrorMessage = "Avaiable only for bot owner.")]
-        public async Task CreateDB(string dbName, Manager manager) => await manager.CreateDatabase(dbName);
+        public async Task CreateDB() => await manager.CreateDatabase();
 
-
+        [Command("configure", RunMode = RunMode.Async)]
+        [Summary("Configures new database or cleans existing one.")]
+        [RequireOwner(ErrorMessage = "Avaiable only for bot owner.")]
+        public async Task Configure() => await manager.Configure();
     }
 }

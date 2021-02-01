@@ -10,11 +10,14 @@ using Kipo.Modules;
 using KipoBot.Services;
 using System.IO;
 using System.Linq;
+using KipoBot.Database;
 
 namespace KipoBot
 {
     class Program
     {
+        Manager manager = new Manager();
+
         static void Main(string[] args) => new Program().MainAsync().GetAwaiter().GetResult();
 
         public async Task MainAsync()
@@ -35,10 +38,33 @@ namespace KipoBot
                 await services.GetRequiredService<CommandHandlingService>().InitializeAsync();
                 await client.SetGameAsync(config.prefix + "help");
 
+                client.UserJoined += UserJoined;
+
                 await Task.Delay(-1);
             }
         }
-        
+
+        //TODO
+        private Task UserJoined(SocketGuildUser user)
+        {
+            string results = manager.GetWelcome(user.Guild.Id.ToString()).Result;
+
+            if (results == String.Empty)
+            {
+                return Task.CompletedTask;
+            }
+            else
+            {
+                Console.WriteLine("results 0 -" + results[0]);
+                Console.WriteLine("results 1 -" + results[1]);
+
+                string[] data = results.Split(";");
+                SocketTextChannel channel = user.Guild.GetTextChannel(UInt64.Parse(data[0]));
+                Stream file = ImageMaker.welcomeUser(user.Username);
+                channel.SendFileAsync(file, "welcome.png");
+                return Task.CompletedTask;
+            }
+        }
 
         private Task LogAsync(LogMessage log)
         {
