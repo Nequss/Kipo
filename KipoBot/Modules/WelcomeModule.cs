@@ -29,5 +29,11 @@ namespace KipoBot.Modules
 
         [Command("removewelcome", RunMode = RunMode.Async)]
         public async Task RemoveWelcome() => await manager.DeleteWelcome(Context.Guild.Id.ToString());
+
+        [Command("setbannertext", RunMode = RunMode.Async)]
+        public async Task SetWelcomeBannerText([Remainder] String text) => await manager.setBannerText(Context, text);
+        
+        [Command("setbannermsg", RunMode = RunMode.Async)]
+        public async Task SetWelcomeBannerDesc([Remainder] String text) => await manager.setBannerDesc(Context, text);
     }
 }
