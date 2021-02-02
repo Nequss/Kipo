@@ -16,7 +16,7 @@ namespace KipoBot.Utils
 {
     public class ImgurApi
     {
-        public class Image
+        class Image
         {
             [JsonPropertyName("title")]
             public string title { get; set; }
@@ -30,7 +30,7 @@ namespace KipoBot.Utils
             public string link { get; set; }
         }
 
-        public class Item
+        class Item
         {
             [JsonPropertyName("images")]
             public List<Image> images { get; set; }
@@ -38,7 +38,7 @@ namespace KipoBot.Utils
             public string link { get; set; }
         }
 
-        public class Data
+        class Data
         {
             [JsonPropertyName("items")]
             public List<Item> items { get; set; }
@@ -47,7 +47,7 @@ namespace KipoBot.Utils
             public int total_items { get; set; }
         }
 
-        public class Root
+        class Root
         {
             [JsonPropertyName("data")]
             public Data data { get; set; }

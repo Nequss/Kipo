@@ -23,10 +23,7 @@ namespace KipoBot.Modules
         //TODO
         [Command("imgur", RunMode = RunMode.Async)]
         [Summary("Searches for a random imgur image \n +imgur [text]")]
-        public async Task Imgur([Remainder]string text)
-        {
-
-        }
+        public async Task Imgur([Remainder]string text) => await imgurApi.GetRandomImage(Context, text);
 
         //TODO using pokemon api - +pokemon [name]
         [Command("pokemon", RunMode = RunMode.Async)]
