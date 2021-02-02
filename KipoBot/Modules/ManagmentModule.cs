@@ -16,9 +16,9 @@ using KipoBot.Utils;
 
 namespace KipoBot.Modules
 {
-    [Name("utility")]
+    [Name("managment")]
     [Summary("Contains all needed commands to manage a server.")]
-    public class UtilityModule : ModuleBase<SocketCommandContext>
+    public class ManagmentModule : ModuleBase<SocketCommandContext>
     {
         [Command("ban", RunMode = RunMode.Async)]
         [Summary("Bans specified user\n+ban [user]")]

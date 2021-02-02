@@ -110,9 +110,9 @@ namespace KipoBot.Modules
 
         [Command("userinfo", RunMode = RunMode.Async)]
         [Summary("Shows user's information \n +userinfo [user]")]
-        public async Task Info(SocketGuildUser user = null)
+        public async Task Info([Remainder]string command)
         {
-            user = user ?? Context.User as SocketGuildUser;
+            SocketGuildUser user = Helpers.extractUser(Context, command);
 
             string roles = "| ";
             foreach (IRole role in user.Roles)
@@ -175,9 +175,9 @@ namespace KipoBot.Modules
 
         [Command("avatar", RunMode = RunMode.Async)]
         [Summary("Sends link to user's avatar")]
-        public async Task Avatar(SocketGuildUser user = null)
+        public async Task Avatar([Remainder]string command)
         {
-            user = user ?? Context.User as SocketGuildUser;
+            SocketGuildUser user = Helpers.extractUser(Context, command);
             await Context.Channel.SendMessageAsync(user.GetAvatarUrl(size: 1024));
         }
         
