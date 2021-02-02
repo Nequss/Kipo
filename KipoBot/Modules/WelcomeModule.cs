@@ -17,6 +17,9 @@ using ImageMagick;
 using KipoBot.Database;
 using KipoBot.Services;
 using KipoBot.Utils;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Configuration;
+using Kipo.Modules;
 
 namespace KipoBot.Modules
 {
@@ -29,10 +32,7 @@ namespace KipoBot.Modules
 
         [Command("enable", RunMode = RunMode.Async)]
         [Summary("summary")]
-        public async Task Enable()
-        {
-
-        }
+        public async Task Enable(SocketTextChannel channel) => await manager.InsertWelcome(Context.Guild.Id.ToString(), channel.Id.ToString());
 
         [Command("disable", RunMode = RunMode.Async)]
         [Summary("summary")]
@@ -42,20 +42,31 @@ namespace KipoBot.Modules
         [Summary("summary")]
         public async Task Preview()
         {
+            string results = manager.GetWelcome(Context.Guild.Id.ToString()).Result;
 
+            if (results == String.Empty)
+            {
+                await Context.Channel.SendMessageAsync("Welcome message is not set");
+            }
+            else
+            {
+                string[] data = results.Split(";");
+                Stream file = ImageMaker.welcomeUser(Context.User.Username, data[1], Context.Guild.Name);
+                await Context.Channel.SendFileAsync(file, "welcome.png", $"{data[2].Replace("%MENTION%", $"{Context.User.Mention}").Replace("%USERNAME%", $"{Context.User.Username}").Replace("%SERVERNAME%", $"{Context.Guild.Name}")}");
+            }
         }
 
         [Command("channel", RunMode = RunMode.Async)]
         [Summary("summary")]
-        public async Task SetChannel(SocketTextChannel channel) => await manager.InsertWelcome(Context.Guild.Id.ToString(), channel.Id.ToString());
+        public async Task SetChannel(SocketTextChannel channel) => await manager.UpdateChannel(Context.Guild.Id.ToString(), channel.Id.ToString());
 
         [Command("caption", RunMode = RunMode.Async)]
         [Summary("summary")]
-        public async Task SetWelcomeBannerText([Remainder] String text) => await manager.setBannerText(Context, text);
+        public async Task SetWelcomeBannerText([Remainder]string text) => await manager.setBannerText(Context, text);
         
         [Command("message", RunMode = RunMode.Async)]
         [Summary("summary")]
-        public async Task SetWelcomeBannerDesc([Remainder] String text) => await manager.setBannerDesc(Context, text);
+        public async Task SetWelcomeBannerDesc([Remainder]string text) => await manager.setBannerDesc(Context, text);
 
     }
 }

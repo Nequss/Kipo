@@ -13,7 +13,7 @@ namespace KipoBot.Database
 {
     public class Manager
     {
-        String DB_FILE = Directory.GetCurrentDirectory() + "/KipoDB.db"; 
+        string DB_FILE = Directory.GetCurrentDirectory() + "/KipoDB.db"; 
         
         public async Task Configure()
         {
@@ -62,6 +62,26 @@ namespace KipoBot.Database
             }
         }
 
+        public async Task UpdateChannel(string guild_id, string channel_id)
+        {
+            using (var connection = new SQLiteConnection("Data Source=" + DB_FILE))
+            {
+                connection.Open();
+
+                using (var command = new SQLiteCommand(connection))
+                {
+                    command.CommandText = "UPDATE servers SET channel_id = @channel_id WHERE guild_id = @guild_id"; command.Parameters.AddWithValue("@guild_id", guild_id);
+                    command.Parameters.AddWithValue("@guild_id", guild_id);
+                    command.Parameters.AddWithValue("@channel_id", channel_id);
+                    command.Prepare();
+
+                    command.ExecuteNonQuery();
+                }
+
+                connection.Close();
+            }
+        }
+
         public async Task DeleteWelcome(string id)
         {
             using (var connection = new SQLiteConnection("Data Source=" + DB_FILE))
@@ -90,7 +110,7 @@ namespace KipoBot.Database
 
                 using (var command = new SQLiteCommand(connection))
                 {
-                    command.CommandText = "SELECT channel_id, welcomeBannerText, welcomeBannerDesc FROM servers WHERE guild_id=@guild_id";
+                    command.CommandText = "SELECT channel_id, welcomeBannerText, welcomeBannerDesc FROM servers WHERE guild_id = @guild_id";
                     command.Parameters.AddWithValue("@guild_id", id);
                     command.Prepare();
 
@@ -126,7 +146,7 @@ namespace KipoBot.Database
 
                 using (var command = new SQLiteCommand(connection))
                 {
-                    command.CommandText = "UPDATE servers SET welcomeBannerText = @text WHERE guild_id = @guild_id ";
+                    command.CommandText = "UPDATE servers SET welcomeBannerText = @text WHERE guild_id = @guild_id";
                     command.Parameters.AddWithValue("@text", text);
                     command.Parameters.AddWithValue("@guild_id", context.Guild.Id.ToString());
                     command.Prepare();
@@ -146,7 +166,7 @@ namespace KipoBot.Database
 
                 using (var command = new SQLiteCommand(connection))
                 {
-                    command.CommandText = "UPDATE servers SET welcomeBannerDesc = @text WHERE guild_id = @guild_id ";
+                    command.CommandText = "UPDATE servers SET welcomeBannerDesc = @text WHERE guild_id = @guild_id";
                     command.Parameters.AddWithValue("@text", text);
                     command.Parameters.AddWithValue("@guild_id", context.Guild.Id.ToString());
                     command.Prepare();
