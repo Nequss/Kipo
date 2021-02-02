@@ -56,8 +56,9 @@ namespace KipoBot
             {
                 string[] data = results.Split(";");
                 SocketTextChannel channel = user.Guild.GetTextChannel(UInt64.Parse(data[0]));
-                Stream file = ImageMaker.welcomeUser(user.Username, data[1]);
-                channel.SendFileAsync(file, "welcome.png", $"{data[2]}");
+                Stream file = ImageMaker.welcomeUser(user.Username, data[1], channel.Guild.Name);
+                channel.SendFileAsync(file, "welcome.png", $"{data[2].Replace("%MENTION%", $"{user.Mention}").Replace("%USERNAME%", $"{user.Username}").Replace("%SERVERNAME%", $"{channel.Guild.Name}")}");
+                
                 return Task.CompletedTask;
             }
         }
