@@ -27,7 +27,7 @@ namespace KipoBot.Modules
 
         //TODO using pokemon api - +pokemon [name]
         [Command("pokemon", RunMode = RunMode.Async)]
-        public async Task Pokemon([Remainder] String name) => PokeApi.test(Context, name);
+        public async Task Pokemon([Remainder] String name) => PokeApi.getPokemonInfo(Context, name);
 
         [Command("coinflip", RunMode = RunMode.Async)]
         [Summary("Flips a coin!\n+coinflip")]
