@@ -20,20 +20,42 @@ using KipoBot.Utils;
 
 namespace KipoBot.Modules
 {
+    [Group("set welcome")]
+    [Name("welcome")]
+    [Summary("Contains all needed commands to configure a welcome message.")]
     public class WelcomeModule : ModuleBase<SocketCommandContext>
     {
         Manager manager = new Manager();
 
-        [Command("setwelcome", RunMode = RunMode.Async)]
-        public async Task SetWelcome(SocketTextChannel channel_id) => await manager.InsertWelcome(Context.Guild.Id.ToString(), channel_id.Id.ToString());
+        [Command("enable", RunMode = RunMode.Async)]
+        [Summary("summary")]
+        public async Task Enable()
+        {
 
-        [Command("removewelcome", RunMode = RunMode.Async)]
-        public async Task RemoveWelcome() => await manager.DeleteWelcome(Context.Guild.Id.ToString());
+        }
 
-        [Command("setbannertext", RunMode = RunMode.Async)]
+        [Command("disable", RunMode = RunMode.Async)]
+        [Summary("summary")]
+        public async Task Disable() => await manager.DeleteWelcome(Context.Guild.Id.ToString());
+
+        [Command("preview", RunMode = RunMode.Async)]
+        [Summary("summary")]
+        public async Task Preview()
+        {
+
+        }
+
+        [Command("channel", RunMode = RunMode.Async)]
+        [Summary("summary")]
+        public async Task SetChannel(SocketTextChannel channel) => await manager.InsertWelcome(Context.Guild.Id.ToString(), channel.Id.ToString());
+
+        [Command("caption", RunMode = RunMode.Async)]
+        [Summary("summary")]
         public async Task SetWelcomeBannerText([Remainder] String text) => await manager.setBannerText(Context, text);
         
-        [Command("setbannermsg", RunMode = RunMode.Async)]
+        [Command("message", RunMode = RunMode.Async)]
+        [Summary("summary")]
         public async Task SetWelcomeBannerDesc([Remainder] String text) => await manager.setBannerDesc(Context, text);
+
     }
 }

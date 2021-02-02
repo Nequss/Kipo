@@ -30,7 +30,6 @@ namespace KipoBot.Database
                     command.CommandText = @"CREATE TABLE servers(
                                             guild_id TEXT PRIMARY KEY, 
                                             channel_id TEXT, 
-                                            banner INTEGER, 
                                             welcomeBannerText TEXT DEFAULT 'Hello %USERNAME%!\nWelcome to the server!',
                                             welcomeBannerDesc TEXT DEFAULT '')";
                     command.ExecuteNonQuery();
