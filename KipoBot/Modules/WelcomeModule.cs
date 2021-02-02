@@ -23,7 +23,7 @@ using Kipo.Modules;
 
 namespace KipoBot.Modules
 {
-    [Group("set welcome")]
+    [Group("welcome")]
     [Name("welcome")]
     [Summary("Contains all needed commands to configure a welcome message.")]
     public class WelcomeModule : ModuleBase<SocketCommandContext>
