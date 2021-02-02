@@ -12,8 +12,6 @@ namespace KipoBot.Database
 {
     public class Manager
     {
-        public async Task CreateDatabase() => SQLiteConnection.CreateFile("KipoDB.db");
-
         public async Task Configure()
         {
             using (var connection = new SQLiteConnection("Data Source=" + Directory.GetCurrentDirectory() + @"\KipoDB.db"))

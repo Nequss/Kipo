@@ -34,7 +34,7 @@ namespace KipoBot.Modules
             else
                 await user.BanAsync();
 
-            await ReplyAsync(user.Username + "#" + user.DiscriminatorValue + " has been unbanned! ID: " + user.Id);
+            await ReplyAsync(user.Username + "#" + user.DiscriminatorValue + " has been banned! ID: " + user.Id);
         }
 
         [Command("unban", RunMode = RunMode.Async)]
@@ -94,19 +94,12 @@ namespace KipoBot.Modules
         }
 
         [Command("say", RunMode = RunMode.Async)]
-        [Summary("Says something as Kipo.\n+say [message] (channel)")]
+        [Summary("Says something as Kipo.\n+say [message]")]
         [RequireUserPermission(GuildPermission.ManageMessages, ErrorMessage = "Lack of required permission: Manage Messages")]
-        public async Task Say(string text = null, ISocketMessageChannel guildChannel = null)
+        public async Task Say([Remainder] string text)
         {
             await Context.Message.DeleteAsync();
-
-            if (text == null)
-            { 
-                return;
-            }
-
-            guildChannel = guildChannel ?? Context.Channel;
-            await guildChannel.SendMessageAsync(text);
+            await ReplyAsync(text);
         }
 
         [Command("showemotes", RunMode = RunMode.Async)]
@@ -167,8 +160,10 @@ namespace KipoBot.Modules
         [Summary("Set new nickname for a user. No name - Resets the nicknames\n+setnick [user] (name)")]
         [RequireUserPermission(GuildPermission.ManageNicknames, ErrorMessage = "You don't have required permission: Manage Nicknames")]
         [RequireBotPermission(GuildPermission.ManageNicknames, ErrorMessage = "Lack of required permission: Manage Nicknames")]
-        public async Task SetNick(SocketGuildUser user = null, string name = null)
+        public async Task SetNick(string name = null, [Remainder]string command = null)
         {
+            SocketGuildUser user = Helpers.extractUser(Context, command);
+
             if (user == null)
             {
                 await Context.Channel.SendMessageAsync("User not found!");

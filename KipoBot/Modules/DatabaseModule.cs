@@ -24,10 +24,6 @@ namespace KipoBot.Modules
     {
         Manager manager = new Manager();
 
-        [Command("createdb", RunMode = RunMode.Async)]
-        [Summary("Creates new database file.")]
-        public async Task CreateDB() => await manager.CreateDatabase();
-
         [Command("configure", RunMode = RunMode.Async)]
         [Summary("Configures new database or cleans existing one.")]
         public async Task Configure() => await manager.Configure();
