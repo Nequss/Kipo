@@ -13,9 +13,12 @@ namespace KipoBot.Database
 {
     public class Manager
     {
+        String DB_FILE = Directory.GetCurrentDirectory() + "/KipoDB.db"; 
+        
         public async Task Configure()
         {
-            using (var connection = new SQLiteConnection("Data Source=" + Directory.GetCurrentDirectory() + "/" + DB_FILE))
+            
+            using (var connection = new SQLiteConnection("Data Source=" + DB_FILE))
             {
                 connection.Open();
 
@@ -41,7 +44,7 @@ namespace KipoBot.Database
 
         public async Task InsertWelcome(string guild_id, string channel_id)
         {
-            using (var connection = new SQLiteConnection("Data Source=" + Directory.GetCurrentDirectory() + "/" + DB_FILE))
+            using (var connection = new SQLiteConnection("Data Source=" + DB_FILE))
             {
                 connection.Open();
 
@@ -61,7 +64,7 @@ namespace KipoBot.Database
 
         public async Task DeleteWelcome(string id)
         {
-            using (var connection = new SQLiteConnection("Data Source=" + Directory.GetCurrentDirectory() + "/" + DB_FILE))
+            using (var connection = new SQLiteConnection("Data Source=" + DB_FILE))
             {
                 connection.Open();
 
@@ -81,7 +84,7 @@ namespace KipoBot.Database
             string welcomeBannerText = string.Empty;
             string welcomeBannerDesc = string.Empty;
 
-            using (var connection = new SQLiteConnection("Data Source=" + Directory.GetCurrentDirectory() + "/" + DB_FILE))
+            using (var connection = new SQLiteConnection("Data Source=" + DB_FILE))
             {
                 connection.Open();
 
@@ -117,7 +120,7 @@ namespace KipoBot.Database
 
         public async Task setBannerText(SocketCommandContext context, string text)
         {
-            using (var connection = new SQLiteConnection("Data Source=" + Directory.GetCurrentDirectory() + "/" + DB_FILE))
+            using (var connection = new SQLiteConnection("Data Source=" + DB_FILE))
             {
                 connection.Open();
 
@@ -137,7 +140,7 @@ namespace KipoBot.Database
         
         public async Task setBannerDesc(SocketCommandContext context, string text)
         {
-            using (var connection = new SQLiteConnection("Data Source=" + Directory.GetCurrentDirectory() + "/" + DB_FILE))
+            using (var connection = new SQLiteConnection("Data Source=" + DB_FILE))
             {
                 connection.Open();
 
