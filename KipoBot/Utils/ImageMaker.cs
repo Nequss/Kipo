@@ -78,11 +78,11 @@ namespace Kipo.Modules
             return new MemoryStream(imageBytes);
         }
 
-        public static Stream welcomeUser(string username, string welcomeText)
+        public static Stream welcomeUser(string username, string welcomeText, string servername)
         {
             Random r = new Random();
             string processedString = welcomeText;
-             processedString = processedString.Replace("%USERNAME%",username);
+            processedString = processedString.Replace("%USERNAME%",username).Replace("%SERVERNAME%", servername);
 
             return createWelcomeBannerWithText($"{processedString}", banners[r.Next(banners.Count)]);
         }
