@@ -21,43 +21,50 @@ namespace KipoBot.Modules
     {
         ImgurApi imgurApi = new ImgurApi(new ConfigurationService());
 
-        //TODO
         [Command("imgur", RunMode = RunMode.Async)]
-        [Summary("Searches for a random imgur image \n +imgur [text]")]
+        [Summary("Searches for a random imgur image\n+imgur [text]")]
         public async Task Imgur([Remainder]string text) => await imgurApi.GetRandomImage(Context, text);
 
         //TODO using pokemon api - +pokemon [name]
         [Command("pokemon", RunMode = RunMode.Async)]
         public async Task Pokemon([Remainder] String name) => PokeApi.test(Context, name);
 
-        //TODO using covid api - +covid [country]
-        [Command("covid", RunMode = RunMode.Async)]
-        public async Task Covid()
+        [Command("coinflip", RunMode = RunMode.Async)]
+        [Summary("Flips a coin!\n+coinflip")]
+        public async Task CoinFlip()
         {
-
+            string result = new Random().Next(0, 2) == 0 ? "Heads!" : "Tails!";
+            await Context.Channel.SendMessageAsync("You got a " + result);
         }
 
-        //TODO - flips a coin
-        [Command("flip", RunMode = RunMode.Async)]
-        public async Task Flip()
+        [Command("8ball", RunMode = RunMode.Async)]
+        [Summary("8ball always tells you the thruth!\n+8ball")]
+        public async Task Ball()
         {
+            string[] answers = new string[] {
+                        "It is certain",
+                        "It is decidedly so",
+                        "Without a doubt",
+                        "Yes, definitely",
+                        "You may rely on it",
+                        "As I see it, yes",
+                        "Most likely",
+                        "Outlook good",
+                        "Yes",
+                        "Signs point to yes",
+                        "Reply hazy try again",
+                        "Ask again later",
+                        "Better not tell you now",
+                        "Cannot predict now",
+                        "Concentrate and ask again",
+                        "Don't count on it",
+                        "My reply is no",
+                        "My sources say no",
+                        "Outlook not so good",
+                        "Very doubtful"
+                    };
 
-        }
-
-        //TODO +rps Play rock, papers, scissors with the bot.	
-        //+rps [choice]
-        [Command("rps", RunMode = RunMode.Async)]
-        public async Task Rps()
-        {
-
-        }
-
-        //TODO +poll [bot_message] [choice_1] ... [choice_9]
-        //Starts a poll for people to vote on. Up to max. 9 choices
-        [Command("poll", RunMode = RunMode.Async)]
-        public async Task Poll()
-        {
-
+            await Context.Channel.SendMessageAsync(answers[new Random().Next(answers.Length)]);
         }
     }
 }

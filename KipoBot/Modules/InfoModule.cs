@@ -51,13 +51,13 @@ namespace KipoBot.Modules
                 {
                     foreach (var command in module.Commands)
                         if (command.Name != "help")
-                            embedBuilder.AddField(_config.prefix + command.Name, command.Summary == null ? "No Summary" : command.Summary, true);
+                            embedBuilder.AddField(_config.prefix + (module.Group == null ? string.Empty : (module.Group + " ")) + command.Name, command.Summary == null ? "No Summary" : command.Summary, true);
 
                     return embedBuilder.Build();
                 }
             }
 
-            //if module not found
+            //if module not found, list modules avaiable
             foreach (var module in _service.Modules)
                 embedBuilder.AddField(char.ToUpper(module.Name[0]) + module.Name.Substring(1) + " Module | " + _config.prefix + "help " + module.Name, module.Summary, false);
 
@@ -66,7 +66,6 @@ namespace KipoBot.Modules
 
         [Command("help", RunMode = RunMode.Async)]
         public async Task Help(string arg = null) => await ReplyAsync(embed: await GetHelp(arg == null ? null : arg));
-
 
         [Command("latency", RunMode = RunMode.Async)]
         [Summary("Shows kipo's response time")]
