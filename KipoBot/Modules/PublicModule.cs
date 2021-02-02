@@ -9,6 +9,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using System;
 using System.Collections.Generic;
+using Kipo.Utils;
 using KipoBot.Services;
 using KipoBot.Utils;
 
@@ -27,10 +28,7 @@ namespace KipoBot.Modules
 
         //TODO using pokemon api - +pokemon [name]
         [Command("pokemon", RunMode = RunMode.Async)]
-        public async Task Pokemon()
-        {
-
-        }
+        public async Task Pokemon([Remainder] String name) => PokeApi.test(Context, name);
 
         //TODO using covid api - +covid [country]
         [Command("covid", RunMode = RunMode.Async)]
