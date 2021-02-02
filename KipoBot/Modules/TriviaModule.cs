@@ -17,7 +17,7 @@ namespace KipoBot.Modules
     [Group("trivia")]
     [Name("trivia")]
     [Summary("Contains trivia commands")]
-    public class TriviasModule : ModuleBase<SocketCommandContext>
+    public class TriviaModule : ModuleBase<SocketCommandContext>
     {
         TriviaApis triviaApis = new TriviaApis();
 
