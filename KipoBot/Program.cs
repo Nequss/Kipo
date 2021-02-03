@@ -19,10 +19,14 @@ namespace KipoBot
 
         public async Task MainAsync()
         {
-            ImageMaker.loadBanners($"banners/");
             String[] reqPaths = {"data","fonts","banners"};
-            if (!Helpers.AssertPaths(reqPaths))
-                return;
+            foreach (var path in reqPaths)
+            {
+                if (!Helpers.AssertDirectory(path))
+                    return;
+            }
+            
+            ImageMaker.loadBanners($"banners/");
 
                 using (var services = ConfigureServices())
             {
