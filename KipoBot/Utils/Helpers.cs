@@ -40,11 +40,9 @@ namespace KipoBot.Utils
             return null;
         }
 
-        public static bool AssertPaths(String[] paths)
+        public static bool AssertDirectory(String path)
         {
             bool isSuccess = true;
-            foreach (var path in paths)
-            {
                 if (!Directory.Exists( $"{WORKING_DIRECTORY}/{path}"))
                 {
                     try
@@ -57,7 +55,6 @@ namespace KipoBot.Utils
                         isSuccess = false;
                     }
                 }
-            }
             return isSuccess;
         }
     }
