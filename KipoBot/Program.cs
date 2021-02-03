@@ -20,8 +20,11 @@ namespace KipoBot
         public async Task MainAsync()
         {
             ImageMaker.loadBanners($"banners/");
-            
-            using (var services = ConfigureServices())
+            String[] reqPaths = {"data","fonts","banners"};
+            if (!Helpers.AssertPaths(reqPaths))
+                return;
+
+                using (var services = ConfigureServices())
             {
                 var client = services.GetRequiredService<DiscordSocketClient>();
                 var config = services.GetRequiredService<ConfigurationService>();
