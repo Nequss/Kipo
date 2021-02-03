@@ -63,6 +63,7 @@ namespace KipoBot.Services
 
         private Task Disconnected(Exception arg)
         {
+
             Directory.CreateDirectory(SERVERS_PATH);
 
             using (Stream stream = File.Open(Path.Combine(SERVERS_PATH,  "servers.bin"), FileMode.Create))
