@@ -1,12 +1,16 @@
 using Discord.WebSocket;
 using Discord.Commands;
 using System;
+using System.IO;
 using System.Linq;
+using Discord;
 
 namespace KipoBot.Utils
 {
     public static class Helpers
     {
+        public static readonly String WORKING_DIRECTORY = Directory.GetCurrentDirectory();
+        
         public static SocketGuildUser extractUser(SocketCommandContext ctx, string message)
         {
             string impliedUser = message.TrimStart().TrimEnd();
@@ -34,6 +38,24 @@ namespace KipoBot.Utils
             }
 
             return null;
+        }
+
+        public static bool AssertDirectory(String path)
+        {
+            bool isSuccess = true;
+                if (!Directory.Exists( $"{WORKING_DIRECTORY}/{path}"))
+                {
+                    try
+                    {
+                        Directory.CreateDirectory($"{WORKING_DIRECTORY}/{path}");
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine("Failed to create directory: " + path + "\n" + e);
+                        isSuccess = false;
+                    }
+                }
+            return isSuccess;
         }
     }
 }

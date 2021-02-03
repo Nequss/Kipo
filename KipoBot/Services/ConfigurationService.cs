@@ -5,10 +5,13 @@ using Discord.Commands;
 using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
-using System.Text.Json;
 using System.Text.Json.Serialization;
 using System;
 using System.Collections.Generic;
+using System.Text;
+using KipoBot.Utils;
+using Newtonsoft.Json;
+using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace KipoBot.Services
 {
@@ -23,19 +26,47 @@ namespace KipoBot.Services
         public class Serialized
         {
             [JsonPropertyName("token")]
-            public string _token { get; set; }
+            public string token { get; set; }
             [JsonPropertyName("prefix")]
-            public string _prefix { get; set; }
+            public string prefix { get; set; }
             [JsonPropertyName("imgurid")]
-            public string _imgurid { get; set; }
+            public string imgurid { get; set; }
         }
    
         public ConfigurationService()
         {
             Serialized serialized = JsonSerializer.Deserialize<Serialized>(myConfig);
-            token = serialized._token;
-            prefix = serialized._prefix;
-            imgurid = serialized._imgurid;
+            token = serialized.token;
+            prefix = serialized.prefix;
+            imgurid = serialized.imgurid;
+        }
+
+        private static bool createConfigTemplate()
+        {
+            Serialized template = new Serialized();
+            template.token = "REPLACE_WITH_YOUR_BOT_TOKEN";
+            template.prefix = "+";
+            template.imgurid = "REPLACE_WITH_YOUR_IMGUR_API_KEY";
+
+            try
+            {
+                File.WriteAllText("config.json", JsonConvert.SerializeObject(template, Formatting.Indented));
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
+
+        public static bool AssertConfigFile()
+        {
+            if (!File.Exists($"{Helpers.WORKING_DIRECTORY}/config.json"))
+            {
+                if (createConfigTemplate())
+                    return false;
+            }
+            return true;
         }
     }
 }

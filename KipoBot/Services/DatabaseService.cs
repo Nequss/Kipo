@@ -59,7 +59,7 @@ namespace KipoBot.Services
 
         public List<Server> servers;
 
-        string SERVERS_PATH = Directory.GetCurrentDirectory() + @"/Data/";
+        string SERVERS_PATH = Directory.GetCurrentDirectory() + @"/data/";
 
         private Task Disconnected(Exception arg)
         {

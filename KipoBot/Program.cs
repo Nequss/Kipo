@@ -19,9 +19,24 @@ namespace KipoBot
 
         public async Task MainAsync()
         {
+            String[] reqPaths = {"data","fonts","banners"};
+            foreach (var path in reqPaths)
+            {
+                if (!Helpers.AssertDirectory(path))
+                    return;
+            }
+
+            if (!ConfigurationService.AssertConfigFile())
+            {
+                Console.WriteLine($"Template config file created in {Helpers.WORKING_DIRECTORY}/config.json\nEdit it and rerun Kipo.");
+                return;
+            }
+
+            Console.WriteLine("Found config!");
+
             ImageMaker.loadBanners($"banners/");
-            
-            using (var services = ConfigureServices())
+
+                using (var services = ConfigureServices())
             {
                 var client = services.GetRequiredService<DiscordSocketClient>();
                 var config = services.GetRequiredService<ConfigurationService>();
