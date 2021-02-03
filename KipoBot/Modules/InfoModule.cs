@@ -14,7 +14,7 @@ using System.Net;
 using System.Text;
 using System.Threading;
 using ImageMagick;
-using Kipo.Modules;
+using KipoBot.Modules;
 using KipoBot.Services;
 using KipoBot.Utils;
 
@@ -26,11 +26,19 @@ namespace KipoBot.Modules
     {
         private readonly CommandService _service;
         private readonly ConfigurationService _config;
+        private readonly DiscordSocketClient _client;
 
-        public InfoModule(CommandService service, ConfigurationService config)
+        public InfoModule(CommandService service, ConfigurationService config, DiscordSocketClient client)
         {
             _config = config;
             _service = service;
+            _client = client;
+        }
+
+        [Command("dc", RunMode = RunMode.Async)]
+        public async Task DC()
+        {
+            await _client.LogoutAsync();
         }
 
         public async Task<Embed> GetHelp(string options)

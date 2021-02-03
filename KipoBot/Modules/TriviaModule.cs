@@ -38,11 +38,11 @@ namespace KipoBot.Modules
         public async Task Dogs() => await Context.Channel.SendMessageAsync(triviaApis.DogsApiResult().Result);
 
         [Command("sport")]
-        [Summary("Sports facts")]
+        [Summary("Sports facts.")]
         public async Task Sports() => await Context.Channel.SendMessageAsync(triviaApis.JServiceApiResult("42").Result);
 
         [Command("animals")]
-        [Summary("Animals trivias.")]
+        [Summary("Everything about animals.")]
         public async Task Animals() => await Context.Channel.SendMessageAsync(triviaApis.JServiceApiResult("21").Result);
 
         [Command("colors")]

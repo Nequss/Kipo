@@ -6,18 +6,15 @@ using Microsoft.Extensions.Configuration;
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Kipo.Modules;
 using KipoBot.Services;
 using System.IO;
 using System.Linq;
-using KipoBot.Database;
+using KipoBot.Utils;
 
 namespace KipoBot
 {
     class Program
     {
-        Manager manager = new Manager();
-
         static void Main(string[] args) => new Program().MainAsync().GetAwaiter().GetResult();
 
         public async Task MainAsync()
@@ -28,6 +25,7 @@ namespace KipoBot
             {
                 var client = services.GetRequiredService<DiscordSocketClient>();
                 var config = services.GetRequiredService<ConfigurationService>();
+                var database = services.GetRequiredService<DatabaseService>();
 
                 client.Log += LogAsync;
                 services.GetRequiredService<CommandService>().Log += LogAsync;
@@ -38,28 +36,7 @@ namespace KipoBot
                 await services.GetRequiredService<CommandHandlingService>().InitializeAsync();
                 await client.SetGameAsync(config.prefix + "help");
 
-                client.UserJoined += UserJoined;
-
                 await Task.Delay(-1);
-            }
-        }
-
-        private Task UserJoined(SocketGuildUser user)
-        {
-            string results = manager.GetWelcome(user.Guild.Id.ToString()).Result;
-
-            if (results == String.Empty)
-            {
-                return Task.CompletedTask;
-            }
-            else
-            {
-                string[] data = results.Split(";");
-                SocketTextChannel channel = user.Guild.GetTextChannel(UInt64.Parse(data[0]));
-                Stream file = ImageMaker.welcomeUser(user.Username, data[1], channel.Guild.Name);
-                channel.SendFileAsync(file, "welcome.png", $"{data[2].Replace("%MENTION%", $"{user.Mention}").Replace("%USERNAME%", $"{user.Username}").Replace("%SERVERNAME%", $"{channel.Guild.Name}")}");
-                
-                return Task.CompletedTask;
             }
         }
 
@@ -85,6 +62,7 @@ namespace KipoBot
                 .AddSingleton<CommandHandlingService>()
                 .AddSingleton<HttpClient>()
                 .AddSingleton<ConfigurationService>()
+                .AddSingleton<DatabaseService>()
                 .BuildServiceProvider();
         }
     }

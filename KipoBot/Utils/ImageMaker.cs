@@ -5,7 +5,7 @@ using System.IO;
 using System.Linq;
 using ImageMagick;
 
-namespace Kipo.Modules
+namespace KipoBot.Utils
 {
     public class ImageMaker
     {
