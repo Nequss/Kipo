@@ -9,6 +9,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using System;
 using System.Collections.Generic;
+using Kipo.Utils;
 using KipoBot.Services;
 using KipoBot.Utils;
 
@@ -25,10 +26,7 @@ namespace KipoBot.Modules
         public async Task Imgur([Remainder]string text) => await imgurApi.GetRandomImage(Context, text);
 
         [Command("pokemon", RunMode = RunMode.Async)]
-        public async Task Pokemon()
-        {
-
-        }
+        public async Task Pokemon([Remainder] String name) => PokeApi.getPokemonInfo(Context, name);
 
         [Command("coinflip", RunMode = RunMode.Async)]
         [Summary("Flips a coin!\n+coinflip")]
