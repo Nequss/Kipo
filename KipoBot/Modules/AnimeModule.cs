@@ -43,48 +43,54 @@ namespace KipoBot.Modules
 
         [Command("slap", RunMode = RunMode.Async)]
         [Summary("Sends a random anime slap gif \n +slap [user]")]
-        public async Task RandomSlapAsync(IUser user)
+        public async Task RandomSlapAsync([Remainder] string specifiedUser)
         {
+            IUser user = Helpers.extractUser(Context, specifiedUser);
             var embed = await CreateEmbedWithImage(@"(ಸ‿‿ಸ)", "https://nekos.life/api/v2/img/slap");
             await Context.Channel.SendMessageAsync(embed: embed.Build());
         }
 
         [Command("kiss", RunMode = RunMode.Async)]
         [Summary("Sends a random anime kiss gif \n +kiss [user]")]
-        public async Task RandomKissAsync(IUser user)
+        public async Task RandomKissAsync([Remainder] string specifiedUser)
         {
+            IUser user = Helpers.extractUser(Context, specifiedUser);
             var embed = await CreateEmbedWithImage(Context.User.Username + " kisses " + user.Username + " (ꈍᴗꈍ)ε｀*)", "https://nekos.life/api/v2/img/kiss");
             await Context.Channel.SendMessageAsync(embed: embed.Build());
         }
 
         [Command("poke", RunMode = RunMode.Async)]
         [Summary("Sends a random anime poke gif \n +poke [user]")]
-        public async Task RandomPokeAsync(IUser user)
+        public async Task RandomPokeAsync([Remainder] string specifiedUser)
         {
+            IUser user = Helpers.extractUser(Context, specifiedUser);
             var embed = await CreateEmbedWithImage(Context.User.Username + " pokes " + user.Username + " ( ๑‾̀◡‾́)σ»", "https://nekos.life/api/v2/img/poke");
             await Context.Channel.SendMessageAsync(embed: embed.Build());
         }
 
         [Command("hug", RunMode = RunMode.Async)]
         [Summary("Sends a random anime hug gif \n +hug [user]")]
-        public async Task RandomHugAsync(IUser user)
+        public async Task RandomHugAsync([Remainder] string specifiedUser)
         {
+            IUser user = Helpers.extractUser(Context, specifiedUser);
             var embed = await CreateEmbedWithImage(Context.User.Username + " hugs " + user.Username + " (✿˶◕‿◕˶人◕ᴗ◕✿)", "https://nekos.life/api/v2/img/hug");
             await Context.Channel.SendMessageAsync(embed: embed.Build());
         }
 
         [Command("baka", RunMode = RunMode.Async)]
         [Summary("Sends a random anime baka gif \n +baka [user]")]
-        public async Task RandomBakaAsync(IUser user)
+        public async Task RandomBakaAsync([Remainder] string specifiedUser)
         {
+            IUser user = Helpers.extractUser(Context, specifiedUser);
             var embed = await CreateEmbedWithImage(Context.User.Username + " thinks " + user.Username + " is baka! (◣_◢)", "https://nekos.life/api/v2/img/baka");
             await Context.Channel.SendMessageAsync(embed: embed.Build());
         }
 
         [Command("pat", RunMode = RunMode.Async)]
         [Summary("Sends a random anime pat gif \n +pat [user]")]
-        public async Task RandomPatAsync(IUser user)
+        public async Task RandomPatAsync([Remainder] string specifiedUser)
         {
+            IUser user = Helpers.extractUser(Context, specifiedUser);
             var embed = await CreateEmbedWithImage(Context.User.Username + " pats " + user.Username + " (；^＿^)ッ☆(　゜w゜)", "https://nekos.life/api/v2/img/pat");
             await Context.Channel.SendMessageAsync(embed: embed.Build());
         }
