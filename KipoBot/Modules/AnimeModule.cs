@@ -46,7 +46,7 @@ namespace KipoBot.Modules
         public async Task RandomSlapAsync([Remainder] string specifiedUser)
         {
             IUser user = Helpers.extractUser(Context, specifiedUser);
-            var embed = await CreateEmbedWithImage(@"(ಸ‿‿ಸ)", "https://nekos.life/api/v2/img/slap");
+            var embed = await CreateEmbedWithImage(Context.User.Username + " slaps " + user.Username + @"(ಸ‿‿ಸ)", "https://nekos.life/api/v2/img/slap");
             await Context.Channel.SendMessageAsync(embed: embed.Build());
         }
 
