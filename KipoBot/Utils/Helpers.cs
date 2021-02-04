@@ -3,6 +3,8 @@ using Discord.Commands;
 using System;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
+using System.Threading.Tasks;
 using Discord;
 
 namespace KipoBot.Utils
@@ -56,6 +58,12 @@ namespace KipoBot.Utils
                     }
                 }
             return isSuccess;
+        }
+
+        public static async Task<string> getHttpResponseString(string url)
+        {
+            HttpClient client = new HttpClient();
+            return await client.GetStringAsync(url);
         }
     }
 }
