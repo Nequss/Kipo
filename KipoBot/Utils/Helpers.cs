@@ -38,7 +38,6 @@ namespace KipoBot.Utils
                     }
                 }
             }
-
             return null;
         }
 
