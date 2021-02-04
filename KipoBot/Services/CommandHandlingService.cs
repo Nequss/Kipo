@@ -52,11 +52,12 @@ namespace KipoBot.Services
 
             if (result.IsSuccess)
                 return;
-
-            await context.Channel.SendMessageAsync($"{result.ErrorReason}");
-
+            
+            //await context.Channel.SendMessageAsync($"{result.ErrorReason}");
             ITextChannel channel = await context.Guild.GetTextChannelAsync(586636898420654080);
-            await channel.SendMessageAsync($"--{Environment.NewLine}Author: {context.Message.Author.Username} {Environment.NewLine}Message: {context.Message.Content} {Environment.NewLine}Error: {result}{Environment.NewLine}--");
+            
+            await context.Channel.SendMessageAsync($"{command.Value.Summary}");
+            //await channel.SendMessageAsync($"--{Environment.NewLine}Author: {context.Message.Author.Username} {Environment.NewLine}Message: {context.Message.Content} {Environment.NewLine}Error: {result}{Environment.NewLine}--");
         }
     }
 }
