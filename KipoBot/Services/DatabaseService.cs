@@ -58,10 +58,26 @@ namespace KipoBot.Services
         public List<Player> players;
         public List<Pet> pets;
 
-        string PATH = Directory.GetCurrentDirectory() + @"/data/";
+        string PATH = Helpers.WORKING_DIRECTORY + @"/data/";
 
         public DatabaseService(DiscordSocketClient client)
         {
+            String[] reqFiles = {"servers","players","pets"};
+            foreach (var file in reqFiles)
+            {
+                String tmp = $"{PATH}{file}.bin";
+
+                if (!Helpers.FileExists(tmp))
+                {
+                    File.Create(tmp);
+                    Console.WriteLine($"Created DB file: {tmp}");
+                }
+                else
+                {
+                    Console.WriteLine($"Found existing DB file: {tmp}");
+                }
+            }
+            
             _client = client;
 
             _client.UserJoined += UserJoined;
