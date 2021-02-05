@@ -15,10 +15,14 @@ using System.Text;
 using System.Threading;
 using KipoBot.Services;
 
-namespace KipoBot.Modules
+namespace KipoBot.Game.Base
 {
-    public class GameModule : ModuleBase<SocketCommandContext>
+    [Serializable]
+    public abstract class Item
     {
+        protected Item()
+        {
 
+        }
     }
 }

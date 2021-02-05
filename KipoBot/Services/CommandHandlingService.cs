@@ -46,6 +46,8 @@ namespace KipoBot.Services
 
         public async Task CommandExecutedAsync(Optional<CommandInfo> command, ICommandContext context, IResult result)
         {
+            if (context.Message.Author.IsBot)
+                return;
 
             if (!command.IsSpecified)
                 return;
@@ -53,11 +55,7 @@ namespace KipoBot.Services
             if (result.IsSuccess)
                 return;
             
-            //await context.Channel.SendMessageAsync($"{result.ErrorReason}");
-            ITextChannel channel = await context.Guild.GetTextChannelAsync(586636898420654080);
-            
             await context.Channel.SendMessageAsync($"{command.Value.Summary}");
-            //await channel.SendMessageAsync($"--{Environment.NewLine}Author: {context.Message.Author.Username} {Environment.NewLine}Message: {context.Message.Content} {Environment.NewLine}Error: {result}{Environment.NewLine}--");
         }
     }
 }

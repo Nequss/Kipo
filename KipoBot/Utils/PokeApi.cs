@@ -10,7 +10,7 @@ using Discord.Commands;
 using Newtonsoft.Json;
 using JsonSerializer = System.Text.Json.JsonSerializer;
 
-namespace Kipo.Utils
+namespace KipoBot.Utils
 {
     public class PokeApi
     {
@@ -47,7 +47,7 @@ namespace Kipo.Utils
                 .WithImageUrl(pokemonData.sprites.other.officialArtwork.front_default);
             
 
-            ctx.Channel.SendMessageAsync(embed: builder.Build());
+            await ctx.Channel.SendMessageAsync(embed: builder.Build());
         }
     }
 }

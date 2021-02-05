@@ -15,6 +15,7 @@ using System.Net;
 using System.Text;
 using System.Threading;
 using KipoBot.Services;
+using KipoBot.Game.Base;
 
 namespace KipoBot.Modules
 {
@@ -36,9 +37,65 @@ namespace KipoBot.Modules
                 await _database.AddServer(guild.Id);
         }
 
+        //Lists pets database
+        [Command("checkplayers", RunMode = RunMode.Async)]
+        public async Task CheckPlayers()
+        {
+            await Context.Message.DeleteAsync();
+
+            if (_database.players != null)
+            {
+                Console.WriteLine("================");
+
+                foreach (var player in _database.players)
+                {
+                    Console.WriteLine("ID         : " + player.id);
+                    Console.WriteLine("Wallet     : " + player.wallet);
+                    Console.WriteLine("Active pet : " + player.active.name);
+                    Console.WriteLine("Pets count : " + player.pets.Count);
+                    Console.WriteLine("Items count: " + player.items.Count);
+                    Console.WriteLine("================");
+                }
+            }
+            else
+            {
+                Console.WriteLine("================");
+                Console.WriteLine("List is empty!");
+                Console.WriteLine("================");
+            }
+        }
+
+        //Lists pets database
+        [Command("checkpets", RunMode = RunMode.Async)]
+        public async Task CheckPets()
+        {
+            await Context.Message.DeleteAsync();
+
+            if (_database.players != null)
+            {
+                Console.WriteLine("================");
+
+                foreach (var players in _database.players)
+                {
+                    foreach (var pet in players.pets)
+                    {
+                        Console.WriteLine("ID         : " + pet.id);
+                        Console.WriteLine("Name       : " + pet.name);
+                        Console.WriteLine("================");
+                    }
+                }
+            }
+            else
+            {
+                Console.WriteLine("================");
+                Console.WriteLine("List is empty!");
+                Console.WriteLine("================");
+            }
+        }
+
         //Lists servers to the console.
         [Command("checkservers", RunMode = RunMode.Async)]
-        public async Task ListServers()
+        public async Task CheckServers()
         {
             await Context.Message.DeleteAsync();
 
@@ -48,11 +105,11 @@ namespace KipoBot.Modules
 
                 foreach (var server in _database.servers)
                 {
-                    Console.WriteLine("ID         : " + server._guild_id);
-                    Console.WriteLine("Channel ID : " + server._channel_id);
-                    Console.WriteLine("Message    : " + server._message);
-                    Console.WriteLine("Caption    : " + server._caption);
-                    Console.WriteLine("Prefix     : " + server._prefix);
+                    Console.WriteLine("ID         : " + server.id);
+                    Console.WriteLine("Channel ID : " + server.channel_id);
+                    Console.WriteLine("Message    : " + server.message);
+                    Console.WriteLine("Caption    : " + server.caption);
+                    Console.WriteLine("Prefix     : " + server.prefix);
                     Console.WriteLine("================");
                 }
             }

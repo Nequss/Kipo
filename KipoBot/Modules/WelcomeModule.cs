@@ -45,8 +45,8 @@ namespace KipoBot.Modules
             else
             {
                 foreach (var server in _database.servers)
-                    if (server._guild_id == Context.Guild.Id)
-                        server._channel_id = channel.Id;
+                    if (server.id == Context.Guild.Id)
+                        server.channel_id = channel.Id;
 
                 await Context.Channel.SendMessageAsync("Welcome module has been enabled! Check other commands to configure the caption on the image and the text message.");
             }
@@ -57,8 +57,8 @@ namespace KipoBot.Modules
         public async Task Disable()
         {
             foreach (var server in _database.servers)
-                if (server._guild_id == Context.Guild.Id)
-                    server._channel_id = null;
+                if (server.id == Context.Guild.Id)
+                    server.channel_id = null;
 
             await Context.Channel.SendMessageAsync("Welcome module has been disabled!");
         }
@@ -69,13 +69,13 @@ namespace KipoBot.Modules
         {
             foreach (var server in _database.servers)
             {
-                if (server._guild_id == Context.Guild.Id)
+                if (server.id == Context.Guild.Id)
                 {
-                    if (server._channel_id != null)
+                    if (server.channel_id != null)
                     {
-                        Stream file = ImageMaker.welcomeUser(Context.User.Username, server._caption, Context.Guild.Name);
-                        await Context.Channel.SendMessageAsync("Message will be send in channel <#" + server._channel_id + "> when new user joins.");
-                        await Context.Channel.SendFileAsync(file, "welcome.png", $"{server._message.Replace("%MENTION%", $"{Context.User.Mention}").Replace("%USERNAME%", $"{Context.User.Username}").Replace("%SERVERNAME%", $"{Context.Guild.Name}")}");
+                        Stream file = ImageMaker.welcomeUser(Context.User.Username, server.caption, Context.Guild.Name);
+                        await Context.Channel.SendMessageAsync("Message will be send in channel <#" + server.channel_id + "> when new user joins.");
+                        await Context.Channel.SendFileAsync(file, "welcome.png", $"{server.message.Replace("%MENTION%", $"{Context.User.Mention}").Replace("%USERNAME%", $"{Context.User.Username}").Replace("%SERVERNAME%", $"{Context.Guild.Name}")}");
                     }
                     else
                     {
@@ -97,11 +97,11 @@ namespace KipoBot.Modules
             {
                 foreach (var server in _database.servers)
                 {
-                    if (server._guild_id == Context.Guild.Id)
+                    if (server.id == Context.Guild.Id)
                     {
-                        if (server._channel_id != null)
+                        if (server.channel_id != null)
                         {
-                            server._channel_id = channel.Id;
+                            server.channel_id = channel.Id;
                         }
                         else
                         {
@@ -118,11 +118,11 @@ namespace KipoBot.Modules
         {
             foreach (var server in _database.servers)
             {
-                if (server._guild_id == Context.Guild.Id)
+                if (server.id == Context.Guild.Id)
                 {
-                    if (server._channel_id != null)
+                    if (server.channel_id != null)
                     {
-                        server._caption = text;
+                        server.caption = text;
                     }
                     else
                     {
@@ -138,11 +138,11 @@ namespace KipoBot.Modules
         {
             foreach (var server in _database.servers)
             {
-                if (server._guild_id == Context.Guild.Id)
+                if (server.id == Context.Guild.Id)
                 {
-                    if (server._channel_id != null)
+                    if (server.channel_id != null)
                     {
-                        server._message = text;
+                        server.message = text;
                     }
                     else
                     {

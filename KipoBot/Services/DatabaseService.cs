@@ -17,6 +17,10 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading;
 using KipoBot.Services;
+using KipoBot.Utils;
+using KipoBot.Game;
+using KipoBot.Game.Base;
+using KipoBot.Game.Pets;
 
 namespace KipoBot.Services
 {
@@ -25,27 +29,36 @@ namespace KipoBot.Services
         [Serializable]
         public class Server
         {
-            public ulong _guild_id;
-            public ulong? _channel_id;
-            public string _caption;
-            public string _message;
-            public char _prefix;
+            public ulong id;
+            public ulong? channel_id;
+            public string caption;
+            public string message;
+            public char prefix;
 
-            public Server(ulong guild_id,
-                          ulong? channel_id = null, 
-                          string caption = "Hello %USERNAME%!\nWelcome to the server!",
-                          string message = "",
-                          char prefix = '+')
+            public Server
+            (
+                ulong _id,
+                ulong? _channel_id = null,
+                string _caption = "Hello %USERNAME%!\nWelcome to the server!",
+                string _message = "",
+                char _prefix = '+'
+            )
             {
-                _guild_id = guild_id;
-                _channel_id = channel_id;
-                _caption = caption;
-                _message = message;
-                _prefix = prefix;
+                id = _id;
+                channel_id = _channel_id;
+                caption = _caption;
+                message = _message;
+                prefix = _prefix;
             }
         }
 
         private readonly DiscordSocketClient _client;
+
+        public List<Server> servers;
+        public List<Player> players;
+        public List<Pet> pets;
+
+        string PATH = Directory.GetCurrentDirectory() + @"/data/";
 
         public DatabaseService(DiscordSocketClient client)
         {
@@ -56,33 +69,39 @@ namespace KipoBot.Services
             _client.Connected += Connected;
             _client.Disconnected += Disconnected;
         }
-
-        public List<Server> servers;
-
-        string SERVERS_PATH = Directory.GetCurrentDirectory() + @"/data/";
-
+       
         private Task Disconnected(Exception arg)
         {
+            Directory.CreateDirectory(PATH);
 
-            Directory.CreateDirectory(SERVERS_PATH);
+            Stream stream;
+            var binaryformatter = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
 
-            using (Stream stream = File.Open(Path.Combine(SERVERS_PATH,  "servers.bin"), FileMode.Create))
-            {
-                var binaryformatter = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
-                binaryformatter.Serialize(stream, servers);
-            }
+            stream = File.Open(Path.Combine(PATH, "servers.bin"), FileMode.Open);
+            binaryformatter.Serialize(stream, servers);
+
+            stream = File.Open(Path.Combine(PATH, "pets.bin"), FileMode.Open);
+            binaryformatter.Serialize(stream, pets);
+
+            stream = File.Open(Path.Combine(PATH, "players.bin"), FileMode.Open);
+            binaryformatter.Serialize(stream, players);
 
             return Task.CompletedTask;
         }
 
         private Task Connected()
         {
-            using (Stream stream = File.Open(Path.Combine(SERVERS_PATH, "servers.bin"), FileMode.Open))
-            {
-                var binaryformatter = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
+            Stream stream;
+            var binaryformatter = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
 
-                servers = (List<Server>)binaryformatter.Deserialize(stream);
-            }
+            stream = File.Open(Path.Combine(PATH, "servers.bin"), FileMode.Open);
+            servers = (List<Server>)binaryformatter.Deserialize(stream);
+
+            stream = File.Open(Path.Combine(PATH, "pets.bin"), FileMode.Open);
+            pets = (List<Pet>)binaryformatter.Deserialize(stream);
+
+            stream = File.Open(Path.Combine(PATH, "players.bin"), FileMode.Open);
+            players = (List<Player>)binaryformatter.Deserialize(stream);
 
             return Task.CompletedTask;
         }
@@ -95,6 +114,17 @@ namespace KipoBot.Services
 
         private Task UserJoined(SocketGuildUser arg)
         {
+            foreach (var server in servers)
+            {
+                if (server.id == arg.Guild.Id)
+                {
+                    if (server.channel_id != null)
+                    {
+                        Stream file = ImageMaker.welcomeUser(arg.Username, server.caption, arg.Guild.Name);
+                        arg.Guild.GetTextChannel(server.channel_id.Value).SendFileAsync(file, "welcome.png", $"{server.message.Replace("%MENTION%", $"{arg.Mention}").Replace("%USERNAME%", $"{arg.Username}").Replace("%SERVERNAME%", $"{arg.Guild.Name}")}");
+                    }
+                }
+            }
 
             return Task.CompletedTask;
         }
@@ -102,6 +132,30 @@ namespace KipoBot.Services
         public Task AddServer(ulong id)
         {
             servers.Add(new Server(id));
+            return Task.CompletedTask;
+        }
+
+        public Task AddPlayer(ulong id, string command)
+        {
+            switch (command.ToLower())
+            {
+                case "bird":
+                    break;
+                case "dog":
+                    players.Add(new Player(id, new Dog(pets.Count)));
+                    break;
+                case "cat":
+                    break;
+                case "lizard":
+                    break;
+                case "hamster":
+                    break;
+                case "snake":
+                    break;
+                case "bunny":
+                    break;
+            }
+            
             return Task.CompletedTask;
         }
     }

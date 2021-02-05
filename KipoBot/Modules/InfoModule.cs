@@ -35,12 +35,6 @@ namespace KipoBot.Modules
             _client = client;
         }
 
-        [Command("dc", RunMode = RunMode.Async)]
-        public async Task DC()
-        {
-            await _client.LogoutAsync();
-        }
-
         public async Task<Embed> GetHelp(string options)
         {
             EmbedBuilder embedBuilder = new EmbedBuilder();
