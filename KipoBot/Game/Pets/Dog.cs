@@ -21,8 +21,6 @@ namespace KipoBot.Game.Pets
 {
     class Dog : Pet
     {
-        public int id;
-
         public Dog(int petId)
         {
             name = "Dog";

@@ -36,7 +36,7 @@ namespace KipoBot
 
             ImageMaker.loadBanners($"banners/");
 
-                using (var services = ConfigureServices())
+            using (var services = ConfigureServices())
             {
                 var client = services.GetRequiredService<DiscordSocketClient>();
                 var config = services.GetRequiredService<ConfigurationService>();

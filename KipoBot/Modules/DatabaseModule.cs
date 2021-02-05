@@ -22,11 +22,17 @@ namespace KipoBot.Modules
     public class DatabaseModule : ModuleBase<SocketCommandContext>
     {
         private readonly DatabaseService _database;
+        private readonly DiscordSocketClient _client;
 
-        public DatabaseModule(DatabaseService database)
+        public DatabaseModule(DiscordSocketClient client, DatabaseService database)
         {
             _database = database;
+            _client = client;
         }
+
+        [Command("dc", RunMode = RunMode.Async)]
+        public async Task DC() => await _client.LogoutAsync();
+     
 
         //Resets and adds the servers the bot is in with default values.
         [Command("configure", RunMode = RunMode.Async)]
@@ -41,8 +47,6 @@ namespace KipoBot.Modules
         [Command("checkplayers", RunMode = RunMode.Async)]
         public async Task CheckPlayers()
         {
-            await Context.Message.DeleteAsync();
-
             if (_database.players != null)
             {
                 Console.WriteLine("================");
@@ -69,8 +73,6 @@ namespace KipoBot.Modules
         [Command("checkpets", RunMode = RunMode.Async)]
         public async Task CheckPets()
         {
-            await Context.Message.DeleteAsync();
-
             if (_database.players != null)
             {
                 Console.WriteLine("================");
@@ -97,8 +99,6 @@ namespace KipoBot.Modules
         [Command("checkservers", RunMode = RunMode.Async)]
         public async Task CheckServers()
         {
-            await Context.Message.DeleteAsync();
-
             if (_database.servers != null)
             {
                 Console.WriteLine("================");

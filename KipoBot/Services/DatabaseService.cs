@@ -72,8 +72,6 @@ namespace KipoBot.Services
        
         private Task Disconnected(Exception arg)
         {
-            Directory.CreateDirectory(PATH);
-
             Stream stream;
             var binaryformatter = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
 
