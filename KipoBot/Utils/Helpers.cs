@@ -64,5 +64,13 @@ namespace KipoBot.Utils
             HttpClient client = new HttpClient();
             return await client.GetStringAsync(url);
         }
+
+        public static bool FileExists(String path)
+        {
+            if (File.Exists(path))
+                return true;
+
+            return false;
+        }
     }
 }
