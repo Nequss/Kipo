@@ -19,18 +19,19 @@ using KipoBot.Game.Base;
 
 namespace KipoBot.Game.Pets
 {
+    [Serializable]
     class Dog : Pet
     {
-        public Dog(int petId)
+        public Dog()
         {
+            type = Type.Dog;
             name = "Dog";
-            id = petId;
             health = 50;
             hunger = 20;
             thirst = 20;
             energy = 10;
             speed  = 10;
-            inteligence = 15;
+            inteligence = 10;
             strength = 10;
             agility = 10;
             accuracy = 10;

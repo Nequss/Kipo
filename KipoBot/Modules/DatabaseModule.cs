@@ -33,21 +33,35 @@ namespace KipoBot.Modules
         [Command("dc", RunMode = RunMode.Async)]
         public async Task DC() => await _client.LogoutAsync();
      
-
-        //Resets and adds the servers the bot is in with default values.
-        [Command("configure", RunMode = RunMode.Async)]
-        public async Task Configure()
+        //Resets DB and memory
+        [Command("reset", RunMode = RunMode.Async)]
+        public async Task Reset()
         {
             _database.servers = new List<DatabaseService.Server>();
-            foreach (var guild in Context.Client.Guilds)
-                await _database.AddServer(guild.Id);
+            _database.players = new List<Player>();
+        }
+
+        //TODO
+        //Adds a pet to user
+        [Command("addpet", RunMode = RunMode.Async)]
+        public async Task AddPet()
+        {
+
+        }
+
+        //TODO
+        //saves to files
+        [Command("savedb", RunMode = RunMode.Async)]
+        public async Task SaveDB()
+        {
+
         }
 
         //Lists pets database
         [Command("checkplayers", RunMode = RunMode.Async)]
         public async Task CheckPlayers()
         {
-            if (_database.players != null)
+            if (_database.players != null && _database.players.Count != 0)
             {
                 Console.WriteLine("================");
 
@@ -73,15 +87,15 @@ namespace KipoBot.Modules
         [Command("checkpets", RunMode = RunMode.Async)]
         public async Task CheckPets()
         {
-            if (_database.players != null)
+            if (_database.players != null && _database.players.Count != 0)
             {
                 Console.WriteLine("================");
 
                 foreach (var players in _database.players)
                 {
+                    Console.WriteLine("Owner's ID : " + players.id);
                     foreach (var pet in players.pets)
                     {
-                        Console.WriteLine("ID         : " + pet.id);
                         Console.WriteLine("Name       : " + pet.name);
                         Console.WriteLine("================");
                     }
@@ -99,7 +113,7 @@ namespace KipoBot.Modules
         [Command("checkservers", RunMode = RunMode.Async)]
         public async Task CheckServers()
         {
-            if (_database.servers != null)
+            if (_database.servers != null && _database.servers.Count != 0)
             {
                 Console.WriteLine("================");
 

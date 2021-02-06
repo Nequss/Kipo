@@ -38,7 +38,7 @@ namespace KipoBot.Services
             public Server
             (
                 ulong _id,
-                ulong? _channel_id = null,
+                ulong _channel_id,
                 string _caption = "Hello %USERNAME%!\nWelcome to the server!",
                 string _message = "",
                 char _prefix = '+'
@@ -56,28 +56,11 @@ namespace KipoBot.Services
 
         public List<Server> servers;
         public List<Player> players;
-        public List<Pet> pets;
 
         string PATH = Helpers.WORKING_DIRECTORY + @"/data/";
 
         public DatabaseService(DiscordSocketClient client)
         {
-            String[] reqFiles = {"servers","players","pets"};
-            foreach (var file in reqFiles)
-            {
-                String tmp = $"{PATH}{file}.bin";
-
-                if (!Helpers.FileExists(tmp))
-                {
-                    File.Create(tmp);
-                    Console.WriteLine($"Created DB file: {tmp}");
-                }
-                else
-                {
-                    Console.WriteLine($"Found existing DB file: {tmp}");
-                }
-            }
-            
             _client = client;
 
             _client.UserJoined += UserJoined;
@@ -88,17 +71,14 @@ namespace KipoBot.Services
        
         private Task Disconnected(Exception arg)
         {
-            Stream stream;
             var binaryformatter = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
+            Stream stream;
 
-            stream = File.Open(Path.Combine(PATH, "servers.bin"), FileMode.Open);
-            binaryformatter.Serialize(stream, servers);
+            using (stream = File.Open(Path.Combine(PATH, "servers.bin"), FileMode.OpenOrCreate))
+                binaryformatter.Serialize(stream, servers);
 
-            stream = File.Open(Path.Combine(PATH, "pets.bin"), FileMode.Open);
-            binaryformatter.Serialize(stream, pets);
-
-            stream = File.Open(Path.Combine(PATH, "players.bin"), FileMode.Open);
-            binaryformatter.Serialize(stream, players);
+            using (stream = File.Open(Path.Combine(PATH, "players.bin"), FileMode.OpenOrCreate))
+                binaryformatter.Serialize(stream, players);
 
             return Task.CompletedTask;
         }
@@ -108,34 +88,49 @@ namespace KipoBot.Services
             Stream stream;
             var binaryformatter = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
 
-            stream = File.Open(Path.Combine(PATH, "servers.bin"), FileMode.Open);
-            servers = (List<Server>)binaryformatter.Deserialize(stream);
+            if (Helpers.FileExists($"{PATH}/servers.bin"))
+            {
+                stream = File.Open(Path.Combine(PATH, "servers.bin"), FileMode.Open);
+                servers = (List<Server>)binaryformatter.Deserialize(stream);
+                Console.WriteLine($"Succesfully loaded DB: {PATH}/servers.bin");
+            }
+            else
+            {
+                servers = new List<Server>();
+            }
 
-            stream = File.Open(Path.Combine(PATH, "pets.bin"), FileMode.Open);
-            pets = (List<Pet>)binaryformatter.Deserialize(stream);
-
-            stream = File.Open(Path.Combine(PATH, "players.bin"), FileMode.Open);
-            players = (List<Player>)binaryformatter.Deserialize(stream);
+            if (Helpers.FileExists($"{PATH}/players.bin"))
+            {
+                stream = File.Open(Path.Combine(PATH, "players.bin"), FileMode.Open);
+                players = (List<Player>)binaryformatter.Deserialize(stream);
+                Console.WriteLine($"Succesfully loaded DB: {PATH}/players.bin");
+            }
+            else
+            {
+                players = new List<Player>();
+            }
 
             return Task.CompletedTask;
         }
 
         private Task JoinedGuild(SocketGuild arg)
         {
-            servers.Add(new Server(arg.Id));
             return Task.CompletedTask;
         }
 
         private Task UserJoined(SocketGuildUser arg)
         {
-            foreach (var server in servers)
+            if (servers != null && servers.Count != 0)
             {
-                if (server.id == arg.Guild.Id)
+                foreach (var server in servers)
                 {
-                    if (server.channel_id != null)
+                    if (server.id == arg.Guild.Id)
                     {
-                        Stream file = ImageMaker.welcomeUser(arg.Username, server.caption, arg.Guild.Name);
-                        arg.Guild.GetTextChannel(server.channel_id.Value).SendFileAsync(file, "welcome.png", $"{server.message.Replace("%MENTION%", $"{arg.Mention}").Replace("%USERNAME%", $"{arg.Username}").Replace("%SERVERNAME%", $"{arg.Guild.Name}")}");
+                        if (server.channel_id != null)
+                        {
+                            Stream file = ImageMaker.welcomeUser(arg.Username, server.caption, arg.Guild.Name);
+                            arg.Guild.GetTextChannel(server.channel_id.Value).SendFileAsync(file, "welcome.png", $"{server.message.Replace("%MENTION%", $"{arg.Mention}").Replace("%USERNAME%", $"{arg.Username}").Replace("%SERVERNAME%", $"{arg.Guild.Name}")}");
+                        }
                     }
                 }
             }
@@ -143,34 +138,41 @@ namespace KipoBot.Services
             return Task.CompletedTask;
         }
 
-        public Task AddServer(ulong id)
+        public Task AddServer(ulong id, ulong channel_id)
         {
-            servers.Add(new Server(id));
+            servers.Add(new Server(id, channel_id));
             return Task.CompletedTask;
         }
 
-        public Task AddPlayer(ulong id, string command)
+        public async Task<string> AddPlayer(ulong id, string command)
         {
             switch (command.ToLower())
             {
                 case "bird":
-                    break;
+                    players.Add(new Player(id, new Bird()));
+                    return "You have succesfully joined to Kipo's tamagotchi club with a bird!";
                 case "dog":
-                    players.Add(new Player(id, new Dog(pets.Count)));
-                    break;
+                    players.Add(new Player(id, new Dog()));
+                    return "You have succesfully joined to Kipo's tamagotchi club with a dog!";
                 case "cat":
-                    break;
+                    players.Add(new Player(id, new Cat()));
+                    return "You have succesfully joined to Kipo's tamagotchi club with a cat!";
                 case "lizard":
-                    break;
+                    players.Add(new Player(id, new Lizard()));
+                    return "You have succesfully joined to Kipo's tamagotchi club with a lizard!";
                 case "hamster":
-                    break;
+                    players.Add(new Player(id, new Hamster()));
+                    return "You have succesfully joined to Kipo's tamagotchi club with a hamster!";
                 case "snake":
-                    break;
+                    players.Add(new Player(id, new Snake()));
+                    return "You have succesfully joined to Kipo's tamagotchi club with a snake!";
                 case "bunny":
-                    break;
+                    players.Add(new Player(id, new Bunny()));
+                    return "You have succesfully joined to Kipo's tamagotchi club with a bunny!";
+                default:
+                    return "Pet not found! +t starters choose [pet]";
+
             }
-            
-            return Task.CompletedTask;
         }
     }
 }

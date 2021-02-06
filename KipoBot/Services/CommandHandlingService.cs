@@ -54,8 +54,6 @@ namespace KipoBot.Services
 
             if (result.IsSuccess)
                 return;
-            
-            await context.Channel.SendMessageAsync($"{command.Value.Summary}");
         }
     }
 }

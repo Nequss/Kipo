@@ -1,10 +1,36 @@
-﻿using System;
+﻿using System.IO;
+using System.Net.Http;
+using System.Threading.Tasks;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Collections.Generic;
+using System;
+using System.Diagnostics;
+using System.Linq;
+using System.Net;
 using System.Text;
+using System.Threading;
+using KipoBot.Services;
+using KipoBot.Game.Base;
 
 namespace KipoBot.Game.Pets
 {
-    class Snake
+    [Serializable]
+    class Snake : Pet
     {
+        public Snake()
+        {
+            type = Type.Snake;
+            name = "Snake";
+            health = 40;
+            hunger = 20;
+            thirst = 25;
+            energy = 10;
+            speed = 10;
+            inteligence = 10;
+            strength = 10;
+            agility = 10;
+            accuracy = 15;
+        }
     }
 }

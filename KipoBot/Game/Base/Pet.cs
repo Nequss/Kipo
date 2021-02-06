@@ -17,19 +17,46 @@ using KipoBot.Services;
 
 namespace KipoBot.Game.Base
 {
-    [Serializable]
     public abstract class Pet
     {
+        public enum Rarity
+        {
+            Common,
+            Uncommon,
+            Rare,
+            Legendary
+        }
+
+        public enum Stage
+        {
+            Baby,
+            Toddler,
+            Teenager,
+            Adult
+        }
+
+        public enum Type
+        {
+            Dog,
+            Cat,
+            Lizard,
+            Hamster,
+            Bunny,
+            Snake,
+            Bird
+        }
+
+        public Rarity rarity;
+        public Stage stage;
+        public Type type;
+
         //default
-        public string rarity;
-        public string stage;
         public byte hapiness;
         public byte level;
         public int xp;
          
         //to set
         public string name;
-        public int id;
         public int health;
         public byte hunger;
         public byte thirst;
@@ -42,8 +69,8 @@ namespace KipoBot.Game.Base
 
         protected Pet()
         {
-            rarity = "Common";
-            stage = "Baby";
+            rarity = Rarity.Common;
+            stage = Stage.Baby;
             hapiness = 40;
             level = 1;
             xp = 0;

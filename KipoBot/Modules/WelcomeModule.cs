@@ -44,11 +44,23 @@ namespace KipoBot.Modules
             }
             else
             {
-                foreach (var server in _database.servers)
-                    if (server.id == Context.Guild.Id)
-                        server.channel_id = channel.Id;
+                if (_database.servers != null && _database.servers.Count != 0)
+                {
+                    foreach (var server in _database.servers)
+                    {
+                        if (server.id == Context.Guild.Id)
+                        {
+                            await Context.Channel.SendMessageAsync("Welcome module is already enabled!");
+                        }
 
-                await Context.Channel.SendMessageAsync("Welcome module has been enabled! Check other commands to configure the caption on the image and the text message.");
+                    }
+                }
+                else
+                {
+
+                    await _database.AddServer(Context.Guild.Id, channel.Id);
+                    await Context.Channel.SendMessageAsync("Welcome module has been enabled! Check other commands to configure the caption on the image and the text message.");
+                }
             }
         }
 
@@ -56,11 +68,23 @@ namespace KipoBot.Modules
         [Summary("Disabled welcome module.")]
         public async Task Disable()
         {
-            foreach (var server in _database.servers)
-                if (server.id == Context.Guild.Id)
-                    server.channel_id = null;
+            if (_database.servers != null && _database.servers.Count != 0)
+            {
+                foreach (var server in _database.servers)
+                {
+                    if (server.id == Context.Guild.Id)
+                    {
+                        _database.servers.Remove(server);
+                        await Context.Channel.SendMessageAsync("Welcome module has been disabled!");
+                        return;
+                    }
 
-            await Context.Channel.SendMessageAsync("Welcome module has been disabled!");
+                }
+            }
+            else
+            {
+                await Context.Channel.SendMessageAsync("Welcome module has been disabled!");
+            }
         }
 
         [Command("preview", RunMode = RunMode.Async)]
