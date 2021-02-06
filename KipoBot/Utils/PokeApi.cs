@@ -18,6 +18,7 @@ namespace KipoBot.Utils
         {
             public string name { get; set; }
             public Sprites sprites { get; set; }
+            public int id { get; set; }
         }
         
         public class Other{
@@ -32,22 +33,40 @@ namespace KipoBot.Utils
         public class OfficialArtwork{
             public string front_default { get; set; } 
         }
+        
+        public class PokemonInfo
+        {
+            public List<FlavorTextEntry> flavor_text_entries { get; set; }
+        }
+        
+        public class FlavorTextEntry
+        {
+            public string flavor_text { get; set; }
+        }
 
         public static async Task getPokemonInfo(SocketCommandContext ctx, string name)
         {
-            HttpClient apiClient = new HttpClient();
-            var response = await apiClient.GetAsync("https://pokeapi.co/api/v2/pokemon/"+name);
-            var json = await response.Content.ReadAsStringAsync();
-            Pokemon pokemonData = JsonConvert.DeserializeObject<Pokemon>(json);
+            try
+            {
+                var pokeInfo = await Helpers.getHttpResponseString("https://pokeapi.co/api/v2/pokemon-species/" + name);
+                var pokeData = await Helpers.getHttpResponseString("https://pokeapi.co/api/v2/pokemon/" + name);
+                Pokemon pokemonData = JsonConvert.DeserializeObject<Pokemon>(pokeData);
+                PokemonInfo pokemonInfo = JsonConvert.DeserializeObject<PokemonInfo>(pokeInfo);
 
-            EmbedBuilder builder = new EmbedBuilder();
-            builder.Color = Color.Purple;
-            
-            builder.AddField(pokemonData.name, "-")
-                .WithImageUrl(pokemonData.sprites.other.officialArtwork.front_default);
-            
+                EmbedBuilder builder = new EmbedBuilder();
+                builder.Color = Color.Purple;
 
-            await ctx.Channel.SendMessageAsync(embed: builder.Build());
+                builder.AddField(pokemonData.name, "-")
+                    .WithImageUrl(pokemonData.sprites.other.officialArtwork.front_default);
+                builder.AddField("Pokedex ID:", pokemonData.id);
+                builder.AddField("Pokedex Says: ", pokemonInfo.flavor_text_entries[0].flavor_text.Replace("\f"," "));
+
+                await ctx.Channel.SendMessageAsync(embed: builder.Build());
+            }
+            catch (Exception e)
+            {
+                await ctx.Channel.SendMessageAsync("Pokemon not found: "+name);
+            }
         }
     }
 }
