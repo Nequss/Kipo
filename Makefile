@@ -1,4 +1,4 @@
-all: restore clean linux windows macos
+all: restore linux windows macos
 
 clean:
 	rm -rf  KipoBot/bin/Release
@@ -6,11 +6,11 @@ clean:
 restore:
 	dotnet restore
 
-linux: restore clean
+linux: restore
 	dotnet build -c Release -r linux-x64
 
-windows: restore clean
+windows: restore
 	dotnet build -c Release -r win-x64
 
-macos: restore clean
+macos: restore
 	dotnet build -c Release -r osx-x64
