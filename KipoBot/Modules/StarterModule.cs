@@ -19,7 +19,7 @@ namespace Kipo.Modules
 {
     [Group("t")]
     [Name("starter")]
-    [Summary("Kipo's tamagotchi club starter module. Constains all needed commands to join the game.")]
+    [Summary("Constains all needed commands to join the game.")]
     public class StarterModule : ModuleBase<SocketCommandContext>
     {
         private static DatabaseService database;
@@ -29,7 +29,7 @@ namespace Kipo.Modules
             database = _database;
         }
 
-        [Command(RunMode = RunMode.Async)]
+        [Command("starters", RunMode = RunMode.Async)]
         [Summary("Shows starter pets avaiable to choose")]
         public async Task ChoosePet()
         {
@@ -77,104 +77,18 @@ namespace Kipo.Modules
             });
 
             embedBuilder.Color = Color.Purple;
-            embedBuilder.AddField(result, "<Game tutorial field>");
+            embedBuilder.AddField(result, "Welcome to the cute and fun game where you can raise a little cutie of a pet and have fun with it competing with other players and have small battles which each other and play some minigames, just don’t forget to take care of your little ones or they will get mad and run away! :3");
+            embedBuilder.AddField("Useful commands:", "+command" +
+                "\n" +
+                "+command" +
+                "\n" +
+                "+command" +
+                "\n");
+            embedBuilder.AddField("Your pet:", "\u200b");
             embedBuilder.WithImageUrl("https://images2.imgbox.com/eb/4e/Wp74ahXN_o.png");
 
 
             await Context.Channel.SendMessageAsync(embed: embedBuilder.Build());
-        }
-
-        [Command("profile", RunMode = RunMode.Async)]
-        [Summary("Shows your profile page.")]
-        public async Task Profile()
-        {
-            if (database.players != null && database.players.Count != 0)
-            {
-                foreach (var player in database.players)
-                {
-                    if (player.id == Context.Message.Author.Id)
-                    {
-                        EmbedBuilder embedBuilder = new EmbedBuilder();
-
-                        embedBuilder.Color = Color.Purple;
-                        embedBuilder.WithAuthor(author =>
-                        {
-                            author.WithName(Context.Message.Author.Username);
-                            author.WithIconUrl(Context.Client.CurrentUser.GetAvatarUrl());
-                        });
-
-                        embedBuilder.AddField("ID         : ", player.id);
-                        embedBuilder.AddField("Wallet     : ", player.wallet);
-                        embedBuilder.AddField("Active pet : ", player.active.name);
-                        embedBuilder.AddField("Pets count : ", player.pets.Count);
-                        embedBuilder.AddField("Items count: ", player.items.Count);
-                        embedBuilder.WithImageUrl(Context.Message.Author.GetAvatarUrl());
-
-                        await Context.Channel.SendMessageAsync(embed: embedBuilder.Build());
-                        return;
-                    }
-                }
-
-                await Context.Channel.SendMessageAsync("Profile not found!");
-                return;
-            }
-            else
-            {
-                await Context.Channel.SendMessageAsync("Profile not found!");
-                return;
-            }
-        }
-
-        [Command("active", RunMode = RunMode.Async)]
-        [Summary("Shows your active pet")]
-        public async Task Pet()
-        {
-            if (database.players != null && database.players.Count != 0)
-            {
-                foreach (var player in database.players)
-                {
-                    if (player.id == Context.Message.Author.Id)
-                    {
-
-                        EmbedBuilder embedBuilder = new EmbedBuilder();
-
-                        embedBuilder.Color = Color.Purple;
-                        embedBuilder.WithAuthor(author =>
-                        {
-                            author.WithName(player.active.name);
-                        });
-
-                        embedBuilder.AddField("Name", player.active.name);
-                        embedBuilder.AddField("Type", player.active.type);
-                        embedBuilder.AddField("Health", player.active.health);
-                        embedBuilder.AddField("Experience", player.active.xp);
-                        embedBuilder.AddField("Level", player.active.level);
-                        embedBuilder.AddField("Rarity", player.active.rarity);
-                        embedBuilder.AddField("Hapiness", player.active.hapiness);
-                        embedBuilder.AddField("Hunger", player.active.hunger);
-                        embedBuilder.AddField("Thirst", player.active.thirst);
-                        embedBuilder.AddField("Strength", player.active.strength);
-                        embedBuilder.AddField("Agility", player.active.agility);
-                        embedBuilder.AddField("Speed", player.active.speed);
-                        embedBuilder.AddField("Inteligence", player.active.inteligence);
-                        embedBuilder.AddField("Accuracy", player.active.accuracy);
-                        embedBuilder.AddField("Energy", player.active.energy);
-                        embedBuilder.WithImageUrl("https://images2.imgbox.com/eb/4e/Wp74ahXN_o.png");
-
-                        await Context.Channel.SendMessageAsync(embed: embedBuilder.Build());
-                        return;
-                    }
-                }
-
-                await Context.Channel.SendMessageAsync("Profile not found!");
-                return;
-            }
-            else
-            {
-                await Context.Channel.SendMessageAsync("Profile not found!");
-                return;
-            }
-        }
-        
+        } 
     }
 }

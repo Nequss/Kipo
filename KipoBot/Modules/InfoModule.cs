@@ -35,39 +35,60 @@ namespace KipoBot.Modules
             _client = client;
         }
 
-        public async Task<Embed> GetHelp(string options)
+        [Command("help", RunMode = RunMode.Async)]
+        public async Task Help(string arg = null)
         {
             EmbedBuilder embedBuilder = new EmbedBuilder();
+
+            if (arg == "tamagotchi")
+            {
+                embedBuilder = new EmbedBuilder();
+
+                embedBuilder.Color = Color.Purple;
+                embedBuilder.WithAuthor(author =>
+                {
+                    author.WithName("Kipo's Tamagotchi Club");
+                    author.WithIconUrl(Context.Client.CurrentUser.GetAvatarUrl());
+                });
+
+                foreach (var module in _service.Modules)
+                    if (module.Group == "t")
+                        embedBuilder.AddField(char.ToUpper(module.Name[0]) + module.Name.Substring(1) + " Module | " + _config.prefix + "help " + module.Name, module.Summary, false);
+
+
+                await Context.Channel.SendMessageAsync(embed: embedBuilder.Build());
+                return;
+            }
 
             embedBuilder.Color = Color.Purple;
             embedBuilder.WithAuthor(author =>
             {
-                author.WithName("Kipo is always ready to help!");
+                author.WithName("Kipo Guild Modules");
                 author.WithIconUrl(Context.Client.CurrentUser.GetAvatarUrl());
             });
 
             //check for specified module
             foreach (var module in _service.Modules)
             {
-                if(options == module.Name)
+                if (arg == module.Name)
                 {
                     foreach (var command in module.Commands)
                         if (command.Name != "help")
                             embedBuilder.AddField(_config.prefix + (module.Group == null ? string.Empty : (module.Group + " ")) + command.Name, command.Summary == null ? "No Summary" : command.Summary, true);
 
-                    return embedBuilder.Build();
+                    await Context.Channel.SendMessageAsync(embed: embedBuilder.Build());
+                    return;
                 }
             }
 
             //if module not found, list modules avaiable
             foreach (var module in _service.Modules)
-                embedBuilder.AddField(char.ToUpper(module.Name[0]) + module.Name.Substring(1) + " Module | " + _config.prefix + "help " + module.Name, module.Summary, false);
+                if (module.Group != "t")
+                    embedBuilder.AddField(char.ToUpper(module.Name[0]) + module.Name.Substring(1) + " Module | " + _config.prefix + "help " + module.Name, module.Summary, false);
+            embedBuilder.AddField("Tamagotchi Module | " + _config.prefix + "help tamagotchi", "Contains everything about kipo's game module", false);
 
-            return embedBuilder.Build();
+            await Context.Channel.SendMessageAsync(embed: embedBuilder.Build());
         }
-
-        [Command("help", RunMode = RunMode.Async)]
-        public async Task Help(string arg = null) => await ReplyAsync(embed: await GetHelp(arg == null ? null : arg));
 
         [Command("latency", RunMode = RunMode.Async)]
         [Summary("Shows kipo's response time")]

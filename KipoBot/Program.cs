@@ -20,6 +20,7 @@ namespace KipoBot
         public async Task MainAsync()
         {
             String[] reqPaths = {"data","fonts","banners"};
+
             foreach (var path in reqPaths)
             {
                 if (!Helpers.AssertDirectory(path))
@@ -65,8 +66,8 @@ namespace KipoBot
         private ServiceProvider ConfigureServices()
         {
             return new ServiceCollection()
-                .AddSingleton(new DiscordSocketClient(new DiscordSocketConfig {
-                    MessageCacheSize = 100,
+                .AddSingleton(new DiscordSocketClient(new DiscordSocketConfig
+                {
                     ExclusiveBulkDelete = true,
                     LogLevel = LogSeverity.Debug
                 }))
