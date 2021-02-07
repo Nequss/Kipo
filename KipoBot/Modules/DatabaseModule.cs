@@ -19,6 +19,8 @@ using KipoBot.Game.Base;
 
 namespace KipoBot.Modules
 {
+    [Name("database")]
+    [Summary("Database module")]
     public class DatabaseModule : ModuleBase<SocketCommandContext>
     {
         private readonly DatabaseService _database;
@@ -57,7 +59,7 @@ namespace KipoBot.Modules
 
         }
 
-        //Lists pets database
+        //Lists players database
         [Command("checkplayers", RunMode = RunMode.Async)]
         public async Task CheckPlayers()
         {
@@ -83,7 +85,7 @@ namespace KipoBot.Modules
             }
         }
 
-        //Lists pets database
+        //Lists players pets
         [Command("checkpets", RunMode = RunMode.Async)]
         public async Task CheckPets()
         {

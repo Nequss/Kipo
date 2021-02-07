@@ -150,28 +150,27 @@ namespace KipoBot.Services
             {
                 case "bird":
                     players.Add(new Player(id, new Bird()));
-                    return "You have succesfully joined to Kipo's tamagotchi club with a bird!";
+                    return "You have succesfully joined to the Kipo's tamagotchi club with a bird!";
                 case "dog":
                     players.Add(new Player(id, new Dog()));
-                    return "You have succesfully joined to Kipo's tamagotchi club with a dog!";
+                    return "You have succesfully joined to the Kipo's tamagotchi club with a dog!";
                 case "cat":
                     players.Add(new Player(id, new Cat()));
-                    return "You have succesfully joined to Kipo's tamagotchi club with a cat!";
+                    return "You have succesfully joined to the Kipo's tamagotchi club with a cat!";
                 case "lizard":
                     players.Add(new Player(id, new Lizard()));
-                    return "You have succesfully joined to Kipo's tamagotchi club with a lizard!";
+                    return "You have succesfully joined to the Kipo's tamagotchi club with a lizard!";
                 case "hamster":
                     players.Add(new Player(id, new Hamster()));
-                    return "You have succesfully joined to Kipo's tamagotchi club with a hamster!";
+                    return "You have succesfully joined to the Kipo's tamagotchi club with a hamster!";
                 case "snake":
                     players.Add(new Player(id, new Snake()));
-                    return "You have succesfully joined to Kipo's tamagotchi club with a snake!";
+                    return "You have succesfully joined to the Kipo's tamagotchi club with a snake!";
                 case "bunny":
                     players.Add(new Player(id, new Bunny()));
-                    return "You have succesfully joined to Kipo's tamagotchi club with a bunny!";
+                    return "You have succesfully joined to the Kipo's tamagotchi club with a bunny!";
                 default:
-                    return "Pet not found! +t starters choose [pet]";
-
+                    return "error";
             }
         }
     }
