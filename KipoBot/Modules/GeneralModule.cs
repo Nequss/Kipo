@@ -124,7 +124,7 @@ namespace KipoBot.Modules
 
             foreach (var player in database.players)
             {
-                if(player.id == Context.Message.Author.Id)
+                if (player.id == Context.Message.Author.Id)
                 {
                     player.active.name = name;
                     await Context.Channel.SendMessageAsync("The name of your pet has been changed! uwu");
@@ -147,15 +147,11 @@ namespace KipoBot.Modules
                     EmbedBuilder embedBuilder = new EmbedBuilder();
 
                     embedBuilder.Color = Color.Purple;
-                    embedBuilder.WithAuthor(author =>
-                    {
-                        author.WithName($"");
-                    });
 
                     string text = string.Empty;
 
-                    for (int i = 0; i < player.pets.Count - 1; i++)
-                        text += $"Index: {i} - {player.pets[0].name}\n";
+                    for (int i = 0; i < player.pets.Count; i++)
+                        text += $"Index: {i} - {player.pets[i].name}\n";
 
                     embedBuilder.AddField($"Pet List | {Context.Message.Author.Username}", text);
 
@@ -166,6 +162,29 @@ namespace KipoBot.Modules
 
             await Context.Channel.SendMessageAsync("You are not a member of the Kipo's tamagotchi club.\n" +
                 "You can join by choosing your first pet, try +help starters");
+        }
+
+        [Command("change", RunMode = RunMode.Async)]
+        [Summary("Changes active pet, indexes of your pets can be found in +t pets\n+t change [pet's index]")]
+        public async Task Change(int? index = null)
+        {
+            foreach (var player in database.players)
+            {
+                if (player.id == Context.Message.Author.Id)
+                {
+                    try
+                    {
+                        player.active = player.pets[index.Value];
+                        await Context.Channel.SendMessageAsync("Active pet has been changed!");
+                        return;
+                    }
+                    catch
+                    {
+                        await Context.Channel.SendMessageAsync("There is no pet with such index! Type +t pets to find your pet's index!");
+                        return;
+                    }
+                }
+            }
         }
     }
 }
