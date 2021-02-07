@@ -138,9 +138,21 @@ namespace KipoBot.Services
             return Task.CompletedTask;
         }
 
+        public async Task Save()
+        {
+            var binaryformatter = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
+            Stream stream;
+
+            using (stream = File.Open(Path.Combine(PATH, "servers.bin"), FileMode.OpenOrCreate))
+                binaryformatter.Serialize(stream, servers);
+
+            using (stream = File.Open(Path.Combine(PATH, "players.bin"), FileMode.OpenOrCreate))
+                binaryformatter.Serialize(stream, players);
+        }
+
         public async Task AddServer(ulong id, ulong channel_id) => servers.Add(new Server(id, channel_id));
 
-        public async Task<Player> FindPlayer(ulong id)
+        public async Task<Player> PlayerInfo(ulong id)
         {
             if (players != null && players.Count != 0)
             {
@@ -156,9 +168,50 @@ namespace KipoBot.Services
             return null;
         }
 
-        public async Task<string> AddPlayer(ulong id, string command)
+        public async Task<bool> AddPet(ulong id, string pet)
         {
-            switch (command.ToLower())
+            if (players != null && players.Count != 0)
+            {
+                foreach (var player in players)
+                {
+                    if (player.id == id)
+                    {
+                        switch (pet.ToLower())
+                        {
+                            case "bird":
+                                player.pets.Add(new Bird());
+                                return true;
+                            case "dog":
+                                player.pets.Add(new Dog());
+                                return true;
+                            case "cat":
+                                player.pets.Add(new Cat());
+                                return true;
+                            case "lizard":
+                                player.pets.Add(new Lizard());
+                                return true;
+                            case "hamster":
+                                player.pets.Add(new Hamster());
+                                return true;
+                            case "snake":
+                                player.pets.Add(new Snake());
+                                return true;
+                            case "bunny":
+                                player.pets.Add(new Bunny());
+                                return true;
+                            default:
+                                return false;
+                        }
+                    }
+                }
+            }
+
+            return false;
+        }
+
+        public async Task<string> AddPlayer(ulong id, string pet)
+        {
+            switch (pet.ToLower())
             {
                 case "bird":
                     players.Add(new Player(id, new Bird()));

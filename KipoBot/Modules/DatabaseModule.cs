@@ -23,51 +23,52 @@ namespace KipoBot.Modules
     [Summary("Database module")]
     public class DatabaseModule : ModuleBase<SocketCommandContext>
     {
-        private readonly DatabaseService _database;
-        private readonly DiscordSocketClient _client;
+        private readonly DatabaseService database;
+        private readonly DiscordSocketClient client;
 
-        public DatabaseModule(DiscordSocketClient client, DatabaseService database)
+        public DatabaseModule(DiscordSocketClient _client, DatabaseService _database)
         {
-            _database = database;
-            _client = client;
+            database = _database;
+            client = _client;
         }
 
+        //disconnects the bot
         [Command("dc", RunMode = RunMode.Async)]
-        public async Task DC() => await _client.LogoutAsync();
+        public async Task DC() => await client.LogoutAsync();
      
         //Resets DB and memory
         [Command("reset", RunMode = RunMode.Async)]
         public async Task Reset()
         {
-            _database.servers = new List<DatabaseService.Server>();
-            _database.players = new List<Player>();
+            database.servers = new List<DatabaseService.Server>();
+            database.players = new List<Player>();
         }
 
-        //TODO
         //Adds a pet to user
         [Command("addpet", RunMode = RunMode.Async)]
-        public async Task AddPet()
+        public async Task AddPet(SocketUser user = null, [Remainder]string pet = null)
         {
-
+            user = user ?? Context.User;
+            
+            if (await database.AddPet(user.Id, pet))
+                Console.WriteLine($"Pet has been sucessfuly added to player: {user.Id}");
+            else
+                Console.WriteLine("Either player or pet doen't exists!");
         }
 
-        //TODO
-        //saves to files
+        //saves database to files
         [Command("savedb", RunMode = RunMode.Async)]
-        public async Task SaveDB()
-        {
-
-        }
+        public async Task SaveDB() => await database.Save(); 
 
         //Lists players database
         [Command("checkplayers", RunMode = RunMode.Async)]
         public async Task CheckPlayers()
         {
-            if (_database.players != null && _database.players.Count != 0)
+            if (database.players != null && database.players.Count != 0)
             {
                 Console.WriteLine("================");
 
-                foreach (var player in _database.players)
+                foreach (var player in database.players)
                 {
                     Console.WriteLine("ID         : " + player.id);
                     Console.WriteLine("Wallet     : " + player.wallet);
@@ -89,11 +90,11 @@ namespace KipoBot.Modules
         [Command("checkpets", RunMode = RunMode.Async)]
         public async Task CheckPets()
         {
-            if (_database.players != null && _database.players.Count != 0)
+            if (database.players != null && database.players.Count != 0)
             {
                 Console.WriteLine("================");
 
-                foreach (var players in _database.players)
+                foreach (var players in database.players)
                 {
                     Console.WriteLine("Owner's ID : " + players.id);
                     foreach (var pet in players.pets)
@@ -115,11 +116,11 @@ namespace KipoBot.Modules
         [Command("checkservers", RunMode = RunMode.Async)]
         public async Task CheckServers()
         {
-            if (_database.servers != null && _database.servers.Count != 0)
+            if (database.servers != null && database.servers.Count != 0)
             {
                 Console.WriteLine("================");
 
-                foreach (var server in _database.servers)
+                foreach (var server in database.servers)
                 {
                     Console.WriteLine("ID         : " + server.id);
                     Console.WriteLine("Channel ID : " + server.channel_id);

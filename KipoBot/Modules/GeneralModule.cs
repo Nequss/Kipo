@@ -31,10 +31,10 @@ namespace KipoBot.Modules
         }
 
         [Command("profile", RunMode = RunMode.Async)]
-        [Summary("Shows your profile page.")]
+        [Summary("Shows your profile page.\n+t profile")]
         public async Task Profile()
         {
-            Player player = await database.FindPlayer(Context.User.Id);
+            Player player = await database.PlayerInfo(Context.User.Id);
 
             if (player != null)
             {
@@ -66,10 +66,10 @@ namespace KipoBot.Modules
         }
 
         [Command("active", RunMode = RunMode.Async)]
-        [Summary("Shows your active pet")]
+        [Summary("Shows your active pet\n+t active")]
         public async Task Active()
         {
-            Player player = await database.FindPlayer(Context.User.Id);
+            Player player = await database.PlayerInfo(Context.User.Id);
 
             if (player != null)
             {
@@ -128,8 +128,44 @@ namespace KipoBot.Modules
                 {
                     player.active.name = name;
                     await Context.Channel.SendMessageAsync("The name of your pet has been changed! uwu");
+                    return;
                 }
             }
+
+            await Context.Channel.SendMessageAsync("You are not a member of the Kipo's tamagotchi club.\n" +
+                "You can join by choosing your first pet, try +help starters");
+        }
+
+        [Command("pets", RunMode = RunMode.Async)]
+        [Summary("Lists all your pets.\n+t pets")]
+        public async Task Pets()
+        {
+            foreach (var player in database.players)
+            {
+                if (player.id == Context.Message.Author.Id)
+                {
+                    EmbedBuilder embedBuilder = new EmbedBuilder();
+
+                    embedBuilder.Color = Color.Purple;
+                    embedBuilder.WithAuthor(author =>
+                    {
+                        author.WithName($"");
+                    });
+
+                    string text = string.Empty;
+
+                    for (int i = 0; i < player.pets.Count - 1; i++)
+                        text += $"Index: {i} - {player.pets[0].name}\n";
+
+                    embedBuilder.AddField($"Pet List | {Context.Message.Author.Username}", text);
+
+                    await Context.Channel.SendMessageAsync(embed: embedBuilder.Build());
+                    return;
+                }
+            }
+
+            await Context.Channel.SendMessageAsync("You are not a member of the Kipo's tamagotchi club.\n" +
+                "You can join by choosing your first pet, try +help starters");
         }
     }
 }
