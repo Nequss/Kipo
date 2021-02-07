@@ -71,7 +71,7 @@ namespace KipoBot.Game.Base
         {
             rarity = Rarity.Common;
             stage = Stage.Baby;
-            hapiness = 40;
+            hapiness = 25;
             level = 1;
             xp = 0;
         }

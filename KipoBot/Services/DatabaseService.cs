@@ -138,11 +138,7 @@ namespace KipoBot.Services
             return Task.CompletedTask;
         }
 
-        public Task AddServer(ulong id, ulong channel_id)
-        {
-            servers.Add(new Server(id, channel_id));
-            return Task.CompletedTask;
-        }
+        public async Task AddServer(ulong id, ulong channel_id) => servers.Add(new Server(id, channel_id));
 
         public async Task<Player> FindPlayer(ulong id)
         {
@@ -155,13 +151,9 @@ namespace KipoBot.Services
                         return player;
                     }
                 }
+            }
 
-                return null;
-            }
-            else
-            {
-                return null;
-            }
+            return null;
         }
 
         public async Task<string> AddPlayer(ulong id, string command)

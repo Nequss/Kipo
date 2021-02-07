@@ -31,7 +31,7 @@ namespace KipoBot.Game.Pets
             thirst = 20;
             energy = 10;
             speed  = 10;
-            inteligence = 10;
+            inteligence = 15;
             strength = 10;
             agility = 10;
             accuracy = 10;

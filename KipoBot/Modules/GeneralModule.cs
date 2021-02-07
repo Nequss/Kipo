@@ -113,10 +113,23 @@ namespace KipoBot.Modules
         }
 
         [Command("name", RunMode = RunMode.Async)]
-        [Summary("Changes the name of your pet.")]
-        public async Task Name()
+        [Summary("Changes the name of your active pet.\n+t name [name]")]
+        public async Task Name([Remainder]string name = null)
         {
+            if (name == null)
+            {
+                await Context.Channel.SendMessageAsync("Name can't be blank!");
+                return;
+            }
 
+            foreach (var player in database.players)
+            {
+                if(player.id == Context.Message.Author.Id)
+                {
+                    player.active.name = name;
+                    await Context.Channel.SendMessageAsync("The name of your pet has been changed! uwu");
+                }
+            }
         }
     }
 }
