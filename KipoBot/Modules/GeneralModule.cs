@@ -14,6 +14,7 @@ using System.Net;
 using System.Text;
 using System.Threading;
 using KipoBot.Services;
+using KipoBot.Game.Base;
 
 namespace KipoBot.Modules
 {
@@ -33,92 +34,89 @@ namespace KipoBot.Modules
         [Summary("Shows your profile page.")]
         public async Task Profile()
         {
-            if (database.players != null && database.players.Count != 0)
+            Player player = await database.FindPlayer(Context.User.Id);
+
+            if (player != null)
             {
-                foreach (var player in database.players)
+                EmbedBuilder embedBuilder = new EmbedBuilder();
+
+                embedBuilder.Color = Color.Purple;
+                embedBuilder.WithAuthor(author =>
                 {
-                    if (player.id == Context.Message.Author.Id)
-                    {
-                        EmbedBuilder embedBuilder = new EmbedBuilder();
+                    author.WithName("Profile Card | " + Context.Message.Author.Username);
+                });
 
-                        embedBuilder.Color = Color.Purple;
-                        embedBuilder.WithAuthor(author =>
-                        {
-                            author.WithName(Context.Message.Author.Username);
-                            author.WithIconUrl(Context.Client.CurrentUser.GetAvatarUrl());
-                        });
+                embedBuilder.AddField("Statistics",
+                    $"ID: {player.id}\n" +
+                    $"Wallet: {player.wallet}\n" +
+                    $"Active pet: {player.active.name}\n" +
+                    $"Type: {player.active.type}\n" +
+                    $"Pets: {player.pets.Count}\n" +
+                    $"Items: {player.items.Count}");
 
-                        embedBuilder.AddField("ID         : ", player.id);
-                        embedBuilder.AddField("Wallet     : ", player.wallet);
-                        embedBuilder.AddField("Active pet : ", player.active.name);
-                        embedBuilder.AddField("Pets count : ", player.pets.Count);
-                        embedBuilder.AddField("Items count: ", player.items.Count);
-                        embedBuilder.WithImageUrl(Context.Message.Author.GetAvatarUrl());
+                embedBuilder.WithImageUrl(Context.Message.Author.GetAvatarUrl());
 
-                        await Context.Channel.SendMessageAsync(embed: embedBuilder.Build());
-                        return;
-                    }
-                }
-
-                await Context.Channel.SendMessageAsync("Profile not found!");
-                return;
+                await Context.Channel.SendMessageAsync(embed: embedBuilder.Build());
             }
             else
             {
-                await Context.Channel.SendMessageAsync("Profile not found!");
-                return;
+                await Context.Channel.SendMessageAsync("You are not a member of the Kipo's tamagotchi club.\n" +
+                    "You can join by choosing your first pet, try +help starters");
             }
         }
 
         [Command("active", RunMode = RunMode.Async)]
         [Summary("Shows your active pet")]
-        public async Task Pet()
+        public async Task Active()
         {
-            if (database.players != null && database.players.Count != 0)
+            Player player = await database.FindPlayer(Context.User.Id);
+
+            if (player != null)
             {
-                foreach (var player in database.players)
+                EmbedBuilder embedBuilder = new EmbedBuilder();
+
+                embedBuilder.Color = Color.Purple;
+                embedBuilder.WithAuthor(author =>
                 {
-                    if (player.id == Context.Message.Author.Id)
-                    {
+                    author.WithName($"Pet Card | {player.active.type}");
+                });
 
-                        EmbedBuilder embedBuilder = new EmbedBuilder();
+                embedBuilder.AddField("Pet info",
+                    $"Name: {player.active.name}\n" +
+                    $"Rarity: {player.active.rarity}\n" +
+                    $"Level: {player.active.level}\n" +
+                    $"Experience: {player.active.xp}");
 
-                        embedBuilder.Color = Color.Purple;
-                        embedBuilder.WithAuthor(author =>
-                        {
-                            author.WithName(player.active.name);
-                        });
+                embedBuilder.AddField("Pet needs",
+                    $"Health: {player.active.health}\n" +
+                    $"Hapiness: {player.active.hapiness}\n" +
+                    $"Hunger: {player.active.hunger}\n" +
+                    $"Thirst: {player.active.thirst}");
 
-                        embedBuilder.AddField("Name", player.active.name);
-                        embedBuilder.AddField("Type", player.active.type);
-                        embedBuilder.AddField("Health", player.active.health);
-                        embedBuilder.AddField("Experience", player.active.xp);
-                        embedBuilder.AddField("Level", player.active.level);
-                        embedBuilder.AddField("Rarity", player.active.rarity);
-                        embedBuilder.AddField("Hapiness", player.active.hapiness);
-                        embedBuilder.AddField("Hunger", player.active.hunger);
-                        embedBuilder.AddField("Thirst", player.active.thirst);
-                        embedBuilder.AddField("Strength", player.active.strength);
-                        embedBuilder.AddField("Agility", player.active.agility);
-                        embedBuilder.AddField("Speed", player.active.speed);
-                        embedBuilder.AddField("Inteligence", player.active.inteligence);
-                        embedBuilder.AddField("Accuracy", player.active.accuracy);
-                        embedBuilder.AddField("Energy", player.active.energy);
-                        embedBuilder.WithImageUrl("https://images2.imgbox.com/eb/4e/Wp74ahXN_o.png");
+                embedBuilder.AddField("Pet statistics",
+                    $"Strength: {player.active.strength}\n" +
+                    $"Agility: {player.active.agility}\n" +
+                    $"Speed: {player.active.speed}\n" +
+                    $"Inteligence: {player.active.inteligence}\n" +
+                    $"Accuracy: {player.active.accuracy}\n" +
+                    $"Energy: {player.active.energy}");
 
-                        await Context.Channel.SendMessageAsync(embed: embedBuilder.Build());
-                        return;
-                    }
-                }
+                embedBuilder.WithImageUrl("https://images2.imgbox.com/eb/4e/Wp74ahXN_o.png");
 
-                await Context.Channel.SendMessageAsync("Profile not found!");
-                return;
+                await Context.Channel.SendMessageAsync(embed: embedBuilder.Build());
             }
             else
             {
-                await Context.Channel.SendMessageAsync("Profile not found!");
-                return;
+                await Context.Channel.SendMessageAsync("You are not a member of the Kipo's tamagotchi club.\n" +
+                    "You can join by choosing your first pet, try +help starters");
             }
+        }
+
+        [Command("name", RunMode = RunMode.Async)]
+        [Summary("Changes the name of your pet.")]
+        public async Task Name()
+        {
+
         }
     }
 }

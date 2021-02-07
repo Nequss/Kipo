@@ -144,6 +144,26 @@ namespace KipoBot.Services
             return Task.CompletedTask;
         }
 
+        public async Task<Player> FindPlayer(ulong id)
+        {
+            if (players != null && players.Count != 0)
+            {
+                foreach (var player in players)
+                {
+                    if (player.id == id)
+                    {
+                        return player;
+                    }
+                }
+
+                return null;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
         public async Task<string> AddPlayer(ulong id, string command)
         {
             switch (command.ToLower())
