@@ -16,17 +16,17 @@ using System.Threading;
 using KipoBot.Services;
 using KipoBot.Game.Base;
 
-namespace KipoBot.Game.Items.Potions
+namespace KipoBot.Game.Items.Berries
 {
-    class GiantPotion : Item
+    class Hackberry : Item
     {
-        public GiantPotion()
+        public Hackberry()
         {
-            type = Type.Potion;
-            price = 800;
-            name = "Giant Potion";
-            describtion = "Oh ma gahd your pets feel so good after it!";
-            health = 200; //full TODO
+            type = Type.Berry;
+            price = 20;
+            name = "Hackberry";
+            describtion = "It grows in your pc";
+            hunger = 20;
         }
 
         public override Pet Use(Pet pet)

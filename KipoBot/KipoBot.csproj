@@ -18,8 +18,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Game\Items\Berries\" />
     <Folder Include="Game\Items\Drinks\" />
+    <Folder Include="Game\Items\Fruits\" />
+    <Folder Include="Game\Items\Tools\" />
+    <Folder Include="Game\Items\Treats\" />
   </ItemGroup>
 
 </Project>

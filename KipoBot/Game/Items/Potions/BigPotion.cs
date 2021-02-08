@@ -16,7 +16,7 @@ using System.Threading;
 using KipoBot.Services;
 using KipoBot.Game.Base;
 
-namespace KipoBot.Game.Items.Toys
+namespace KipoBot.Game.Items.Potions
 {
     class BigPotion : Item
     {
