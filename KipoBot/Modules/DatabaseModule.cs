@@ -16,6 +16,7 @@ using System.Text;
 using System.Threading;
 using KipoBot.Services;
 using KipoBot.Game.Base;
+using System.Reflection;
 
 namespace KipoBot.Modules
 {
@@ -30,6 +31,22 @@ namespace KipoBot.Modules
         {
             database = _database;
             client = _client;
+        }
+
+        [Command("listtoys", RunMode = RunMode.Async)]
+        public async Task ListToys()
+        {
+            var elements = Assembly.GetExecutingAssembly().GetTypes()
+              .Where(t => t.Namespace == "KipoBot.Game.Items.Toys")
+              .ToList();
+
+            int i = 1;
+
+            foreach (var element in elements)
+            {
+                Console.WriteLine(i + ". " + element);
+                i++;
+            }
         }
 
         //disconnects the bot
