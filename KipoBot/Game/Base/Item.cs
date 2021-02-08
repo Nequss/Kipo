@@ -27,8 +27,8 @@ namespace KipoBot.Game.Base
             Vegetable,
             Berry,
             Drink,
-            Fruits,
-            Treats
+            Fruit,
+            Treat
         }
 
         public Type type;
