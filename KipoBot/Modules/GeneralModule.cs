@@ -81,11 +81,16 @@ namespace KipoBot.Modules
                     author.WithName($"Pet Card | {player.active.type}");
                 });
 
+                String tmpWork = "None";
+                if (player.active.currentWork != null)
+                    tmpWork = player.active.currentWork.name;
+
                 embedBuilder.AddField("Pet info",
                     $"Name: {player.active.name}\n" +
                     $"Rarity: {player.active.rarity}\n" +
                     $"Level: {player.active.level}\n" +
-                    $"Experience: {player.active.xp}");
+                    $"Experience: {player.active.xp}\n" +
+                    $"Currnet Job: {tmpWork}");
 
                 embedBuilder.AddField("Pet needs",
                     $"Health: {player.active.health}\n" +
