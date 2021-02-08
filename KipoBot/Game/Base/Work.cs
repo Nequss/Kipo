@@ -22,7 +22,7 @@ namespace KipoBot.Game.Base
         public Player workerOwner;
         public SocketCommandContext context;
 
-        protected Work(ref Pet pet, ref Player owner, SocketCommandContext ctx)
+        protected Work(Pet pet, Player owner, SocketCommandContext ctx)
         {
             worker = pet;
             worker.currentWork = this;
