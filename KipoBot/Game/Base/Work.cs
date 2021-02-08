@@ -62,7 +62,7 @@ namespace KipoBot.Game.Base
 
         public void removeWork()
         {
-            worker.removeWork();
+            worker.currentWork = null;
         }
 
         public void beginWork()
@@ -105,7 +105,7 @@ namespace KipoBot.Game.Base
             return true;
         }
 
-        public void verify()
+        public void proceed()
         {
             if (!isOldEnough())
             {
