@@ -54,6 +54,7 @@ namespace KipoBot.Game.Base
         public byte hapiness;
         public byte level;
         public int xp;
+        public Work currentWork=null;
          
         //to set
         public string name;
@@ -66,7 +67,6 @@ namespace KipoBot.Game.Base
         public byte strength;
         public byte agility;
         public byte accuracy;
-        public Work currentWork=null;
 
         protected Pet()
         {
@@ -75,6 +75,11 @@ namespace KipoBot.Game.Base
             hapiness = 25;
             level = 1;
             xp = 0;
+        }
+
+        public void removeWork()
+        {
+            currentWork = null;
         }
     }
 }
