@@ -77,9 +77,9 @@ namespace KipoBot.Game.Base
             xp = 0;
         }
 
-        public void removeWork()
+        public bool hasWork()
         {
-            currentWork = null;
+            return currentWork != null;
         }
     }
 }
