@@ -54,7 +54,7 @@ namespace KipoBot.Modules
                     $"Pets: {player.pets.Count}\n" +
                     $"Items: {player.items.Count}");
 
-                embedBuilder.WithImageUrl(Context.Message.Author.GetAvatarUrl());
+                embedBuilder.WithThumbnailUrl(Context.Message.Author.GetAvatarUrl());
 
                 await Context.Channel.SendMessageAsync(embed: embedBuilder.Build());
             }
@@ -127,7 +127,7 @@ namespace KipoBot.Modules
                 if (player.id == Context.Message.Author.Id)
                 {
                     player.active.name = name;
-                    await Context.Channel.SendMessageAsync("The name of your pet has been changed! uwu");
+                    await Context.Channel.SendMessageAsync("The name of your pet has been changed!");
                     return;
                 }
             }
@@ -185,6 +185,9 @@ namespace KipoBot.Modules
                     }
                 }
             }
+
+            await Context.Channel.SendMessageAsync("You are not a member of the Kipo's tamagotchi club.\n" +
+                "You can join by choosing your first pet, try +help starters");
         }
     }
 }

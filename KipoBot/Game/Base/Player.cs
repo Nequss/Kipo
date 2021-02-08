@@ -30,11 +30,11 @@ namespace KipoBot.Game.Base
         public Player(ulong _id, Pet pet)
         {
             id = _id;
-            this.wallet = 100;
-            this.pets = new List<Pet>();
-            this.pets.Add(pet);
-            this.active = pet;
-            this.items = new List<Item>();
+            wallet = 100;
+            pets = new List<Pet>();
+            pets.Add(pet);
+            active = pet;
+            items = new List<Item>();
         }
     }
 }
