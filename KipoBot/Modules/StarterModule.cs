@@ -107,10 +107,8 @@ namespace Kipo.Modules
 
             if (tmp != null)
             {
-                Factory f = new Factory(tmp.active, tmp, Context);
-                tmp.active.currentWork = f;
+                new Factory(tmp.active, tmp, Context);
             }
-            
         }
     }
 }
