@@ -238,5 +238,25 @@ namespace KipoBot.Services
                     return "error";
             }
         }
+        
+        public async Task<Player> FindPlayer(ulong id)
+        {
+            if (players != null && players.Count != 0)
+            {
+                foreach (var player in players)
+                {
+                    if (player.id == id)
+                    {
+                        return player;
+                    }
+                }
+
+                return null;
+            }
+            else
+            {
+                return null;
+            }
+        }
     }
 }

@@ -13,6 +13,8 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading;
+using KipoBot.Game.Base;
+using KipoBot.Game.Jobs;
 using KipoBot.Services;
 
 namespace Kipo.Modules
@@ -87,6 +89,28 @@ namespace Kipo.Modules
             embedBuilder.WithImageUrl("https://images2.imgbox.com/eb/4e/Wp74ahXN_o.png");
 
             await Context.Channel.SendMessageAsync(embed: embedBuilder.Build());
-        } 
+        }
+
+        [Command("work", RunMode = RunMode.Async)]
+        [Summary("just do it")]
+        public async Task Work()
+        {
+            Player tmp = null;
+            foreach (var player in database.players)
+            {
+                if (player.id == Context.User.Id)
+                {
+                    tmp = player;
+                    break;
+                }
+            }
+
+            if (tmp != null)
+            {
+                Factory f = new Factory(tmp.active, tmp, Context);
+                tmp.active.currentWork = f;
+            }
+            
+        }
     }
 }

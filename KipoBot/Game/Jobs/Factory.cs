@@ -11,8 +11,12 @@ namespace KipoBot.Game.Jobs
             name = "Factory";
             reward = 25;
             energyCost = 10;
+            thirstCost = 10;
+            hungerCost = 5;
+            happinessCost = 10;
             timeDuration = 1;
-            reqStage = Pet.Stage.Teenager;
+            reqStage = Pet.Stage.Baby;
+            verify();
         }
     }
 }
