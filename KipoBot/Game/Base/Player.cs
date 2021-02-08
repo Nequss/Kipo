@@ -33,7 +33,7 @@ namespace KipoBot.Game.Base
             wallet = 100;
             pets = new List<Pet>();
             pets.Add(pet);
-            active = pet;
+            active = pets[0];
             items = new List<Item>();
         }
     }
