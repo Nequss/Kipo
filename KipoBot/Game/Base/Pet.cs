@@ -66,6 +66,7 @@ namespace KipoBot.Game.Base
         public byte strength;
         public byte agility;
         public byte accuracy;
+        public Work currentWork=null;
 
         protected Pet()
         {
