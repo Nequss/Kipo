@@ -20,7 +20,6 @@
   <ItemGroup>
     <Folder Include="Game\Items\Berries\" />
     <Folder Include="Game\Items\Drinks\" />
-    <Folder Include="Game\Items\Vegetables\" />
   </ItemGroup>
 
 </Project>
