@@ -22,7 +22,6 @@
     <Folder Include="Game\Items\Berries\" />
     <Folder Include="Game\Items\Drinks\" />
     <Folder Include="Game\Items\Vegetables\" />
-    <Folder Include="Game\Items\Potions\" />
   </ItemGroup>
 
 </Project>
