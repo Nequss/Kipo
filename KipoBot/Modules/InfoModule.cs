@@ -124,8 +124,7 @@ namespace KipoBot.Modules
             embedBuilder.AddField("Host OS", systemInfo.getOsPlatform(), true);
             embedBuilder.AddField("Library", "Discord.Net 2.2.0", true);
             embedBuilder.AddField("Creator", "Nequs#6848", true);
-            embedBuilder.AddField("Support server", "discord.gg/XR5HG7Yayz", true);
-
+            embedBuilder.AddField("Support server", "https://discord.com/XR5HG7Yayz", true);
 
             await Context.Channel.SendMessageAsync(embed: embedBuilder.Build());
         }
