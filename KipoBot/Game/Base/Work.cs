@@ -1,4 +1,5 @@
 using System;
+using Discord;
 using Discord.Commands;
 
 namespace KipoBot.Game.Base
@@ -21,7 +22,7 @@ namespace KipoBot.Game.Base
         public Player workerOwner;
         public SocketCommandContext context;
 
-        protected Work(Pet pet, Player owner, SocketCommandContext ctx)
+        protected Work(ref Pet pet, ref Player owner, SocketCommandContext ctx)
         {
             worker = pet;
             worker.currentWork = this;
@@ -51,12 +52,20 @@ namespace KipoBot.Game.Base
         {
             context.Channel.SendMessageAsync($"{worker.name} has finished!\n{workerOwner.id} had {workerOwner.wallet} money.");
             worker.energy -= energyCost;
+            worker.thirst -= thirstCost;
+            worker.hunger -= hungerCost;
+            worker.hapiness -= happinessCost;
             workerOwner.wallet += reward;
-            worker.currentWork = null;
             context.Channel.SendMessageAsync($"Now has {workerOwner.wallet} money.");
+            removeWork();
         }
 
-        public void workStarted()
+        public void removeWork()
+        {
+            worker.removeWork();
+        }
+
+        public void beginWork()
         {
             timeStarted = DateTime.Now;
             timeEnd = timeStarted + new TimeSpan(timeDuration,0,0);
@@ -66,16 +75,32 @@ namespace KipoBot.Game.Base
         public bool satisfiesReqs()
         {
             if (worker.energy < energyCost)
+            {
+                context.Channel.SendMessageAsync($"{worker.name} does not meet energy requirements.");
+                removeWork();
                 return false;
+            }
 
             if (worker.thirst < thirstCost)
+            {
+                context.Channel.SendMessageAsync($"{worker.name} does not meet thirst requirements.");
+                removeWork();
                 return false;
-            
+            }
+
             if (worker.hunger < hungerCost)
-                return false; 
-            
-            if (worker.hapiness < happinessCost)
+            {
+                context.Channel.SendMessageAsync($"{worker.name} does not meet hunger requirements.");
+                removeWork();
                 return false;
+            }
+
+            if (worker.hapiness < happinessCost)
+            {
+                context.Channel.SendMessageAsync($"{worker.name} does not meet happiness requirements.");
+                removeWork();
+                return false;
+            }
 
             return true;
         }
@@ -85,19 +110,33 @@ namespace KipoBot.Game.Base
             if (!isOldEnough())
             {
                 context.Channel.SendMessageAsync($"This work requires your pet to be at least at stage: {reqStage}\nCome back when it gets older!");
+                removeWork();
                 return;
             }
             
             if (reqItem != null && !hasReqItem())
             {
+                //TODO Check if pet owner has required item
                 //context.Channel.SendMessageAsync($"This work requires an item that you currently don't have: {reqItem}\nCome back when you have it!");
+                //removeWork();
                 //return;
             }
 
-            satisfiesReqs();
-            workStarted();
+            if (!satisfiesReqs())
+            {
+                removeWork();
+                return;
+            }
+
+            beginWork();
             context.Channel.SendMessageAsync($"{worker.name} started job: {name}");
             workCompleted();
+            removeWork();
+        }
+
+        public void quitWork()
+        {
+            //TODO STOP WORKING
         }
     }
 }
