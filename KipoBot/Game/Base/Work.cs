@@ -8,6 +8,7 @@ namespace KipoBot.Game.Base
     public abstract class Work
     {
         public int reward;
+        public int xpReward;
         public String name;
         public byte energyCost;
         public byte thirstCost;
@@ -21,6 +22,7 @@ namespace KipoBot.Game.Base
         public DateTime timeEnd;
         public Player workerOwner;
         public SocketCommandContext context;
+        public bool markedForDeletion { get; protected set;}
 
         protected Work(Pet pet, Player owner, SocketCommandContext ctx)
         {
@@ -28,6 +30,7 @@ namespace KipoBot.Game.Base
             worker.currentWork = this;
             workerOwner = owner;
             context = ctx;
+            markedForDeletion = false;
         }
 
         public bool isOldEnough()
@@ -55,6 +58,7 @@ namespace KipoBot.Game.Base
             worker.thirst -= thirstCost;
             worker.hunger -= hungerCost;
             worker.hapiness -= happinessCost;
+            worker.xp += xpReward;
             workerOwner.wallet += reward;
             context.Channel.SendMessageAsync($"Now has {workerOwner.wallet} money.");
             removeWork();
@@ -63,10 +67,12 @@ namespace KipoBot.Game.Base
         public void removeWork()
         {
             worker.currentWork = null;
+            markedForDeletion = true;
         }
 
         public void beginWork()
         {
+            addToWorkList();
             timeStarted = DateTime.Now;
             timeEnd = timeStarted + new TimeSpan(timeDuration,0,0);
             context.Channel.SendMessageAsync($"Work started at: {timeStarted}\nWill end at: {timeEnd}\nTime remaining: {timeEnd.Subtract(timeStarted)}");
@@ -122,7 +128,7 @@ namespace KipoBot.Game.Base
                 //return;
             }
 
-            if (!satisfiesReqs())
+            if (!satisfiesReqs() || !meetsAdditionalReqs())
             {
                 removeWork();
                 return;
@@ -131,12 +137,21 @@ namespace KipoBot.Game.Base
             beginWork();
             context.Channel.SendMessageAsync($"{worker.name} started job: {name}");
             workCompleted();
-            removeWork();
         }
 
         public void quitWork()
         {
-            //TODO STOP WORKING
+            removeWork();
+        }
+
+        protected bool meetsAdditionalReqs()
+        {
+            return true;
+        }
+
+        private void addToWorkList()
+        {
+            //TODO ADD THIS TO ACTIVE WORK LIST
         }
     }
 }

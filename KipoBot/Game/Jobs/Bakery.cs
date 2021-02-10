@@ -6,16 +6,16 @@ using KipoBot.Game.Base;
 namespace KipoBot.Game.Jobs
 {
     [Serializable]
-    class Factory : Work
+    class Bakery : Work
     {
-        public Factory(Pet pet, Player owner, SocketCommandContext ctx) : base(pet, owner, ctx)
+        public Bakery(Pet pet, Player owner, SocketCommandContext ctx) : base(pet, owner, ctx)
         {
-            name = "Factory";
-            reward = 25;
-            energyCost = 10;
-            thirstCost = 10;
-            hungerCost = 5;
-            happinessCost = 10;
+            name = "Bakery";
+            reward = 35;
+            energyCost = 20;
+            thirstCost = 15;
+            hungerCost = 10;
+            happinessCost = 13;
             timeDuration = 1;
             xpReward = 20;
             reqStage = Pet.Stage.Teenager;
