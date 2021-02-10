@@ -11,7 +11,7 @@ namespace KipoBot.Game.Items.Potions
             type = Type.Potion;
             price = 800;
             name = "Giant Potion";
-            describtion = "Oh ma gahd your pets feel so good after it!";
+            description = "Oh ma gahd your pets feel so good after it!";
             health = 200;
         }
     }

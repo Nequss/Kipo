@@ -11,7 +11,7 @@ namespace KipoBot.Game.Items.Drinks
             type = Type.Drink;
             price = 20;
             name = "Milk";
-            describtion = "Milked straight from a cow, it's deliciuos and good for babies";
+            description = "Milked straight from a cow, it's deliciuos and good for babies";
             thirst = 15;
         }
     }

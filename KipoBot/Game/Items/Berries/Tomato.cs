@@ -11,7 +11,7 @@ namespace KipoBot.Game.Items.Berries
             type = Type.Berry;
             price = 10;
             name = "Tomato";
-            describtion = "Yes, it’s a berry. It's evil in my opinion but someone else will say they are good as hell so to each their own";
+            description = "Yes, it’s a berry. It's evil in my opinion but someone else will say they are good as hell so to each their own";
             hunger = 5;
         }
     }

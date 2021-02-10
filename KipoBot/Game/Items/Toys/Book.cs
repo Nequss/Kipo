@@ -11,7 +11,7 @@ namespace KipoBot.Game.Items.Toys
             type = Type.Toy;
             price = 100;
             name = "Book";
-            describtion = "Perfect pass time for your pet";
+            description = "Perfect pass time for your pet";
             hapiness = 20;
             energy = 20;
         }

@@ -11,7 +11,7 @@ namespace KipoBot.Game.Items.Tools
             type = Type.Tool;
             price = 200;
             name = "Camera";
-            describtion = "Take some pretty pictures and sell them";
+            description = "Take some pretty pictures and sell them";
         }
     }
 }

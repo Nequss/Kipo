@@ -11,7 +11,7 @@ namespace KipoBot.Game.Items.Fruits
             type = Type.Fruit;
             price = 10;
             name = "Mandarin";
-            describtion = "Not a language but fruit best for christmas season";
+            description = "Not a language but fruit best for christmas season";
             hunger = 5;
         }
     }

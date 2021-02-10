@@ -11,7 +11,7 @@ namespace KipoBot.Game.Items.Vegetables
             type = Type.Vegetable;
             price = 15;
             name = "Beets";
-            describtion = "Root type veggy, packed with essential vitamins, minerals and plant compounds, some of which have medicinal properties.";
+            description = "Root type veggy, packed with essential vitamins, minerals and plant compounds, some of which have medicinal properties.";
             hunger = 10;
         }
     }

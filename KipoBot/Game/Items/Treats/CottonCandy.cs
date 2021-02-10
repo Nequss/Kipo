@@ -11,7 +11,7 @@ namespace KipoBot.Game.Items.Treats
             type = Type.Treat;
             price = 10;
             name = "Cotton candy";
-            describtion = "Mostly found in festivals, circus and amusement parks - high sugar treat";
+            description = "Mostly found in festivals, circus and amusement parks - high sugar treat";
             hapiness = 5;
         }
     }

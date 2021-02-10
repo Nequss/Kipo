@@ -11,7 +11,7 @@ namespace KipoBot.Game.Items.Treats
             type = Type.Treat;
             price = 10;
             name = "Bubble gum";
-            describtion = "You can chew it and chew it for hours till it looses its taste";
+            description = "You can chew it and chew it for hours till it looses its taste";
             hapiness = 5;
         }
     }

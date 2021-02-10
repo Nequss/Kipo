@@ -11,7 +11,7 @@ namespace KipoBot.Game.Items.Toys
             type = Type.Toy;
             price = 200;
             name = "Drums";
-            describtion = "Boom Dum-ba-badump, let's play with some boom-ba-drooms!";
+            description = "Boom Dum-ba-badump, let's play with some boom-ba-drooms!";
             hapiness = 60;
         }
     }

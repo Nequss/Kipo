@@ -11,7 +11,7 @@ namespace KipoBot.Game.Items.Vegetables
             type = Type.Vegetable;
             price = 20;
             name = "Lettuce";
-            describtion = "True lettuce uwu";
+            description = "True lettuce uwu";
             hunger = 15;
         }
     }

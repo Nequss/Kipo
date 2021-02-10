@@ -10,7 +10,7 @@ namespace KipoBot.Game.Items.Drinks
             type = Type.Drink;
             price = 100;
             name = "Secret Juice";
-            describtion = "(7u7)";
+            description = "(7u7)";
             thirst = 30;
         }
     }

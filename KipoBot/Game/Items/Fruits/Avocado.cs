@@ -11,7 +11,7 @@ namespace KipoBot.Game.Items.Fruits
             type = Type.Fruit;
             price = 20;
             name = "Avocado";
-            describtion = "Ripe and soft fruit that you can make so much good stuff from - eat it! it's incredible";
+            description = "Ripe and soft fruit that you can make so much good stuff from - eat it! it's incredible";
             hunger = 10;
         }
     }

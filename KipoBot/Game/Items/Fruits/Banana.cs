@@ -11,7 +11,7 @@ namespace KipoBot.Game.Items.Fruits
             type = Type.Fruit;
             price = 10;
             name = "Banana";
-            describtion = "Yellow long fruit that is great both in taste and benefits";
+            description = "Yellow long fruit that is great both in taste and benefits";
             hunger = 5;
         }
     }

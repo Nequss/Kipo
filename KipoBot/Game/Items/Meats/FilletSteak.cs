@@ -11,7 +11,7 @@ namespace KipoBot.Game.Items.Toys
             type = Type.Meat;
             price = 20;
             name = "Fillet Steak";
-            describtion = "A slice of beef from back of cow or whatever";
+            description = "A slice of beef from back of cow or whatever";
             hunger = 20;
         }
     }

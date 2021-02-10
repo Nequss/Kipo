@@ -11,7 +11,7 @@ namespace KipoBot.Game.Items.Treats
             type = Type.Treat;
             price = 15;
             name = "Ice cream";
-            describtion = "Tasty and good but be carefull! Kept warm might melt";
+            description = "Tasty and good but be carefull! Kept warm might melt";
             hapiness = 10;
         }
     }

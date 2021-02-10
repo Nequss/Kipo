@@ -11,7 +11,7 @@ namespace KipoBot.Game.Items.Drinks
             type = Type.Drink;
             price = 10;
             name = "Water";
-            describtion = "NORMAL WATER NOTHING WRONG HERE";
+            description = "NORMAL WATER NOTHING WRONG HERE";
             thirst = 5;
         }
     }

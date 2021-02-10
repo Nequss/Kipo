@@ -11,7 +11,7 @@ namespace KipoBot.Game.Items.Toys
             type = Type.Meat;
             price = 10;
             name = "Bacon";
-            describtion = "Meat from the back or sides of a pig that's cured and sliced";
+            description = "Meat from the back or sides of a pig that's cured and sliced";
             hunger = 5;
         }
     }

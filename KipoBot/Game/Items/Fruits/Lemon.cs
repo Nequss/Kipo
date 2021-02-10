@@ -11,7 +11,7 @@ namespace KipoBot.Game.Items.Fruits
             type = Type.Fruit;
             price = 15;
             name = "Lemon";
-            describtion = "Very sour that’s all you need to know";
+            description = "Very sour that’s all you need to know";
             hunger = 10;
         }
     }

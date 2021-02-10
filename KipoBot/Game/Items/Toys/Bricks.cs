@@ -11,7 +11,7 @@ namespace KipoBot.Game.Items.Toys
             type = Type.Toy;
             price = 25;
             name = "Bricks";
-            describtion = "Not as good as lego but should work fine to build some destcuctable structures";
+            description = "Not as good as lego but should work fine to build some destcuctable structures";
             hapiness = 15;
         }
     }

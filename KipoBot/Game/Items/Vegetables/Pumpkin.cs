@@ -11,7 +11,7 @@ namespace KipoBot.Game.Items.Vegetables
             type = Type.Vegetable;
             price = 50;
             name = "Pumpkin";
-            describtion = "Big orange and scary if carved, it just screams halloween";
+            description = "Big orange and scary if carved, it just screams halloween";
             hunger = 30;
         }
     }

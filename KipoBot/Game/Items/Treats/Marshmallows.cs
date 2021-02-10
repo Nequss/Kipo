@@ -11,7 +11,7 @@ namespace KipoBot.Game.Items.Treats
             type = Type.Treat;
             price = 15;
             name = "Marshmallows";
-            describtion = "Soft and sticky, i kinda want to cuddle them";
+            description = "Soft and sticky, i kinda want to cuddle them";
             hapiness = 10;
         }
     }

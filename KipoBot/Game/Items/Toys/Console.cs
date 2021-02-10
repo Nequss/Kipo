@@ -11,7 +11,7 @@ namespace KipoBot.Game.Items.Toys
             type = Type.Toy;
             price = 250;
             name = "Console";
-            describtion = "Your pet can play epic games that will get it into true gamer mindset!";
+            description = "Your pet can play epic games that will get it into true gamer mindset!";
             hapiness = 45; 
         }
     }

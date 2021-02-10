@@ -11,7 +11,7 @@ namespace KipoBot.Game.Items.Drinks
             type = Type.Drink;
             price = 20;
             name = "Coffee";
-            describtion = "Coffee is good for your pet's mind and soul to get some energy and motivation";
+            description = "Coffee is good for your pet's mind and soul to get some energy and motivation";
             thirst = 10;
             energy = 5;
         }

@@ -11,7 +11,7 @@ namespace KipoBot.Game.Items.Treats
             type = Type.Treat;
             price = 10;
             name = "Chocolate";
-            describtion = "Chocolate! Me wants much chocolate!";
+            description = "Chocolate! Me wants much chocolate!";
             hapiness = 5;
         }
     }

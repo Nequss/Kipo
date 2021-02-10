@@ -11,7 +11,7 @@ namespace KipoBot.Game.Items.Drinks
             type = Type.Drink;
             price = 15;
             name = "Flavoured Water";
-            describtion = "Water but with TASTE";
+            description = "Water but with TASTE";
             thirst = 10;
         }
     }

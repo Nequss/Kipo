@@ -11,7 +11,7 @@ namespace KipoBot.Game.Items.Fruits
             type = Type.Fruit;
             price = 45;
             name = "DragonFruit";
-            describtion = "IT’S A DRAGON O.O YOU MIGHT GROW WINGS AND START BREATHING FIRE";
+            description = "IT’S A DRAGON O.O YOU MIGHT GROW WINGS AND START BREATHING FIRE";
             hunger = 35;
         }
     }

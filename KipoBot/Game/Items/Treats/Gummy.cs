@@ -11,7 +11,7 @@ namespace KipoBot.Game.Items.Treats
             type = Type.Treat;
             price = 15;
             name = "Gummy";
-            describtion = "Tender and plump, these delicious gummies are sure to surprise and delight with every bite!";
+            description = "Tender and plump, these delicious gummies are sure to surprise and delight with every bite!";
             hapiness = 10;
         }
     }

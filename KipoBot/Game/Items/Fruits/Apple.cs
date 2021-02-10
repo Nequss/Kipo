@@ -11,7 +11,7 @@ namespace KipoBot.Game.Items.Fruits
             type = Type.Fruit;
             price = 10;
             name = "Apple";
-            describtion = "Well shaped, smooth skinned fruit that is high in nutrients and sugar";
+            description = "Well shaped, smooth skinned fruit that is high in nutrients and sugar";
             hunger = 5;
         }
     }

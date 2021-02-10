@@ -11,7 +11,7 @@ namespace KipoBot.Game.Items.Drinks
             type = Type.Drink;
             price = 10;
             name = "Mountain Water";
-            describtion = "Water from mountains legends says a lot of things were sacrificed for this ";
+            description = "Water from mountains legends says a lot of things were sacrificed for this ";
             thirst = 5;
         }
     }

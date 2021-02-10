@@ -11,7 +11,7 @@ namespace KipoBot.Game.Items.Toys
             type = Type.Meat;
             price = 30;
             name = "Wagyu Grade 1";
-            describtion = "Meat from japanese kettle, really amazing taste";
+            description = "Meat from japanese kettle, really amazing taste";
             hunger = 20;
         }
     }

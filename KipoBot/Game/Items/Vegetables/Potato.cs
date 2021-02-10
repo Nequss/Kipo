@@ -12,7 +12,7 @@ namespace KipoBot.Game.Items.Vegetables
             type = Type.Vegetable;
             price = 10;
             name = "Potato";
-            describtion = "Most favorite food of people, it's amazing everyone knows it - nothing to say there";
+            description = "Most favorite food of people, it's amazing everyone knows it - nothing to say there";
             hunger = 5;
         }
     }

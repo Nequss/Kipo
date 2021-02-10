@@ -11,7 +11,7 @@ namespace KipoBot.Game.Items.Toys
             type = Type.Toy;
             price = 10;
             name = "Ball";
-            describtion = "Most typical playing ball";
+            description = "Most typical playing ball";
             hapiness = 5;
         }
     }

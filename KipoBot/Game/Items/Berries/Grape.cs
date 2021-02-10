@@ -11,7 +11,7 @@ namespace KipoBot.Game.Items.Berries
             type = Type.Berry;
             price = 20;
             name = "Grape";
-            describtion = "Commonly used in wine making";
+            description = "Commonly used in wine making";
             hunger = 15;
         }
     }

@@ -11,7 +11,7 @@ namespace KipoBot.Game.Items.Fruits
             type = Type.Fruit;
             price = 45;
             name = "Watermelon";
-            describtion = "Best summer food EVER";
+            description = "Best summer food EVER";
             hunger = 35;
         }
     }

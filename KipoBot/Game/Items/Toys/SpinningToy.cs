@@ -11,7 +11,7 @@ namespace KipoBot.Game.Items.Toys
             type = Type.Toy;
             price = 10;
             name = "Spinning Toy";
-            describtion = "It spins round… and round… and round…";
+            description = "It spins round… and round… and round…";
             hapiness = 5;
         }
     }

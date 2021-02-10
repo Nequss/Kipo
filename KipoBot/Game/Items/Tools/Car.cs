@@ -11,7 +11,7 @@ namespace KipoBot.Game.Items.Tools
             type = Type.Tool;
             price = 3000;
             name = "Car";
-            describtion = "Let your pet drive around the city in brand new car!";
+            description = "Let your pet drive around the city in brand new car!";
         }
     }
 }

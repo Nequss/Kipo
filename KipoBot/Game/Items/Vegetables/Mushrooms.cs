@@ -11,7 +11,7 @@ namespace KipoBot.Game.Items.Vegetables
             type = Type.Vegetable;
             price = 10;
             name = "Mushrooms";
-            describtion = "Found in forests, they are fleshy and weird shaped ";
+            description = "Found in forests, they are fleshy and weird shaped ";
             hunger = 5;
         }
     }

@@ -11,7 +11,7 @@ namespace KipoBot.Game.Items.Fruits
             type = Type.Fruit;
             price = 10;
             name = "Kiwi";
-            describtion = "High in Vitamin C and dietary fiber - also provides a variety of health benefits";
+            description = "High in Vitamin C and dietary fiber - also provides a variety of health benefits";
             hunger = 5;
         }
     }

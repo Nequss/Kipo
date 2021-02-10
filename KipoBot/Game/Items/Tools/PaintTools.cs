@@ -11,7 +11,7 @@ namespace KipoBot.Game.Items.Tools
             type = Type.Tool;
             price = 120;
             name = "Paint tools";
-            describtion = "Your pet can draw some pretty pictures with this";
+            description = "Your pet can draw some pretty pictures with this";
         }
     }
 }

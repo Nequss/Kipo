@@ -11,7 +11,7 @@ namespace KipoBot.Game.Items.Toys
             type = Type.Meat;
             price = 30;
             name = "Fish";
-            describtion = "Straight out of cleanest waters in the world, just basically melts in your pets mouths";
+            description = "Straight out of cleanest waters in the world, just basically melts in your pets mouths";
             hunger = 25;
         }
     }

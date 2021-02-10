@@ -11,7 +11,7 @@ namespace KipoBot.Game.Items.Berries
             type = Type.Berry;
             price = 15;
             name = "Wineberry";
-            describtion = "Tastes like raspebries but more meh but pets like it";
+            description = "Tastes like raspebries but more meh but pets like it";
             hunger = 10;
         }
     }

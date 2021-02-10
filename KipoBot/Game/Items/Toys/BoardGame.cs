@@ -11,7 +11,7 @@ namespace KipoBot.Game.Items.Toys
             type = Type.Toy;
             price = 15;
             name = "Board Game";
-            describtion = @"Let your pet enjoy to play some board games like they are the smartest in the world, which we all know they are :3";
+            description = @"Let your pet enjoy to play some board games like they are the smartest in the world, which we all know they are :3";
             hapiness = 50;
         }
     }

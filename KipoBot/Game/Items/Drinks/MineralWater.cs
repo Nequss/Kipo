@@ -11,7 +11,7 @@ namespace KipoBot.Game.Items.Drinks
             type = Type.Drink;
             price = 10;
             name = "Mineral Water";
-            describtion = "Water with minerals is good for you to drink during hot days";
+            description = "Water with minerals is good for you to drink during hot days";
             thirst = 5;
         }
     }

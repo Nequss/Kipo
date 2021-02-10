@@ -11,7 +11,7 @@ namespace KipoBot.Game.Items.Berries
             type = Type.Berry;
             price = 10;
             name = "Raspberry";
-            describtion = "Low in calories but high in fiber, vitamins, minerals and antioxidants";
+            description = "Low in calories but high in fiber, vitamins, minerals and antioxidants";
             hunger = 5;
         }
     }

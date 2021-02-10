@@ -11,7 +11,7 @@ namespace KipoBot.Game.Items.Toys
             type = Type.Toy;
             price = 50;
             name = "Huge Ball";
-            describtion = "A big ball for your pets to play with roll on it or use it as a weapon to throw at you when they get mad ";
+            description = "A big ball for your pets to play with roll on it or use it as a weapon to throw at you when they get mad ";
             hapiness = 30;
         }
     }

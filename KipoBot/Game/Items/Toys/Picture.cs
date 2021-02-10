@@ -11,7 +11,7 @@ namespace KipoBot.Game.Items.Toys
             type = Type.Toy;
             price = 10;
             name = "Picture";
-            describtion = "Picture to hang on your wall for pets and look at it";
+            description = "Picture to hang on your wall for pets and look at it";
             hapiness = 5;
         }
     }

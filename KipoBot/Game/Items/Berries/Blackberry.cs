@@ -11,7 +11,7 @@ namespace KipoBot.Game.Items.Berries
             type = Type.Berry;
             price = 10;
             name = "Blacberry";
-            describtion = "Rasberry but black";
+            description = "Rasberry but black";
             hunger = 5;
         }
     }

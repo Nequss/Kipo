@@ -11,7 +11,7 @@ namespace KipoBot.Game.Items.Toys
             type = Type.Meat;
             price = 10;
             name = "Insects";
-            describtion = "Who the hell likes them? Well whatever! Your pets must have a specific type of taste to eat these ";
+            description = "Who the hell likes them? Well whatever! Your pets must have a specific type of taste to eat these ";
             hunger = 5;
         }
     }

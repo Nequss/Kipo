@@ -11,7 +11,7 @@ namespace KipoBot.Game.Items.Vegetables
             type = Type.Vegetable;
             price = 10;
             name = "Seeds";
-            describtion = "Only for small pets, other ones woudn't even feel the nutrition values of it";
+            description = "Only for small pets, other ones woudn't even feel the nutrition values of it";
             hunger = 5;
         }
     }

@@ -11,7 +11,7 @@ namespace KipoBot.Game.Items.Toys
             type = Type.Toy;
             price = 15;
             name = "Plushie";
-            describtion = "Little plushie is like a the best friend to any pet";
+            description = "Little plushie is like a the best friend to any pet";
             hapiness = 10;
         }
     }

@@ -11,7 +11,7 @@ namespace KipoBot.Game.Items.Toys
             type = Type.Meat;
             price = 10;
             name = "Chicken Breasts";
-            describtion = "Chicken's boobs";
+            description = "Chicken's boobs";
             hunger = 5;
         }
     }

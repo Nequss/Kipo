@@ -11,7 +11,7 @@ namespace KipoBot.Game.Items.Toys
             type = Type.Meat;
             price = 15;
             name = "Ham";
-            describtion = "Cured meat from a pig's upper leg";
+            description = "Cured meat from a pig's upper leg";
             hunger = 10;
         }
     }

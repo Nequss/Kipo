@@ -11,7 +11,7 @@ namespace KipoBot.Game.Items.Toys
             type = Type.Meat;
             price = 10;
             name = "Beaf";
-            describtion = "Meat from a cow, bull or ox";
+            description = "Meat from a cow, bull or ox";
             hunger = 5;
         }
     }

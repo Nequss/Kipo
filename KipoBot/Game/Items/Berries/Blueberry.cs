@@ -11,7 +11,7 @@ namespace KipoBot.Game.Items.Berries
             type = Type.Berry;
             price = 10;
             name = "Blueberry";
-            describtion = "THE BEST BERRY IN THE WORLD - opinion of some pets";
+            description = "THE BEST BERRY IN THE WORLD - opinion of some pets";
             hunger = 5;
         }
     }

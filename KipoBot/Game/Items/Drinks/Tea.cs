@@ -11,7 +11,7 @@ namespace KipoBot.Game.Items.Drinks
             type = Type.Drink;
             price = 20;
             name = "Tea";
-            describtion = "Any tea you want, leave it to your imagination";
+            description = "Any tea you want, leave it to your imagination";
             thirst = 15;
         }
     }

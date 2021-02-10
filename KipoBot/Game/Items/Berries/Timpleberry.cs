@@ -11,7 +11,7 @@ namespace KipoBot.Game.Items.Berries
             type = Type.Berry;
             price = 15;
             name = "Timbleberry";
-            describtion = "owo what's this?";
+            description = "owo what's this?";
             hunger = 10;
         }
     }

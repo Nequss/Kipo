@@ -11,7 +11,7 @@ namespace KipoBot.Game.Items.Vegetables
             type = Type.Vegetable;
             price = 20;
             name = "Beans";
-            describtion = "Beans… beans… beans… BEANS!!!";
+            description = "Beans… beans… beans… BEANS!!!";
             hunger = 15;
         }
     }

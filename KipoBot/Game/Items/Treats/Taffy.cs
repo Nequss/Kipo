@@ -11,7 +11,7 @@ namespace KipoBot.Game.Items.Treats
             type = Type.Treat;
             price = 20;
             name = "Taffy";
-            describtion = "Chewwy ropes of gum that are tasty as heck";
+            description = "Chewwy ropes of gum that are tasty as heck";
             hapiness = 15;
         }
     }

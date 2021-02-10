@@ -11,7 +11,7 @@ namespace KipoBot.Game.Items.Fruits
             type = Type.Fruit;
             price = 30;
             name = "Peach";
-            describtion = "Tastes sweet and it's just good overall";
+            description = "Tastes sweet and it's just good overall";
             hunger = 20;
         }
     }

@@ -11,7 +11,7 @@ namespace KipoBot.Game.Items.Fruits
             type = Type.Fruit;
             price = 10;
             name = "Orange";
-            describtion = "Kinda the same as mandarin but BIG";
+            description = "Kinda the same as mandarin but BIG";
             hunger = 5;
         }
     }

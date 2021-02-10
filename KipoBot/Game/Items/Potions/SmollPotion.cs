@@ -11,7 +11,7 @@ namespace KipoBot.Game.Items.Potions
             type = Type.Potion;
             price = 100;
             name = "Smoll Potion";
-            describtion = "Just enought to get back from little quarrel";
+            description = "Just enought to get back from little quarrel";
             health = 20;
         }
     }

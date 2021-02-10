@@ -11,7 +11,7 @@ namespace KipoBot.Game.Items.Treats
             type = Type.Treat;
             price = 10;
             name = "Candy";
-            describtion = "The most typical candy you can think of";
+            description = "The most typical candy you can think of";
             hapiness = 5;
         }
     }

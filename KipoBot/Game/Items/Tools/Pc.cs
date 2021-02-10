@@ -11,7 +11,7 @@ namespace KipoBot.Game.Items.Toys
             type = Type.Tool;
             price = 400;
             name = "PC";
-            describtion = "Gamus! We got them! Movies we got as well! And something more… ;)";
+            description = "Gamus! We got them! Movies we got as well! And something more… ;)";
         }
     }
 }

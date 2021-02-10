@@ -11,7 +11,7 @@ namespace KipoBot.Game.Items.Potions
             type = Type.Potion;
             price = 300;
             name = "Medium Potion";
-            describtion = "Smoth tasting weird drink, your pets always wonder what it does";
+            description = "Smoth tasting weird drink, your pets always wonder what it does";
             health = 50;
         }
     }

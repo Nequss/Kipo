@@ -11,7 +11,7 @@ namespace KipoBot.Game.Items.Toys
             type = Type.Toy;
             price = 200;
             name = "Guitar";
-            describtion = "Let your pet learn how to play guitar and most importantly enjoy doing so";
+            description = "Let your pet learn how to play guitar and most importantly enjoy doing so";
             hapiness = 60;
         }
     }

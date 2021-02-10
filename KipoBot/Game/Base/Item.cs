@@ -35,7 +35,7 @@ namespace KipoBot.Game.Base
         public Type type;
         public short price;
         public string name;
-        public string describtion;
+        public string description;
         public byte hapiness;
         public byte health;
         public byte hunger;
