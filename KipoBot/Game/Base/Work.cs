@@ -72,8 +72,7 @@ namespace KipoBot.Game.Base
 
         public void beginWork()
         {
-            //TODO ADD TO LIST OF ACTIVE JOBS
-            
+            addToWorkList();
             timeStarted = DateTime.Now;
             timeEnd = timeStarted + new TimeSpan(timeDuration,0,0);
             context.Channel.SendMessageAsync($"Work started at: {timeStarted}\nWill end at: {timeEnd}\nTime remaining: {timeEnd.Subtract(timeStarted)}");
@@ -129,27 +128,30 @@ namespace KipoBot.Game.Base
                 //return;
             }
 
-            if (!satisfiesReqs())
+            if (!satisfiesReqs() || !meetsAdditionalReqs())
             {
                 removeWork();
                 return;
             }
 
-            meetsAdditionalReqs();
             beginWork();
             context.Channel.SendMessageAsync($"{worker.name} started job: {name}");
             workCompleted();
-            removeWork();
         }
 
         public void quitWork()
         {
-            //TODO STOP WORKING
+            removeWork();
         }
 
         protected bool meetsAdditionalReqs()
         {
             return true;
+        }
+
+        private void addToWorkList()
+        {
+            //TODO ADD THIS TO ACTIVE WORK LIST
         }
     }
 }
