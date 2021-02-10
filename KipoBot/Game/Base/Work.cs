@@ -135,6 +135,7 @@ namespace KipoBot.Game.Base
                 return;
             }
 
+            meetsAdditionalReqs();
             beginWork();
             context.Channel.SendMessageAsync($"{worker.name} started job: {name}");
             workCompleted();
@@ -144,6 +145,11 @@ namespace KipoBot.Game.Base
         public void quitWork()
         {
             //TODO STOP WORKING
+        }
+
+        protected bool meetsAdditionalReqs()
+        {
+            return true;
         }
     }
 }
