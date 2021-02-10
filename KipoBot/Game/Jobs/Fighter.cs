@@ -1,9 +1,11 @@
+using System;
 using System.Runtime.CompilerServices;
 using Discord.Commands;
 using KipoBot.Game.Base;
 
 namespace KipoBot.Game.Jobs
 {
+    [Serializable]
     class Fighter : Work
     {
         public Fighter(Pet pet, Player owner, SocketCommandContext ctx) : base(pet, owner, ctx)
