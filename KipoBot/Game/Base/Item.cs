@@ -28,7 +28,8 @@ namespace KipoBot.Game.Base
             Berry,
             Drink,
             Fruit,
-            Treat
+            Treat,
+            Tool
         }
 
         public Type type;
