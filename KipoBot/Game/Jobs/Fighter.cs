@@ -19,5 +19,16 @@ namespace KipoBot.Game.Jobs
             reqStage = Pet.Stage.Adult;
             proceed();
         }
+
+        public bool meetsAdditionalReqs()
+        {
+            return worker.strength >= 30;
+        }
+
+        public void workCompleted()
+        {
+            worker.health -= 10;
+            base.workCompleted();
+        }
     }
 }
