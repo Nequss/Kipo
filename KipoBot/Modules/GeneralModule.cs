@@ -85,7 +85,8 @@ namespace KipoBot.Modules
                     $"Name: {player.active.name}\n" +
                     $"Rarity: {player.active.rarity}\n" +
                     $"Level: {player.active.level}\n" +
-                    $"Experience: {player.active.xp}");
+                    $"Experience: {player.active.xp}\n" +
+                    $"Has job: {player.active.hasWork()}");
 
                 embedBuilder.AddField("Pet needs",
                     $"Health: {player.active.health}\n" +
