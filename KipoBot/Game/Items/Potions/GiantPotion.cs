@@ -14,10 +14,5 @@ namespace KipoBot.Game.Items.Potions
             describtion = "Oh ma gahd your pets feel so good after it!";
             health = 200;
         }
-
-        public override Pet Use(Pet pet)
-        {
-            return pet;
-        }
     }
 }

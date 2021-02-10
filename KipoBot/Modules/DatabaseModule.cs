@@ -33,22 +33,6 @@ namespace KipoBot.Modules
             client = _client;
         }
 
-        [Command("listtoys", RunMode = RunMode.Async)]
-        public async Task ListToys()
-        {
-            var elements = Assembly.GetExecutingAssembly().GetTypes()
-              .Where(t => t.Namespace == "KipoBot.Game.Items.Toys")
-              .ToList();
-
-            int i = 1;
-
-            foreach (var element in elements)
-            {
-                Console.WriteLine(i + ". " + element);
-                i++;
-            }
-        }
-
         //disconnects the bot
         [Command("dc", RunMode = RunMode.Async)]
         public async Task DC() => await client.LogoutAsync();
