@@ -4,11 +4,11 @@ using KipoBot.Game.Base;
 
 namespace KipoBot.Game.Jobs
 {
-    class Factory : Work
+    class Barber : Work
     {
-        public Factory(Pet pet, Player owner, SocketCommandContext ctx) : base(pet, owner, ctx)
+        public Barber(Pet pet, Player owner, SocketCommandContext ctx) : base(pet, owner, ctx)
         {
-            name = "Factory";
+            name = "Barber";
             reward = 25;
             energyCost = 10;
             thirstCost = 10;

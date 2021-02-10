@@ -1,0 +1,23 @@
+using System.Runtime.CompilerServices;
+using Discord.Commands;
+using KipoBot.Game.Base;
+
+namespace KipoBot.Game.Jobs
+{
+    class Artist : Work
+    {
+        public Artist(Pet pet, Player owner, SocketCommandContext ctx) : base(pet, owner, ctx)
+        {
+            name = "Artist";
+            reward = 120;
+            energyCost = 30;
+            thirstCost = 27;
+            hungerCost = 20;
+            happinessCost = 16;
+            timeDuration = 3;
+            xpReward = 40;
+            reqStage = Pet.Stage.Teenager;
+            proceed();
+        }
+    }
+}
