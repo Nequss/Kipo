@@ -26,15 +26,25 @@ namespace KipoBot.Game.Pets
         {
             type = Type.Hamster;
             name = "Hamster";
+
             health = 40;
             hunger = 25;
             thirst = 25;
             energy = 10;
+
             speed = 15;
             inteligence = 15;
             strength = 5;
             agility = 10;
             accuracy = 10;
         }
+
+        public override int getBaseHealth() => 40;
+
+        public override byte getBaseHunger() => 25;
+
+        public override byte getBaseThirst() => 25;
+
+        public override byte getBaseEnergy() => 10;
     }
 }

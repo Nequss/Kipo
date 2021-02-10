@@ -41,7 +41,5 @@ namespace KipoBot.Game.Base
         public byte hunger;
         public byte thirst;
         public byte energy;
-
-        public abstract Pet Use(Pet pet);
     }
 }

@@ -77,6 +77,11 @@ namespace KipoBot.Game.Base
             xp = 0;
         }
 
+        public abstract int getBaseHealth();
+        public abstract byte getBaseEnergy();
+        public abstract byte getBaseThirst();
+        public abstract byte getBaseHunger();
+
         public bool hasWork()
         {
             return currentWork != null;

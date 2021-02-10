@@ -32,5 +32,13 @@ namespace KipoBot.Game.Pets
             agility = 10;
             accuracy = 10;
         }
+
+        public override int getBaseHealth() => 50;
+
+        public override byte getBaseHunger() => 20;
+
+        public override byte getBaseThirst() => 20;
+
+        public override byte getBaseEnergy() => 10;
     }
 }
