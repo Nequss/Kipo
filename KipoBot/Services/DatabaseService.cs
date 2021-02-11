@@ -114,6 +114,19 @@ namespace KipoBot.Services
             _client.UserJoined += UserJoined;
             _client.Connected += Connected;
             _client.Disconnected += Disconnected;
+            
+        }
+        
+        private void loadJobs()
+        {
+            foreach (var player in players)
+            {
+                foreach (var pet in player.pets)
+                {
+                    if (pet.hasWork())
+                        pet.currentWork.addToWorkList();
+                }
+            }
         }
        
         private Task Disconnected(Exception arg)
@@ -135,28 +148,31 @@ namespace KipoBot.Services
             Stream stream;
             var binaryformatter = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
 
-            if (Helpers.FileExists($"{PATH}/servers.bin"))
+            if (Helpers.FileExists($"{PATH}servers.bin"))
             {
                 stream = File.Open(Path.Combine(PATH, "servers.bin"), FileMode.Open);
                 servers = (List<Server>)binaryformatter.Deserialize(stream);
-                Console.WriteLine($"Succesfully loaded DB: {PATH}/servers.bin");
+                Console.WriteLine($"Succesfully loaded DB: {PATH}servers.bin");
+                stream.Close();
             }
             else
             {
                 servers = new List<Server>();
             }
 
-            if (Helpers.FileExists($"{PATH}/players.bin"))
+            if (Helpers.FileExists($"{PATH}players.bin"))
             {
                 stream = File.Open(Path.Combine(PATH, "players.bin"), FileMode.Open);
                 players = (List<Player>)binaryformatter.Deserialize(stream);
-                Console.WriteLine($"Succesfully loaded DB: {PATH}/players.bin");
+                Console.WriteLine($"Succesfully loaded DB: {PATH}players.bin");
+                stream.Close();
             }
             else
             {
                 players = new List<Player>();
             }
 
+            loadJobs();
             return Task.CompletedTask;
         }
 
