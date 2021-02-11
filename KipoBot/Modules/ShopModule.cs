@@ -14,6 +14,8 @@ using System.Net;
 using System.Text;
 using System.Threading;
 using KipoBot.Services;
+using KipoBot.Game.Base;
+using System.Collections.Generic;
 
 namespace KipoBot.Modules
 {
@@ -27,6 +29,156 @@ namespace KipoBot.Modules
         public ShopModule(DatabaseService _database)
         {
             database = _database;
+        }
+
+        public async Task<EmbedBuilder[]> MakeEmbeds(List<Item> list, string category)
+        {
+            string stats;
+
+            EmbedBuilder[] embedBuilders = new EmbedBuilder[(list.Count / 20) + 1];
+
+            for (int i = 0; i < (list.Count / 20) + 1; i++)
+            {
+                embedBuilders[i] = new EmbedBuilder();
+                embedBuilders[i].Color = Color.Purple;
+                embedBuilders[i].WithAuthor(author =>
+                {
+                    author.WithName($"Shop - {category} | +t buy <name>");
+                    author.WithIconUrl(Context.Client.CurrentUser.GetAvatarUrl());
+                });
+
+                for (int j = i * 20; j < (i + 1) * 20; j++)
+                {
+                    stats = "";
+
+                    if (j >= list.Count)
+                        break;
+
+                    if (list[j].energy != 0)
+                        stats += $"+{list[j].energy} energy\n";
+                    if (list[j].hapiness != 0)
+                        stats += $"+{list[j].hapiness} hapiness\n";
+                    if (list[j].health != 0)
+                        stats += $"+{list[j].health} health\n";
+                    if (list[j].hunger != 0)
+                        stats += $"+{list[j].hunger} hunger\n";
+                    if (list[j].thirst != 0)
+                        stats += $"+{list[j].thirst} thirst\n";
+
+                    embedBuilders[i].AddField($"{list[j].name} | {list[j].price} gold", $"{stats}{list[j].description}");
+                }
+            }
+
+            return embedBuilders;
+        }
+
+        [Command("buy", RunMode = RunMode.Async)]
+        [Summary("No description")]
+        public async Task Buy([Remainder]string name)
+        {
+            Player player = await database.FindPlayer(Context.Message.Author.Id);
+
+            if (player != null)
+            { 
+                foreach (var category in database.shop)
+                {   
+                    foreach (var item in category)
+                    {    
+                        if (name == item.name)
+                        {
+                            if (player.wallet >= item.price)
+                            {
+                                player.wallet -= item.price;
+                                player.items.Add(item);
+                            }
+                            else
+                            {
+                                await Context.Channel.SendMessageAsync($"Lack of funds! Your wallet: {player.wallet}");
+                            }
+                        }
+                        else
+                        {
+                            await Context.Channel.SendMessageAsync("Item not found!");
+                        }
+                    }
+                }
+            }
+            else
+            {
+                await Context.Channel.SendMessageAsync("Join to the Kipo's tamagotchi club first!");
+            }
+        }
+
+        [Command("berries", RunMode = RunMode.Async)]
+        [Summary("No description")]
+        public async Task Berries()
+        {
+            foreach(var embed in await MakeEmbeds(database.shop[0], "Berries"))
+                await Context.Channel.SendMessageAsync(embed: embed.Build());
+        }
+
+        [Command("drinks", RunMode = RunMode.Async)]
+        [Summary("No description")]
+        public async Task Drinks()
+        {
+            foreach (var embed in await MakeEmbeds(database.shop[1], "Drinks"))
+                await Context.Channel.SendMessageAsync(embed: embed.Build());
+        }
+
+        [Command("fruits", RunMode = RunMode.Async)]
+        [Summary("No description")]
+        public async Task Fruits()
+        {
+            foreach (var embed in await MakeEmbeds(database.shop[2], "Fruits"))
+                await Context.Channel.SendMessageAsync(embed: embed.Build());
+        }
+
+        [Command("meats", RunMode = RunMode.Async)]
+        [Summary("No description")]
+        public async Task Meats()
+        {
+            foreach (var embed in await MakeEmbeds(database.shop[3], "Meats"))
+                await Context.Channel.SendMessageAsync(embed: embed.Build());
+        }
+
+        [Command("potions", RunMode = RunMode.Async)]
+        [Summary("No description")]
+        public async Task Potions()
+        {
+            foreach (var embed in await MakeEmbeds(database.shop[4], "Potions"))
+                await Context.Channel.SendMessageAsync(embed: embed.Build());
+        }
+
+        [Command("tools", RunMode = RunMode.Async)]
+        [Summary("No description")]
+        public async Task Tools()
+        {
+            foreach (var embed in await MakeEmbeds(database.shop[5], "Tools"))
+                await Context.Channel.SendMessageAsync(embed: embed.Build());
+        }
+
+        [Command("toys", RunMode = RunMode.Async)]
+        [Summary("No description")]
+        public async Task Toys()
+        {
+            foreach (var embed in await MakeEmbeds(database.shop[6], "Toys"))
+                await Context.Channel.SendMessageAsync(embed: embed.Build());
+        }
+
+        [Command("treats", RunMode = RunMode.Async)]
+        [Summary("No description")]
+        public async Task Treats()
+        {
+            foreach (var embed in await MakeEmbeds(database.shop[7], "Treats"))
+                await Context.Channel.SendMessageAsync(embed: embed.Build());
+        }
+
+        [Command("vegetables", RunMode = RunMode.Async)]
+        [Summary("No description")]
+        public async Task Vegetables()
+        {
+            foreach (var embed in await MakeEmbeds(database.shop[8], "Vegetables"))
+                await Context.Channel.SendMessageAsync(embed: embed.Build());
         }
     }
 }
