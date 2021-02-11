@@ -105,9 +105,13 @@ namespace Kipo.Modules
                 }
             }
 
-            if (tmp != null)
+            if (tmp != null && !tmp.active.hasWork())
             {
                 new Factory(tmp.active, tmp, Context);
+            }
+            else
+            {
+                Context.Channel.SendMessageAsync("Pet already has a job!");
             }
         }
     }
