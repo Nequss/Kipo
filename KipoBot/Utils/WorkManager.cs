@@ -65,6 +65,7 @@ namespace KipoBot.Utils
                 count++;
             }
 
+            deletionList = new List<Work>();
             Console.WriteLine($"Removed {count} completed jobs!");
         }
     }
