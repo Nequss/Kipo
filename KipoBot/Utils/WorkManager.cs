@@ -41,7 +41,7 @@ namespace KipoBot.Utils
                             }
                             else
                             {
-                                Console.WriteLine($"Job will be completed in: {currentTime.Subtract(job.timeEnd)}");
+                                Console.WriteLine($"Job will be completed in: {job.timeEnd.Subtract(currentTime)}");
                             }
                         }
                     }
