@@ -8,7 +8,7 @@ namespace KipoBot.Game.Jobs
     [Serializable]
     class Fighter : Work
     {
-        public Fighter(Pet pet, Player owner, SocketCommandContext ctx) : base(pet, owner, ctx)
+        public Fighter(Pet pet, Player owner, SocketCommandContext ctx) : base(pet, owner)
         {
             name = "Fighter";
             reward = 130;
@@ -19,10 +19,10 @@ namespace KipoBot.Game.Jobs
             timeDuration = 2;
             xpReward = 30;
             reqStage = Pet.Stage.Adult;
-            proceed();
+            proceed(ctx);
         }
 
-        public bool meetsAdditionalReqs()
+        public bool meetsAdditionalReqs(SocketCommandContext ctx)
         {
             return worker.strength >= 30;
         }

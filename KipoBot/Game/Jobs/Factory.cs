@@ -8,7 +8,7 @@ namespace KipoBot.Game.Jobs
     [Serializable]
     class Factory : Work
     {
-        public Factory(Pet pet, Player owner, SocketCommandContext ctx) : base(pet, owner, ctx)
+        public Factory(Pet pet, Player owner, SocketCommandContext ctx) : base(pet, owner)
         {
             name = "Factory";
             reward = 25;
@@ -18,8 +18,8 @@ namespace KipoBot.Game.Jobs
             happinessCost = 10;
             timeDuration = 1;
             xpReward = 20;
-            reqStage = Pet.Stage.Teenager;
-            proceed();
+            reqStage = Pet.Stage.Baby;
+            proceed(ctx);
         }
     }
 }

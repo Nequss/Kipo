@@ -8,7 +8,7 @@ namespace KipoBot.Game.Jobs
     [Serializable]
     class CoffeShop : Work
     {
-        public CoffeShop(Pet pet, Player owner, SocketCommandContext ctx) : base(pet, owner, ctx)
+        public CoffeShop(Pet pet, Player owner, SocketCommandContext ctx) : base(pet, owner)
         {
             name = "Coffe Shop";
             reward = 25;
@@ -19,7 +19,7 @@ namespace KipoBot.Game.Jobs
             timeDuration = 1;
             xpReward = 20;
             reqStage = Pet.Stage.Teenager;
-            proceed();
+            proceed(ctx);
         }
     }
 }

@@ -8,7 +8,7 @@ namespace KipoBot.Game.Jobs
     [Serializable]
     class PersonalDriver : Work
     {
-        public PersonalDriver(Pet pet, Player owner, SocketCommandContext ctx) : base(pet, owner, ctx)
+        public PersonalDriver(Pet pet, Player owner, SocketCommandContext ctx) : base(pet, owner)
         {
             name = "Personal Driver";
             reward = 200;
@@ -19,7 +19,7 @@ namespace KipoBot.Game.Jobs
             timeDuration = 4;
             xpReward = 50;
             reqStage = Pet.Stage.Adult;
-            proceed();
+            proceed(ctx);
         }
     }
 }

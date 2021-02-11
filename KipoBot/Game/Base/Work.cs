@@ -22,15 +22,13 @@ namespace KipoBot.Game.Base
         public DateTime timeStarted;
         public DateTime timeEnd;
         public Player workerOwner;
-        public SocketCommandContext context;
         public bool markedForDeletion { get; protected set;}
 
-        protected Work(Pet pet, Player owner, SocketCommandContext ctx)
+        protected Work(Pet pet, Player owner)
         {
             worker = pet;
             worker.currentWork = this;
             workerOwner = owner;
-            context = ctx;
             markedForDeletion = false;
         }
 
@@ -67,7 +65,6 @@ namespace KipoBot.Game.Base
         {
             worker.currentWork = null;
             workerOwner = null;
-            context = null;
             markedForDeletion = true;
         }
 
@@ -78,7 +75,7 @@ namespace KipoBot.Game.Base
             addToWorkList();
         }
 
-        public bool satisfiesReqs()
+        public bool satisfiesReqs(SocketCommandContext context)
         {
             if (worker.energy < energyCost)
             {
@@ -111,7 +108,7 @@ namespace KipoBot.Game.Base
             return true;
         }
 
-        public void proceed()
+        public void proceed(SocketCommandContext context)
         {
             if (!isOldEnough())
             {
@@ -128,7 +125,7 @@ namespace KipoBot.Game.Base
                 //return;
             }
 
-            if (!satisfiesReqs() || !meetsAdditionalReqs())
+            if (!satisfiesReqs(context) || !meetsAdditionalReqs(context))
             {
                 removeWork();
                 return;
@@ -143,12 +140,12 @@ namespace KipoBot.Game.Base
             removeWork();
         }
 
-        protected bool meetsAdditionalReqs()
+        protected bool meetsAdditionalReqs(SocketCommandContext context)
         {
             return true;
         }
 
-        private void addToWorkList()
+        public  void addToWorkList()
         {
             lock (WorkManager.jobList)
             {

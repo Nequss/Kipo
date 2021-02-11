@@ -8,7 +8,7 @@ namespace KipoBot.Game.Jobs
     [Serializable]
     class Construction : Work
     {
-        public Construction(Pet pet, Player owner, SocketCommandContext ctx) : base(pet, owner, ctx)
+        public Construction(Pet pet, Player owner, SocketCommandContext ctx) : base(pet, owner)
         {
             name = "Construction";
             reward = 25;
@@ -18,7 +18,7 @@ namespace KipoBot.Game.Jobs
             happinessCost = 10;
             timeDuration = 1;
             reqStage = Pet.Stage.Teenager;
-            proceed();
+            proceed(ctx);
         }
     }
 }
