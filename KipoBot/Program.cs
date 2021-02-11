@@ -9,7 +9,9 @@ using System.Threading.Tasks;
 using KipoBot.Services;
 using System.IO;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Threading;
+using KipoBot.Modules;
 using KipoBot.Utils;
 
 namespace KipoBot
@@ -53,14 +55,16 @@ namespace KipoBot
                 await services.GetRequiredService<CommandHandlingService>().InitializeAsync();
                 await client.SetGameAsync(config.prefix + "help");
                 
-                Thread jobManager = new Thread(WorkManager.Start);
-                WorkManager.running = true;
-                jobManager.Start();
-
+                startJobManager();
                 await Task.Delay(-1);
             }
+        }
 
-            
+        private void startJobManager()
+        {
+            Thread jobManager = new Thread(WorkManager.Start);
+            WorkManager.running = true;
+            jobManager.Start();
         }
 
         private Task LogAsync(LogMessage log)
