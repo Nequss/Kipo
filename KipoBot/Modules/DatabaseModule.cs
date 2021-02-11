@@ -17,6 +17,7 @@ using System.Threading;
 using KipoBot.Services;
 using KipoBot.Game.Base;
 using System.Reflection;
+using KipoBot.Utils;
 
 namespace KipoBot.Modules
 {
@@ -35,8 +36,12 @@ namespace KipoBot.Modules
 
         //disconnects the bot
         [Command("dc", RunMode = RunMode.Async)]
-        public async Task DC() => await client.LogoutAsync();
-     
+        public async Task DC()
+        {
+            WorkManager.running = false;
+            await client.LogoutAsync();
+        }
+        
         //Resets DB and memory
         [Command("reset", RunMode = RunMode.Async)]
         public async Task Reset()
