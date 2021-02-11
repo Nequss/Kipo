@@ -53,6 +53,8 @@ namespace KipoBot.Utils
                     Thread.Sleep(5000);
                 }
             }
+
+            Console.WriteLine("JobManager: Stopped!");
         }
 
         private static void removeCompletedJobs()
