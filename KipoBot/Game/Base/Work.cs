@@ -1,6 +1,7 @@
 using System;
 using Discord;
 using Discord.Commands;
+using KipoBot.Utils;
 
 namespace KipoBot.Game.Base
 {
@@ -53,29 +54,28 @@ namespace KipoBot.Game.Base
 
         public void workCompleted()
         {
-            context.Channel.SendMessageAsync($"{worker.name} has finished!\n{workerOwner.id} had {workerOwner.wallet} money.");
             worker.energy -= energyCost;
             worker.thirst -= thirstCost;
             worker.hunger -= hungerCost;
             worker.hapiness -= happinessCost;
             worker.xp += xpReward;
             workerOwner.wallet += reward;
-            context.Channel.SendMessageAsync($"Now has {workerOwner.wallet} money.");
             removeWork();
         }
 
         public void removeWork()
         {
             worker.currentWork = null;
+            workerOwner = null;
+            context = null;
             markedForDeletion = true;
         }
 
         public void beginWork()
         {
-            addToWorkList();
             timeStarted = DateTime.Now;
             timeEnd = timeStarted + new TimeSpan(timeDuration,0,0);
-            context.Channel.SendMessageAsync($"Work started at: {timeStarted}\nWill end at: {timeEnd}\nTime remaining: {timeEnd.Subtract(timeStarted)}");
+            addToWorkList();
         }
 
         public bool satisfiesReqs()
@@ -134,9 +134,8 @@ namespace KipoBot.Game.Base
                 return;
             }
 
-            beginWork();
             context.Channel.SendMessageAsync($"{worker.name} started job: {name}");
-            workCompleted();
+            beginWork();
         }
 
         public void quitWork()
@@ -151,7 +150,15 @@ namespace KipoBot.Game.Base
 
         private void addToWorkList()
         {
-            //TODO ADD THIS TO ACTIVE WORK LIST
+            lock (WorkManager.jobList)
+            {
+                WorkManager.jobList.Add(this);
+            }
+        }
+
+        public string getWorkInfo()
+        {
+            return $"Job: {name}\nTime left: {timeEnd.Subtract(DateTime.Now)}";
         }
     }
 }
