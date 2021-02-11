@@ -87,5 +87,15 @@
         {
             return currentWork != null;
         }
+
+        public string getWorkInfo()
+        {
+            if (hasWork())
+            {
+                return currentWork.getWorkInfo();
+            }
+
+            return "Job: None";
+        }
     }
 }
