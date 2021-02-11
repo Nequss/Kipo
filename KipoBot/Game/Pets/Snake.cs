@@ -1,16 +1,4 @@
-﻿using System.IO;
-using System.Net.Http;
-using System.Threading.Tasks;
-using System.Text.Json;
-using System.Text.Json.Serialization;
-using System.Collections.Generic;
-using System;
-using System.Diagnostics;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading;
-using KipoBot.Services;
+﻿using System;
 using KipoBot.Game.Base;
 
 namespace KipoBot.Game.Pets
@@ -35,12 +23,12 @@ namespace KipoBot.Game.Pets
             accuracy = 15;
         }
 
-        public override int getBaseHealth() => 40;
+        public override byte getMaxHealth(byte level) => (byte)(40 + level);
 
-        public override byte getBaseHunger() => 20;
+        public override short getMaxEnergy(byte level) => (short)((10 + level) * 2);
 
-        public override byte getBaseThirst() => 25;
+        public override byte getMaxHunger() => 20;
 
-        public override byte getBaseEnergy() => 10;
+        public override byte getMaxThirst() => 25;
     }
 }

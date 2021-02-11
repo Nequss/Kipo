@@ -19,7 +19,7 @@ namespace KipoBot.Modules
 {
     [Group("t")]
     [Name("shop")]
-    [Summary("Get food, drinks, accesories and other things for your pets and you. ")]
+    [Summary("Get food, drinks, accesories and other things for your pets and you.")]
     public class ShopModule : ModuleBase<SocketCommandContext>
     {
         private static DatabaseService database;
@@ -28,7 +28,5 @@ namespace KipoBot.Modules
         {
             database = _database;
         }
-
-
     }
 }

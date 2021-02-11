@@ -1,21 +1,4 @@
-﻿using Discord;
-using Discord.Webhook;
-using Discord.WebSocket;
-using Discord.Commands;
-using System.IO;
-using System.Net.Http;
-using System.Threading.Tasks;
-using System.Text.Json;
-using System.Text.Json.Serialization;
-using System;
-using System.Diagnostics;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading;
-using KipoBot.Services;
-
-namespace KipoBot.Game.Base
+﻿namespace KipoBot.Game.Base
 {
     public abstract class Item
     {
@@ -32,14 +15,15 @@ namespace KipoBot.Game.Base
             Tool
         }
 
-        public Type type;
-        public short price;
         public string name;
         public string description;
-        public byte hapiness;
-        public byte health;
-        public byte hunger;
-        public byte thirst;
-        public byte energy;
+        public Type   type;
+        public short  price;
+
+        public byte hapiness = 0;
+        public byte health   = 0;
+        public byte hunger   = 0;
+        public byte thirst   = 0;
+        public byte energy   = 0;
     }
 }

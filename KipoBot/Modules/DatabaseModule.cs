@@ -45,6 +45,33 @@ namespace KipoBot.Modules
             database.players = new List<Player>();
         }
 
+        //Lists all items
+        [Command("listitems", RunMode = RunMode.Async)]
+        public async Task ListItems()
+        {
+            Console.WriteLine("_____________________________");
+
+            foreach (var x in database.shop)
+            {
+                Console.WriteLine("_____________________________");
+
+                foreach (var y in x)
+                {
+                    Console.WriteLine($"Name: {y.name}");
+                    Console.WriteLine($"Type: {y.type}");
+                    Console.WriteLine($"Description: {y.description}");
+                    Console.WriteLine($"Price: {y.price}");
+                    Console.WriteLine($"Health: {y.health}");
+                    Console.WriteLine($"Hunger: {y.hunger}");
+                    Console.WriteLine($"Thirst: {y.thirst}");
+                    Console.WriteLine($"Energy: {y.energy}");
+                    Console.WriteLine($"Hapiness: {y.hapiness}");
+                    Console.WriteLine($"Health: {y.health}");
+                    Console.WriteLine("_____________________________");
+                }
+            }
+        }
+
         //Adds a pet to user
         [Command("addpet", RunMode = RunMode.Async)]
         public async Task AddPet(SocketUser user = null, [Remainder]string pet = null)

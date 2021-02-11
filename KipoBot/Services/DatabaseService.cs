@@ -54,17 +54,64 @@ namespace KipoBot.Services
 
         private readonly DiscordSocketClient _client;
 
+        /* Serializable/Deserializable */
         public List<Server> servers;
         public List<Player> players;
+
+        /* Shop list indexes [x][y] | x - category | y - items
+         * [0][y] - berries
+         * [1][y] - drinks
+         * [2][y] - fruits
+         * [3][y] - meats
+         * [4][y] - potions
+         * [5][y] - tools
+         * [6][y] - toys
+         * [7][y] - treats
+         * [8][y] - vegetables */
+        public List<List<Item>> shop = new List<List<Item>>();
 
         string PATH = Helpers.WORKING_DIRECTORY + @"/data/";
 
         public DatabaseService(DiscordSocketClient client)
         {
+            string[] spaces = {
+                "KipoBot.Game.Items.Berries",
+                "KipoBot.Game.Items.Drinks",
+                "KipoBot.Game.Items.Fruits",
+                "KipoBot.Game.Items.Meats",
+                "KipoBot.Game.Items.Potions",
+                "KipoBot.Game.Items.Tools",
+                "KipoBot.Game.Items.Toys",
+                "KipoBot.Game.Items.Treats",
+                "KipoBot.Game.Items.Vegetables",
+            };
+
+            int x = 0;
+
+            foreach (string name in spaces)
+            {
+                var items = Assembly.GetExecutingAssembly().GetTypes()
+                    .Where(t => t.Namespace == name)
+                    .ToList();
+
+                Console.WriteLine($"\nFollowing items' instances will be created from {name} and added to shop list:\n");
+
+                foreach (Type item in items)
+                    Console.WriteLine(item.ToString() + ".cs");
+
+                shop.Add(new List<Item>());
+
+                foreach (Type item in items)
+                    shop[x].Add((Item)Activator.CreateInstance(item));
+
+                Console.WriteLine("\nFinished!");
+
+                x++;
+            }
+
             _client = client;
 
             _client.UserJoined += UserJoined;
-            _client.JoinedGuild += JoinedGuild;
             _client.Connected += Connected;
             _client.Disconnected += Disconnected;
         }
@@ -110,11 +157,6 @@ namespace KipoBot.Services
                 players = new List<Player>();
             }
 
-            return Task.CompletedTask;
-        }
-
-        private Task JoinedGuild(SocketGuild arg)
-        {
             return Task.CompletedTask;
         }
 
