@@ -1,5 +1,8 @@
-﻿namespace KipoBot.Game.Base
+﻿using System;
+
+namespace KipoBot.Game.Base
 {
+    [Serializable]
     public abstract class Item
     {
         public enum Type
