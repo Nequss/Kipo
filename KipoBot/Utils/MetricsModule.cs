@@ -90,7 +90,6 @@ namespace KipoBot.Modules
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
                 return 0;
             } 
         }
@@ -219,7 +218,6 @@ namespace KipoBot.Modules
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
                 return new MetricsModule(0, 0);
             }
         }

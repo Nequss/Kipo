@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Discord;
+using Microsoft.Extensions.Logging;
 
 namespace KipoBot.Utils
 {
@@ -52,7 +53,7 @@ namespace KipoBot.Utils
                     }
                     catch (Exception e)
                     {
-                        Console.WriteLine("Failed to create directory: " + path + "\n" + e);
+                        Program.Logger.err("Failed to create directory: " + path + "\n" + e);
                         isSuccess = false;
                     }
                 }

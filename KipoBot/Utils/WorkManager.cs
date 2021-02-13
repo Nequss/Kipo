@@ -21,15 +21,15 @@ namespace KipoBot.Utils
 
                 lock (jobList)
                 {
-                    Console.WriteLine("JobManager: Started job checking...");
+                    Program.Logger.info("JobManager: Started job checking...");
                     foreach (var job in jobList)
                     {
-                        Console.WriteLine($"Checking job: {job.name} for pet: {job.worker.name}");
+                        Program.Logger.info($"Checking job: {job.name} for pet: {job.worker.name}");
                         
                         if (job.markedForDeletion)
                         {
                             deletionList.Add(job);
-                            Console.WriteLine($"Deleted job for pet: {job.worker.name}");
+                            Program.Logger.info($"Deleted job for pet: {job.worker.name}");
                         }
                         else
                         {
@@ -37,16 +37,16 @@ namespace KipoBot.Utils
                             {
                                 job.workCompleted();
                                 deletionList.Add(job);
-                                Console.WriteLine("Job completed");
+                                Program.Logger.info("Job completed");
                             }
                             else
                             {
-                                Console.WriteLine($"Job will be completed in: {job.timeEnd.Subtract(currentTime)}");
+                                Program.Logger.info($"Job will be completed in: {job.timeEnd.Subtract(currentTime)}");
                             }
                         }
                     }
 
-                    Console.WriteLine("JobManager: Job checking completed!");
+                    Program.Logger.info("JobManager: Job checking completed!");
                     removeCompletedJobs();
 
                     //Thread.Sleep(checkIntervalMinutes*1000*60);
@@ -54,13 +54,13 @@ namespace KipoBot.Utils
                 }
             }
 
-            Console.WriteLine("JobManager: Stopped!");
+            Program.Logger.warn("JobManager: Stopped!");
         }
 
         private static void removeCompletedJobs()
         {
             int count = 0;
-            Console.WriteLine("Removing completed jobs...");
+            Program.Logger.info("Removing completed jobs...");
             foreach (var job in deletionList)
             {
                 jobList.Remove(job);
@@ -68,7 +68,7 @@ namespace KipoBot.Utils
             }
 
             deletionList = new List<Work>();
-            Console.WriteLine($"Removed {count} completed jobs!");
+            Program.Logger.info($"Removed {count} completed jobs!");
         }
     }
 }

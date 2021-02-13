@@ -55,7 +55,6 @@ namespace KipoBot.Services
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.ToString());
                 return false;
             }
         }
