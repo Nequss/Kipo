@@ -58,7 +58,7 @@ namespace KipoBot
 
         private Task LogAsync(LogMessage log)
         {
-            Console.WriteLine(log.ToString());
+            Console.WriteLine(log.Message);
 
             return Task.CompletedTask;
         }
