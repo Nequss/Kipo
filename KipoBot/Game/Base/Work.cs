@@ -1,6 +1,7 @@
 using System;
 using Discord;
 using Discord.Commands;
+using KipoBot.Utils;
 
 namespace KipoBot.Game.Base
 {
@@ -21,15 +22,13 @@ namespace KipoBot.Game.Base
         public DateTime timeStarted;
         public DateTime timeEnd;
         public Player workerOwner;
-        public SocketCommandContext context;
         public bool markedForDeletion { get; protected set;}
 
-        protected Work(Pet pet, Player owner, SocketCommandContext ctx)
+        protected Work(Pet pet, Player owner)
         {
             worker = pet;
             worker.currentWork = this;
             workerOwner = owner;
-            context = ctx;
             markedForDeletion = false;
         }
 
@@ -53,32 +52,30 @@ namespace KipoBot.Game.Base
 
         public void workCompleted()
         {
-            context.Channel.SendMessageAsync($"{worker.name} has finished!\n{workerOwner.id} had {workerOwner.wallet} money.");
             worker.energy -= energyCost;
             worker.thirst -= thirstCost;
             worker.hunger -= hungerCost;
             worker.hapiness -= happinessCost;
             worker.xp += xpReward;
             workerOwner.wallet += reward;
-            context.Channel.SendMessageAsync($"Now has {workerOwner.wallet} money.");
             removeWork();
         }
 
         public void removeWork()
         {
             worker.currentWork = null;
+            workerOwner = null;
             markedForDeletion = true;
         }
 
         public void beginWork()
         {
-            addToWorkList();
             timeStarted = DateTime.Now;
             timeEnd = timeStarted + new TimeSpan(timeDuration,0,0);
-            context.Channel.SendMessageAsync($"Work started at: {timeStarted}\nWill end at: {timeEnd}\nTime remaining: {timeEnd.Subtract(timeStarted)}");
+            addToWorkList();
         }
 
-        public bool satisfiesReqs()
+        public bool satisfiesReqs(SocketCommandContext context)
         {
             if (worker.energy < energyCost)
             {
@@ -111,7 +108,7 @@ namespace KipoBot.Game.Base
             return true;
         }
 
-        public void proceed()
+        public void proceed(SocketCommandContext context)
         {
             if (!isOldEnough())
             {
@@ -128,15 +125,14 @@ namespace KipoBot.Game.Base
                 //return;
             }
 
-            if (!satisfiesReqs() || !meetsAdditionalReqs())
+            if (!satisfiesReqs(context) || !meetsAdditionalReqs(context))
             {
                 removeWork();
                 return;
             }
 
-            beginWork();
             context.Channel.SendMessageAsync($"{worker.name} started job: {name}");
-            workCompleted();
+            beginWork();
         }
 
         public void quitWork()
@@ -144,14 +140,22 @@ namespace KipoBot.Game.Base
             removeWork();
         }
 
-        protected bool meetsAdditionalReqs()
+        protected bool meetsAdditionalReqs(SocketCommandContext context)
         {
             return true;
         }
 
-        private void addToWorkList()
+        public  void addToWorkList()
         {
-            //TODO ADD THIS TO ACTIVE WORK LIST
+            lock (WorkManager.jobList)
+            {
+                WorkManager.jobList.Add(this);
+            }
+        }
+
+        public string getWorkInfo()
+        {
+            return $"Job: {name}\nTime left: {timeEnd.Subtract(DateTime.Now)}";
         }
     }
 }

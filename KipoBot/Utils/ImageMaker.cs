@@ -35,7 +35,7 @@ namespace KipoBot.Utils
             
             if (files.Count() <= 0)
             {
-                Console.WriteLine($"No banners found in: {Directory.GetCurrentDirectory()+"/"+path}");
+                Program.Logger.warn($"No banners found in: {Directory.GetCurrentDirectory()+"/"+path}");
             }
             
             foreach (var file in files)
@@ -46,7 +46,6 @@ namespace KipoBot.Utils
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine(e);
                 }
             }
         }

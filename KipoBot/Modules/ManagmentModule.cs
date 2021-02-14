@@ -127,7 +127,7 @@ namespace KipoBot.Modules
                 {
                     emotes += "<:" + standard[i - 1].Name + ":" + standard[i - 1].Id + ">";
                 }
-                Console.WriteLine(i-1);
+                Program.Logger.info(i-1);
             }
 
             if (emotes != "")
@@ -149,7 +149,7 @@ namespace KipoBot.Modules
                 {
                     emotes += "<a:" + animated[i - 1].Name + ":" + animated[i - 1].Id + ">";
                 }
-                Console.WriteLine(i-1);
+                Program.Logger.info(i-1);
             }
 
             if (emotes != "")

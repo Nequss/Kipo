@@ -94,17 +94,17 @@ namespace KipoBot.Services
                     .Where(t => t.Namespace == name)
                     .ToList();
 
-                Console.WriteLine($"\nFollowing items' instances will be created from {name} and added to shop list:\n");
+                Program.Logger.info($"Following items' instances will be created from {name} and added to shop list:");
 
                 foreach (Type item in items)
-                    Console.WriteLine(item.ToString() + ".cs");
+                    Program.Logger.info(item.ToString() + ".cs");
 
                 shop.Add(new List<Item>());
 
                 foreach (Type item in items)
                     shop[x].Add((Item)Activator.CreateInstance(item));
 
-                Console.WriteLine("\nFinished!");
+                Program.Logger.info("Finished!");
 
                 x++;
             }
@@ -114,6 +114,19 @@ namespace KipoBot.Services
             _client.UserJoined += UserJoined;
             _client.Connected += Connected;
             _client.Disconnected += Disconnected;
+            
+        }
+        
+        private void loadJobs()
+        {
+            foreach (var player in players)
+            {
+                foreach (var pet in player.pets)
+                {
+                    if (pet.hasWork())
+                        pet.currentWork.addToWorkList();
+                }
+            }
         }
        
         private Task Disconnected(Exception arg)
@@ -135,28 +148,31 @@ namespace KipoBot.Services
             Stream stream;
             var binaryformatter = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
 
-            if (Helpers.FileExists($"{PATH}/servers.bin"))
+            if (Helpers.FileExists($"{PATH}servers.bin"))
             {
                 stream = File.Open(Path.Combine(PATH, "servers.bin"), FileMode.Open);
                 servers = (List<Server>)binaryformatter.Deserialize(stream);
-                Console.WriteLine($"Succesfully loaded DB: {PATH}/servers.bin");
+                Program.Logger.info($"Succesfully loaded DB: {PATH}servers.bin");
+                stream.Close();
             }
             else
             {
                 servers = new List<Server>();
             }
 
-            if (Helpers.FileExists($"{PATH}/players.bin"))
+            if (Helpers.FileExists($"{PATH}players.bin"))
             {
                 stream = File.Open(Path.Combine(PATH, "players.bin"), FileMode.Open);
                 players = (List<Player>)binaryformatter.Deserialize(stream);
-                Console.WriteLine($"Succesfully loaded DB: {PATH}/players.bin");
+                Program.Logger.info($"Succesfully loaded DB: {PATH}players.bin");
+                stream.Close();
             }
             else
             {
                 players = new List<Player>();
             }
 
+            loadJobs();
             return Task.CompletedTask;
         }
 

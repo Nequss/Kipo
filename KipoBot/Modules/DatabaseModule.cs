@@ -17,6 +17,7 @@ using System.Threading;
 using KipoBot.Services;
 using KipoBot.Game.Base;
 using System.Reflection;
+using KipoBot.Utils;
 
 namespace KipoBot.Modules
 {
@@ -35,8 +36,12 @@ namespace KipoBot.Modules
 
         //disconnects the bot
         [Command("dc", RunMode = RunMode.Async)]
-        public async Task DC() => await client.LogoutAsync();
-     
+        public async Task DC()
+        {
+            WorkManager.running = false;
+            await client.LogoutAsync();
+        }
+        
         //Resets DB and memory
         [Command("reset", RunMode = RunMode.Async)]
         public async Task Reset()
@@ -49,25 +54,25 @@ namespace KipoBot.Modules
         [Command("listitems", RunMode = RunMode.Async)]
         public async Task ListItems()
         {
-            Console.WriteLine("_____________________________");
+            Program.Logger.info("_____________________________");
 
             foreach (var x in database.shop)
             {
-                Console.WriteLine("_____________________________");
+                Program.Logger.info("_____________________________");
 
                 foreach (var y in x)
                 {
-                    Console.WriteLine($"Name: {y.name}");
-                    Console.WriteLine($"Type: {y.type}");
-                    Console.WriteLine($"Description: {y.description}");
-                    Console.WriteLine($"Price: {y.price}");
-                    Console.WriteLine($"Health: {y.health}");
-                    Console.WriteLine($"Hunger: {y.hunger}");
-                    Console.WriteLine($"Thirst: {y.thirst}");
-                    Console.WriteLine($"Energy: {y.energy}");
-                    Console.WriteLine($"Hapiness: {y.hapiness}");
-                    Console.WriteLine($"Health: {y.health}");
-                    Console.WriteLine("_____________________________");
+                    Program.Logger.info($"Name: {y.name}");
+                    Program.Logger.info($"Type: {y.type}");
+                    Program.Logger.info($"Description: {y.description}");
+                    Program.Logger.info($"Price: {y.price}");
+                    Program.Logger.info($"Health: {y.health}");
+                    Program.Logger.info($"Hunger: {y.hunger}");
+                    Program.Logger.info($"Thirst: {y.thirst}");
+                    Program.Logger.info($"Energy: {y.energy}");
+                    Program.Logger.info($"Hapiness: {y.hapiness}");
+                    Program.Logger.info($"Health: {y.health}");
+                    Program.Logger.info("_____________________________");
                 }
             }
         }
@@ -79,9 +84,9 @@ namespace KipoBot.Modules
             user = user ?? Context.User;
             
             if (await database.AddPet(user.Id, pet))
-                Console.WriteLine($"Pet has been sucessfuly added to player: {user.Id}");
+                Program.Logger.info($"Pet has been sucessfuly added to player: {user.Id}");
             else
-                Console.WriteLine("Either player or pet doen't exists!");
+                Program.Logger.warn("Either player or pet doesn't exists!");
         }
 
         //saves database to files
@@ -94,23 +99,23 @@ namespace KipoBot.Modules
         {
             if (database.players != null && database.players.Count != 0)
             {
-                Console.WriteLine("================");
+                Program.Logger.info("================");
 
                 foreach (var player in database.players)
                 {
-                    Console.WriteLine("ID         : " + player.id);
-                    Console.WriteLine("Wallet     : " + player.wallet);
-                    Console.WriteLine("Active pet : " + player.active.name);
-                    Console.WriteLine("Pets count : " + player.pets.Count);
-                    Console.WriteLine("Items count: " + player.items.Count);
-                    Console.WriteLine("================");
+                    Program.Logger.info("ID         : " + player.id);
+                    Program.Logger.info("Wallet     : " + player.wallet);
+                    Program.Logger.info("Active pet : " + player.active.name);
+                    Program.Logger.info("Pets count : " + player.pets.Count);
+                    Program.Logger.info("Items count: " + player.items.Count);
+                    Program.Logger.info("================");
                 }
             }
             else
             {
-                Console.WriteLine("================");
-                Console.WriteLine("List is empty!");
-                Console.WriteLine("================");
+                Program.Logger.info("================");
+                Program.Logger.warn("List is empty!");
+                Program.Logger.info("================");
             }
         }
 
@@ -120,23 +125,23 @@ namespace KipoBot.Modules
         {
             if (database.players != null && database.players.Count != 0)
             {
-                Console.WriteLine("================");
+                Program.Logger.info("================");
 
                 foreach (var players in database.players)
                 {
-                    Console.WriteLine("Owner's ID : " + players.id);
+                    Program.Logger.info("Owner's ID : " + players.id);
                     foreach (var pet in players.pets)
                     {
-                        Console.WriteLine("Name       : " + pet.name);
-                        Console.WriteLine("================");
+                        Program.Logger.info("Name       : " + pet.name);
+                        Program.Logger.info("================");
                     }
                 }
             }
             else
             {
-                Console.WriteLine("================");
-                Console.WriteLine("List is empty!");
-                Console.WriteLine("================");
+                Program.Logger.info("================");
+                Program.Logger.warn("List is empty!");
+                Program.Logger.info("================");
             }
         }
 
@@ -146,23 +151,23 @@ namespace KipoBot.Modules
         {
             if (database.servers != null && database.servers.Count != 0)
             {
-                Console.WriteLine("================");
+                Program.Logger.info("================");
 
                 foreach (var server in database.servers)
                 {
-                    Console.WriteLine("ID         : " + server.id);
-                    Console.WriteLine("Channel ID : " + server.channel_id);
-                    Console.WriteLine("Message    : " + server.message);
-                    Console.WriteLine("Caption    : " + server.caption);
-                    Console.WriteLine("Prefix     : " + server.prefix);
-                    Console.WriteLine("================");
+                    Program.Logger.info("ID         : " + server.id);
+                    Program.Logger.info("Channel ID : " + server.channel_id);
+                    Program.Logger.info("Message    : " + server.message);
+                    Program.Logger.info("Caption    : " + server.caption);
+                    Program.Logger.info("Prefix     : " + server.prefix);
+                    Program.Logger.info("================");
                 }
             }
             else
             {
-                Console.WriteLine("================");
-                Console.WriteLine("List is empty!");
-                Console.WriteLine("================");
+                Program.Logger.info("================");
+                Program.Logger.warn("List is empty!");
+                Program.Logger.info("================");
             }
         }
     }

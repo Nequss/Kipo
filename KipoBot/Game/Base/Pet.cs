@@ -1,5 +1,8 @@
-﻿namespace KipoBot.Game.Base
+﻿using System;
+
+namespace KipoBot.Game.Base
 {
+    [Serializable]
     public abstract class Pet
     {
         public enum Rarity
@@ -86,6 +89,16 @@
         public bool hasWork()
         {
             return currentWork != null;
+        }
+
+        public string getWorkInfo()
+        {
+            if (hasWork())
+            {
+                return currentWork.getWorkInfo();
+            }
+
+            return "Job: None";
         }
     }
 }

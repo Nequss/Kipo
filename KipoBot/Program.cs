@@ -9,16 +9,28 @@ using System.Threading.Tasks;
 using KipoBot.Services;
 using System.IO;
 using System.Linq;
+using System.Net.NetworkInformation;
+using System.Threading;
+using CLI_Sharp;
+using KipoBot.Modules;
 using KipoBot.Utils;
+using Newtonsoft.Json.Linq;
 
 namespace KipoBot
 {
     class Program
     {
+        private static CommandProcessor p = new CommandProcessor();
+        public static Logger Logger = new Logger();
+        public static ConsoleDisplay c = new ConsoleDisplay(Logger,p);
+        
         static void Main(string[] args) => new Program().MainAsync().GetAwaiter().GetResult();
 
         public async Task MainAsync()
         {
+            c.title = "KipoBot";
+            //c.start();
+            
             String[] reqPaths = {"data","fonts","banners"};
 
             foreach (var path in reqPaths)
@@ -29,11 +41,11 @@ namespace KipoBot
 
             if (!ConfigurationService.AssertConfigFile())
             {
-                Console.WriteLine($"Template config file created in {Helpers.WORKING_DIRECTORY}/config.json\nEdit it and rerun Kipo.");
+                Logger.info($"Template config file created in {Helpers.WORKING_DIRECTORY}/config.json\nEdit it and rerun Kipo.");
                 return;
             }
 
-            Console.WriteLine("Found config!");
+            Logger.info("Found config!");
 
             ImageMaker.loadBanners($"banners/");
 
@@ -51,14 +63,22 @@ namespace KipoBot
 
                 await services.GetRequiredService<CommandHandlingService>().InitializeAsync();
                 await client.SetGameAsync(config.prefix + "help");
-
+                
+                startJobManager();
                 await Task.Delay(-1);
             }
         }
 
+        private void startJobManager()
+        {
+            Thread jobManager = new Thread(WorkManager.Start);
+            WorkManager.running = true;
+            jobManager.Start();
+        }
+
         private Task LogAsync(LogMessage log)
         {
-            Console.WriteLine(log.Message);
+            Logger.info(log.Message);
 
             return Task.CompletedTask;
         }

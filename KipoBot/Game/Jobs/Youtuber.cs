@@ -8,7 +8,7 @@ namespace KipoBot.Game.Jobs
     [Serializable]
     class Youtuber : Work
     {
-        public Youtuber(Pet pet, Player owner, SocketCommandContext ctx) : base(pet, owner, ctx)
+        public Youtuber(Pet pet, Player owner, SocketCommandContext ctx) : base(pet, owner)
         {
             name = "Youtuber";
             reward = 130;
@@ -19,7 +19,7 @@ namespace KipoBot.Game.Jobs
             timeDuration = 3;
             xpReward = 40;
             reqStage = Pet.Stage.Teenager;
-            proceed();
+            proceed(ctx);
         }
     }
 }
