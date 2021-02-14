@@ -113,6 +113,39 @@ namespace KipoBot.Modules
             }
         }
 
+        [Command("needs", RunMode = RunMode.Async)]
+        [Summary("Shows your active needs\n+t needs")]
+        public async Task Needs()
+        {
+            Player player = await database.PlayerInfo(Context.User.Id);
+
+            if (player != null)
+            {
+                EmbedBuilder embedBuilder = new EmbedBuilder();
+
+                embedBuilder.Color = Color.Purple;
+                embedBuilder.WithAuthor(author =>
+                {
+                    author.WithName($"{player.active.name} needs | {player.active.type}");
+                });
+
+                embedBuilder.AddField("Your active pet needs",
+                    $"Health: {player.active.health}\n" +
+                    $"Hapiness: {player.active.hapiness}\n" +
+                    $"Hunger: {player.active.hunger}\n" +
+                    $"Thirst: {player.active.thirst}");
+
+                embedBuilder.WithImageUrl("https://images2.imgbox.com/eb/4e/Wp74ahXN_o.png");
+
+                await Context.Channel.SendMessageAsync(embed: embedBuilder.Build());
+            }
+            else
+            {
+                await Context.Channel.SendMessageAsync("You are not a member of the Kipo's tamagotchi club.\n" +
+                    "You can join by choosing your first pet, try +help starters");
+            }
+        }
+
         [Command("name", RunMode = RunMode.Async)]
         [Summary("Changes the name of your active pet.\n+t name [name]")]
         public async Task Name([Remainder]string name = null)

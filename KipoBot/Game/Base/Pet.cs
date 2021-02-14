@@ -75,10 +75,10 @@ namespace KipoBot.Game.Base
             if (item.type != Item.Type.Tool)
             {
                 hapiness = (byte)(item.hapiness + hapiness > getBaseHapiness() ? getBaseHapiness() : item.hapiness + hapiness);
-                health  = (byte)(item.health + health > getMaxHealth(level) ? getMaxHealth(level) : item.health + health);
-                hunger  = (byte)(item.hunger + hunger > getMaxHunger() ? getMaxHunger() : item.hunger + hunger);
-                thirst  = (byte)(item.thirst + thirst > getMaxThirst() ? getMaxThirst() : item.thirst + thirst);
-                energy  = (byte)(item.energy + energy > getMaxEnergy(level) ? getMaxEnergy(level) : item.energy + energy);
+                health   = (byte)(item.health + health > getMaxHealth(level) ? getMaxHealth(level) : item.health + health);
+                hunger   = (byte)(item.hunger + hunger > getMaxHunger() ? getMaxHunger() : item.hunger + hunger);
+                thirst   = (byte)(item.thirst + thirst > getMaxThirst() ? getMaxThirst() : item.thirst + thirst);
+                energy  =  (byte)(item.energy + energy > getMaxEnergy(level) ? getMaxEnergy(level) : item.energy + energy);
             }
             else
             {
