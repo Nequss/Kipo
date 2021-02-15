@@ -16,5 +16,5 @@ macos: restore
 	dotnet build -c Release -r osx-x64
 
 zip:
-	cd ./KipoBot/bin/Release/netcoreapp2.1
-	zip -r Kipo-x64-all.zip ./KipoBot/bin/Release/netcoreapp2.1/*
+	cd ./KipoBot/bin/Release/netcoreapp3.1
+	zip -r Kipo-x64-all.zip ./KipoBot/bin/Release/netcoreapp3.1/*

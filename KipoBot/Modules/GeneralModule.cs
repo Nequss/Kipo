@@ -7,6 +7,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using System.Collections.Generic;
 using System;
 using System.Diagnostics;
 using System.Linq;
@@ -222,6 +223,41 @@ namespace KipoBot.Modules
 
             await Context.Channel.SendMessageAsync("You are not a member of the Kipo's tamagotchi club.\n" +
                 "You can join by choosing your first pet, try +help starters");
+        }
+
+        [Command("backpack", RunMode = RunMode.Async)]
+        [Summary("backpack summary")]
+        public async Task Backpack()
+        {
+            Player player = await database.FindPlayer(Context.Message.Author.Id);
+
+            if (player != null)
+            {
+                string text = "";
+
+                EmbedBuilder embedBuilder = new EmbedBuilder();
+
+                embedBuilder = new EmbedBuilder();
+                embedBuilder.Color = Color.Purple;
+                embedBuilder.WithAuthor(author =>
+                {
+                    author.WithName($"Backpack | {Context.Message.Author.Username}");
+                    author.WithIconUrl(Context.Client.CurrentUser.GetAvatarUrl());
+                });
+
+                for (int i = 0; i < player.items.Count; i++)
+                    text += $"{i + 1}. {player.items[i].name} | Type: {player.items[i].type}\n";
+
+                text += $"Free space: {player.items.Count}/20";
+                embedBuilder.AddField("Items", text);
+
+                await Context.Channel.SendMessageAsync(embed: embedBuilder.Build());
+            }
+            else
+            {
+                await Context.Channel.SendMessageAsync("You are not a member of the Kipo's tamagotchi club.\n" +
+                    "You can join by choosing your first pet, try +help starters");
+            }
         }
     }
 }

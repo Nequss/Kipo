@@ -1,6 +1,7 @@
 using System;
 using Discord;
 using Discord.Commands;
+using KipoBot.Game.Items.Tools;
 using KipoBot.Utils;
 
 namespace KipoBot.Game.Base
@@ -18,7 +19,7 @@ namespace KipoBot.Game.Base
         public byte timeDuration;
         public Pet worker;
         public Pet.Stage reqStage;
-        public Item reqItem;
+        public Type reqItem;
         public DateTime timeStarted;
         public DateTime timeEnd;
         public Player workerOwner;
@@ -37,11 +38,17 @@ namespace KipoBot.Game.Base
             return worker.stage >= reqStage;
         }
 
+        protected void setRequiredItem<T>()
+        {
+            reqItem = typeof(T);
+        }
+
         public bool hasReqItem()
         {
             foreach (var item in workerOwner.items)
             {
-                if (item.GetType() == reqItem.GetType())
+                Program.Logger.info(item.GetType() + " " + reqItem);
+                if (item.GetType() == reqItem)
                 {
                     return true;
                 }
@@ -119,10 +126,9 @@ namespace KipoBot.Game.Base
             
             if (reqItem != null && !hasReqItem())
             {
-                //TODO Check if pet owner has required item
-                //context.Channel.SendMessageAsync($"This work requires an item that you currently don't have: {reqItem}\nCome back when you have it!");
-                //removeWork();
-                //return;
+                context.Channel.SendMessageAsync($"This work requires an item that you currently don't have: {reqItem.Name}\nCome back when you have it!");
+                removeWork();
+                return;
             }
 
             if (!satisfiesReqs(context) || !meetsAdditionalReqs(context))

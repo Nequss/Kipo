@@ -84,24 +84,25 @@ namespace KipoBot.Modules
                 {   
                     foreach (var item in category)
                     {    
-                        if (name == item.name)
+                        if (name.ToLower() == item.name.ToLower())
                         {
                             if (player.wallet >= item.price)
                             {
                                 player.wallet -= item.price;
                                 player.items.Add(item);
+                                await Context.Channel.SendMessageAsync($"Bought {item.name}. Your wallet: {player.wallet}");
+                                return;
                             }
                             else
                             {
                                 await Context.Channel.SendMessageAsync($"Lack of funds! Your wallet: {player.wallet}");
+                                return;
                             }
-                        }
-                        else
-                        {
-                            await Context.Channel.SendMessageAsync("Item not found!");
                         }
                     }
                 }
+
+                await Context.Channel.SendMessageAsync("Item not found!");
             }
             else
             {
