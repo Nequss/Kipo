@@ -6,7 +6,7 @@ namespace KipoBot
     {
         public override void processCommand(string cmd)
         {
-            //TODO
+            logger.info("command recieved!");
         }
     }
 }
