@@ -90,29 +90,5 @@ namespace Kipo.Modules
 
             await Context.Channel.SendMessageAsync(embed: embedBuilder.Build());
         }
-
-        [Command("work", RunMode = RunMode.Async)]
-        [Summary("just do it")]
-        public async Task Work()
-        {
-            Player tmp = null;
-            foreach (var player in database.players)
-            {
-                if (player.id == Context.User.Id)
-                {
-                    tmp = player;
-                    break;
-                }
-            }
-
-            if (tmp != null && !tmp.active.hasWork())
-            {
-                new Factory(tmp.active, tmp, Context);
-            }
-            else
-            {
-                Context.Channel.SendMessageAsync("Pet already has a job!");
-            }
-        }
     }
 }
