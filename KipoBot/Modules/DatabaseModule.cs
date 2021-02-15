@@ -145,6 +145,32 @@ namespace KipoBot.Modules
             }
         }
 
+        //add money to player
+        [Command("addmoney", RunMode = RunMode.Async)]
+        public async Task AddMoney(SocketUser user = null, int? money = null)
+        {
+            user = user ?? Context.Message.Author;
+
+            Player player = await database.FindPlayer(user.Id);
+
+            if (player != null)
+            {
+                if (money != null)
+                {
+                    player.wallet += (int)money;
+                    Program.Logger.info($"Player's wallet before: {player.wallet - (int)money} \n Player's wallet after: {player.wallet}");
+                }
+                else
+                {
+                    Program.Logger.info("Wrong value");
+                }
+            }
+            else
+            {
+                Program.Logger.info("Player not found");
+            }
+        }
+
         //Lists servers to the console.
         [Command("checkservers", RunMode = RunMode.Async)]
         public async Task CheckServers()
