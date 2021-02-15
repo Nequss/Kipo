@@ -111,7 +111,7 @@ namespace KipoBot.Modules
         }
 
         [Command("berries", RunMode = RunMode.Async)]
-        [Summary("No description")]
+        [Summary("Round, juicy, sweet or sour list of variety of berries ")]
         public async Task Berries()
         {
             foreach(var embed in await MakeEmbeds(database.shop[0], "Berries"))
@@ -119,7 +119,7 @@ namespace KipoBot.Modules
         }
 
         [Command("drinks", RunMode = RunMode.Async)]
-        [Summary("No description")]
+        [Summary("A full list of colourful drinks you can buy")]
         public async Task Drinks()
         {
             foreach (var embed in await MakeEmbeds(database.shop[1], "Drinks"))
@@ -127,7 +127,7 @@ namespace KipoBot.Modules
         }
 
         [Command("fruits", RunMode = RunMode.Async)]
-        [Summary("No description")]
+        [Summary("Many fruits to choose from and fill pets stomach with")]
         public async Task Fruits()
         {
             foreach (var embed in await MakeEmbeds(database.shop[2], "Fruits"))
@@ -135,7 +135,7 @@ namespace KipoBot.Modules
         }
 
         [Command("meats", RunMode = RunMode.Async)]
-        [Summary("No description")]
+        [Summary(" Tasty meat to get for you pets enjoyment")]
         public async Task Meats()
         {
             foreach (var embed in await MakeEmbeds(database.shop[3], "Meats"))
@@ -143,7 +143,7 @@ namespace KipoBot.Modules
         }
 
         [Command("potions", RunMode = RunMode.Async)]
-        [Summary("No description")]
+        [Summary("Brewed in the secret dungeons restores a lot of nice stuff")]
         public async Task Potions()
         {
             foreach (var embed in await MakeEmbeds(database.shop[4], "Potions"))
@@ -151,7 +151,7 @@ namespace KipoBot.Modules
         }
 
         [Command("tools", RunMode = RunMode.Async)]
-        [Summary("No description")]
+        [Summary("Tools for special works")]
         public async Task Tools()
         {
             foreach (var embed in await MakeEmbeds(database.shop[5], "Tools"))
@@ -159,7 +159,7 @@ namespace KipoBot.Modules
         }
 
         [Command("toys", RunMode = RunMode.Async)]
-        [Summary("No description")]
+        [Summary("Check and buy cool toys for your dear pet!")]
         public async Task Toys()
         {
             foreach (var embed in await MakeEmbeds(database.shop[6], "Toys"))
@@ -167,7 +167,7 @@ namespace KipoBot.Modules
         }
 
         [Command("treats", RunMode = RunMode.Async)]
-        [Summary("No description")]
+        [Summary("Treats to fill your pets happiness and hunger!")]
         public async Task Treats()
         {
             foreach (var embed in await MakeEmbeds(database.shop[7], "Treats"))
@@ -175,7 +175,7 @@ namespace KipoBot.Modules
         }
 
         [Command("vegetables", RunMode = RunMode.Async)]
-        [Summary("No description")]
+        [Summary("Fresh grown plants at big fields perfect vegetables for pets ")]
         public async Task Vegetables()
         {
             foreach (var embed in await MakeEmbeds(database.shop[8], "Vegetables"))

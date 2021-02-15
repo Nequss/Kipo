@@ -11,12 +11,12 @@ namespace KipoBot.Game.Jobs
         public Programming(Pet pet, Player owner, SocketCommandContext ctx) : base(pet, owner)
         {
             name = "Programming";
-            reward = 75;
+            reward = 200;
             energyCost = 20;
             thirstCost = 23;
             hungerCost = 15;
             happinessCost = 15;
-            timeDuration = 2;
+            timeDuration = 3;
             xpReward = 30;
             reqStage = Pet.Stage.Adult;
             proceed(ctx);
