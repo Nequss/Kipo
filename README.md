@@ -2,7 +2,7 @@
 The cutest bot in the universe!
 
 ### Linux Dependencies:
-```bash top sed cut free grep dotnet-sdk-3.1 dotnet-runtime-3.1 zip```
+```bash top sed cut free grep dotnet-sdk-2.1 dotnet-runtime-2.1 zip```
 
 ### Building from source:
 You can either use an IDE like Visual Studio(Windows) or JetBrains Rider(all platforms) to build Kipo, or use provided Makefile for that.

@@ -29,7 +29,7 @@ namespace KipoBot
         public async Task MainAsync()
         {
             c.title = "KipoBot";
-            c.start();
+            //c.start();
             
             String[] reqPaths = {"data","fonts","banners"};
 

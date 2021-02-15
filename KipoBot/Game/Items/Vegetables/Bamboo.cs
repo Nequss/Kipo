@@ -6,7 +6,7 @@ namespace KipoBot.Game.Items.Vegetables
     [Serializable]
     class Bamboo : Item
     {
-        public Bamboo()
+        public Beans()
         {
             type = Type.Vegetable;
             price = 50;
