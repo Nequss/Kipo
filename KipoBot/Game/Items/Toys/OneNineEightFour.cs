@@ -4,9 +4,9 @@ using KipoBot.Game.Base;
 namespace KipoBot.Game.Items.Toys
 {
     [Serializable]
-    class 1948 : Item
+    class OneNineEightFour : Item
     {
-        public 1984()
+        public OneNineEightFour()
         {
             type = Type.Toy;
             price = 50;
