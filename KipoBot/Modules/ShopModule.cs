@@ -84,7 +84,7 @@ namespace KipoBot.Modules
                 {   
                     foreach (var item in category)
                     {    
-                        if (name == item.name)
+                        if (name.ToLower() == item.name.ToLower())
                         {
                             if (player.wallet >= item.price)
                             {
