@@ -38,7 +38,7 @@ namespace KipoBot.Game.Base
             return worker.stage >= reqStage;
         }
 
-        protected void setReqItem<T>()
+        protected void setRequiredItem<T>()
         {
             reqItem = typeof(T);
         }
