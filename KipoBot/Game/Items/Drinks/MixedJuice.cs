@@ -4,7 +4,7 @@ using KipoBot.Game.Base;
 namespace KipoBot.Game.Items.Drinks
 {
     [Serializable]
-    class AppleJuice : Item
+    class MixedJuice : Item
     {
         public MixedJuice()
         {
