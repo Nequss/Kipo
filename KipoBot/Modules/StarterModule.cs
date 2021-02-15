@@ -107,7 +107,7 @@ namespace Kipo.Modules
 
             if (tmp != null && !tmp.active.hasWork())
             {
-                new Factory(tmp.active, tmp, Context);
+                new Photography(tmp.active, tmp, Context);
             }
             else
             {

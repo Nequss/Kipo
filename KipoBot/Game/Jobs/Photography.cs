@@ -13,13 +13,14 @@ namespace KipoBot.Game.Jobs
         {
             name = "Photography";
             reward = 120;
-            energyCost = 30;
-            thirstCost = 27;
-            hungerCost = 20;
-            happinessCost = 20;
+            //energyCost = 30;
+            //thirstCost = 27;
+            //hungerCost = 20;
+            //happinessCost = 20;
             timeDuration = 3;
             xpReward = 40;
-            reqStage = Pet.Stage.Teenager;
+            reqStage = Pet.Stage.Baby;
+            setReqItem<Camera>();
             proceed(ctx);
         }
     }
