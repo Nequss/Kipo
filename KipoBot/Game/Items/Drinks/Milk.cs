@@ -12,7 +12,7 @@ namespace KipoBot.Game.Items.Drinks
             price = 20;
             name = "Milk";
             description = "Milked straight from a cow, it's deliciuos and good for babies";
-            thirst = 15;
+            thirst = 12;
         }
     }
 }

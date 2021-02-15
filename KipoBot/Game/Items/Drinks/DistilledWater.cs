@@ -4,14 +4,14 @@ using KipoBot.Game.Base;
 namespace KipoBot.Game.Items.Drinks
 {
     [Serializable]
-    class Tea : Item
+    class DistilledWater : Item
     {
-        public Tea()
+        public DistilledWater()
         {
             type = Type.Drink;
             price = 20;
-            name = "Tea";
-            description = "Any tea you want, leave it to your imagination";
+            name = "Distilled water";
+            description = "Water that is blant and not that good tho works ";
             thirst = 12;
         }
     }

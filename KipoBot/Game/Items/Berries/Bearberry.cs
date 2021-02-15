@@ -9,10 +9,10 @@ namespace KipoBot.Game.Items.Berries
         public Bearberry()
         {
             type = Type.Berry;
-            price = 15;
+            price = 25;
             name = "Bearberry";
             description = "It’s a bear but berry? o.o";
-            hunger = 10;
+            hunger = 18;
         }
     }
 }

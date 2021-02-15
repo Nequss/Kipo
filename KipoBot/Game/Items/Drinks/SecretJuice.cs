@@ -12,6 +12,8 @@ namespace KipoBot.Game.Items.Drinks
             name = "Secret Juice";
             description = "(7u7)";
             thirst = 30;
+            hapiness = 5;
+            energy = 8;
         }
     }
 }

@@ -4,14 +4,14 @@ using KipoBot.Game.Base;
 namespace KipoBot.Game.Items.Drinks
 {
     [Serializable]
-    class Arizona : Item
+    class CocaCola : Item
     {
-        public Arizona()
+        public CocaCola()
         {
             type = Type.Drink;
             price = 25;
-            name = "Arizona";
-            description = " No. 1 Selling Iced Tea Brand";
+            name = "Coca-Cola";
+            description = "We all know this drink right?  ";
             thirst = 15;
         }
     }

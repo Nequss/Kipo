@@ -12,7 +12,7 @@ namespace KipoBot.Game.Items.Berries
             price = 20;
             name = "Hackberry";
             description = "It grows in your pc";
-            hunger = 20;
+            hunger = 12;
         }
     }
 }
