@@ -2,6 +2,7 @@ using System;
 using System.Runtime.CompilerServices;
 using Discord.Commands;
 using KipoBot.Game.Base;
+using KipoBot.Game.Items.Berries;
 
 namespace KipoBot.Game.Jobs
 {
@@ -18,6 +19,7 @@ namespace KipoBot.Game.Jobs
             happinessCost = 10;
             timeDuration = 1;
             xpReward = 20;
+            setRequiredItem<Tomato>();
             reqStage = Pet.Stage.Baby;
             proceed(ctx);
         }
