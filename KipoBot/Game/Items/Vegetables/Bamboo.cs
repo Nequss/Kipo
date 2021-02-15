@@ -10,7 +10,7 @@ namespace KipoBot.Game.Items.Vegetables
         {
             type = Type.Vegetable;
             price = 50;
-            name = "Beans";
+            name = "Bamboo";
             description = "best thing for pandas to eat";
             hunger = 15;
         }
