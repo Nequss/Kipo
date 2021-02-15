@@ -126,8 +126,7 @@ namespace KipoBot.Game.Base
             
             if (reqItem != null && !hasReqItem())
             {
-                //TODO Check if pet owner has required item
-                context.Channel.SendMessageAsync($"This work requires an item that you currently don't have: {reqItem}\nCome back when you have it!");
+                context.Channel.SendMessageAsync($"This work requires an item that you currently don't have: {reqItem.Name}\nCome back when you have it!");
                 removeWork();
                 return;
             }
