@@ -79,11 +79,11 @@ namespace Kipo.Modules
 
             embedBuilder.Color = Color.Purple;
             embedBuilder.AddField(result, "Welcome to the cute and fun game where you can raise a little cutie of a pet and have fun with it competing with other players and have small battles which each other and play some minigames, just don’t forget to take care of your little ones or they will get mad and run away! :3");
-            embedBuilder.AddField("Useful commands:", "+command" +
+            embedBuilder.AddField("Useful commands:", "+help tamagotchi " +
                 "\n" +
-                "+command" +
+                "+t profile" +
                 "\n" +
-                "+command" +
+                "+t pet profile " +
                 "\n");
             embedBuilder.AddField("Your pet:", "\u200b");
             embedBuilder.WithImageUrl("https://images2.imgbox.com/eb/4e/Wp74ahXN_o.png");
