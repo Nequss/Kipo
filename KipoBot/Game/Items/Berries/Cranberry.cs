@@ -9,7 +9,7 @@ namespace KipoBot.Game.Items.Berries
         public Cranberry()
         {
             type = Type.Berry;
-            price = 15;
+            price = 20;
             name = "Cranberry";
             description = "Superfood berries because of their high nutrient and antioxidant";
             hunger = 10;

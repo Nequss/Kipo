@@ -9,7 +9,7 @@ namespace KipoBot.Game.Items.Drinks
         public SpringWater()
         {
             type = Type.Drink;
-            price = 18;
+            price = 20;
             name = "Spring water";
             description = "Is it only drinkable in spring? Or am I just confused ";
             thirst = 10;

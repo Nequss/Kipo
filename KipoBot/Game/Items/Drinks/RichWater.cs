@@ -12,8 +12,9 @@ namespace KipoBot.Game.Items.Drinks
             price = 500;
             name = "Rich water";
             description = "water not for peasants  ";
-            thirst = 55;
+            thirst = 85;
             hapiness = 55;
+            energy = 10;
         }
     }
 }

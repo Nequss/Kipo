@@ -9,7 +9,7 @@ namespace KipoBot.Game.Items.Berries
         public Snowberry()
         {
             type = Type.Berry;
-            price = 20;
+            price = 22;
             name = "Snowberry";
             description = "Fav food of birds, white and looks like snow";
             hunger = 12;

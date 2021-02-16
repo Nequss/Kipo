@@ -9,7 +9,7 @@ namespace KipoBot.Game.Items.Drinks
         public Cocktail()
         {
             type = Type.Drink;
-            price = 32;
+            price = 30;
             name = "Cocktail";
             description = "Only for adults I hope :)  ";
             thirst = 20;

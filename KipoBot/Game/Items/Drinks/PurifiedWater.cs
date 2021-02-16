@@ -9,7 +9,7 @@ namespace KipoBot.Game.Items.Drinks
         public PurifiedWater()
         {
             type = Type.Drink;
-            price = 18;
+            price = 20;
             name = "Purified water";
             description = "PURE WATER NO CHEMICALS OR ANYTHING  ";
             thirst = 10;

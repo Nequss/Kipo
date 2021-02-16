@@ -9,7 +9,7 @@ namespace KipoBot.Game.Items.Toys
         public TicTacToe()
         {
             type = Type.Toy;
-            price = 10;
+            price = 15;
             name = "TicTacToe";
             description = "O AND X";
             hapiness = 5;

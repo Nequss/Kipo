@@ -1,7 +1,7 @@
 ﻿using System;
 using KipoBot.Game.Base;
 
-namespace KipoBot.Game.Items.Toys
+namespace KipoBot.Game.Items.Tools
 {
     [Serializable]
     class Piano : Item

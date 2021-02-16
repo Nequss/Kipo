@@ -30,7 +30,7 @@ namespace KipoBot.Game.Base
         public Player(ulong _id, Pet pet)
         {
             id = _id;
-            wallet = 100;
+            wallet = 140;
             pets = new List<Pet>();
             pets.Add(pet);
             active = pets[0];

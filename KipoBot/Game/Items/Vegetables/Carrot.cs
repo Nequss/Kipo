@@ -9,7 +9,7 @@ namespace KipoBot.Game.Items.Vegetables
         public Carrot()
         {
             type = Type.Vegetable;
-            price = 10;
+            price = 15;
             name = "Carrot";
             description = "Orange vegetable, elders say its good for your eyes and skin so chew them all";
             hunger = 5;

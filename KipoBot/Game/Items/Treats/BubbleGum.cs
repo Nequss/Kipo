@@ -9,7 +9,7 @@ namespace KipoBot.Game.Items.Treats
         public BubbleGum()
         {
             type = Type.Treat;
-            price = 10;
+            price = 15;
             name = "Bubble gum";
             description = "You can chew it and chew it for hours till it looses its taste";
             hapiness = 5;

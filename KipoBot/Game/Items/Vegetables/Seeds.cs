@@ -9,7 +9,7 @@ namespace KipoBot.Game.Items.Vegetables
         public Seeds()
         {
             type = Type.Vegetable;
-            price = 10;
+            price = 15;
             name = "Seeds";
             description = "Only for small pets, other ones woudn't even feel the nutrition values of it";
             hunger = 5;

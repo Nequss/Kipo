@@ -9,7 +9,7 @@ namespace KipoBot.Game.Items.Toys
         public SpinningToy()
         {
             type = Type.Toy;
-            price = 10;
+            price = 15;
             name = "Spinning Toy";
             description = "It spins round… and round… and round…";
             hapiness = 5;

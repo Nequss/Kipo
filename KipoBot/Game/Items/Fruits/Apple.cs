@@ -9,7 +9,7 @@ namespace KipoBot.Game.Items.Fruits
         public Apple()
         {
             type = Type.Fruit;
-            price = 10;
+            price = 15;
             name = "Apple";
             description = "Well shaped, smooth skinned fruit that is high in nutrients and sugar";
             hunger = 5;

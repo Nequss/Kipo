@@ -9,7 +9,7 @@ namespace KipoBot.Game.Items.Berries
         public OregonGrape()
         {
             type = Type.Berry;
-            price = 20;
+            price = 22;
             name = "Oregon grape";
             description = "grape from oregon";
             hunger = 12;

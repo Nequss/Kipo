@@ -9,7 +9,7 @@ namespace KipoBot.Game.Items.Vegetables
         public Cucumber()
         {
             type = Type.Vegetable;
-            price = 5;
+            price = 20;
             name = "Cucumber";
             description = "Long, green and basically water but in vegetable porn with taste";
             hunger = 10;

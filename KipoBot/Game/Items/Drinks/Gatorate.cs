@@ -9,8 +9,8 @@ namespace KipoBot.Game.Items.Drinks
         public Gatorade()
         {
             type = Type.Drink;
-            price = 45;
-            name = "BerryJuice";
+            price = 65;
+            name = "Gatorade";
             description = "Like coca-cola but for sports   ";
             thirst = 15;
             energy = 10;

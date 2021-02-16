@@ -9,7 +9,7 @@ namespace KipoBot.Game.Items.Fruits
         public Mandarin()
         {
             type = Type.Fruit;
-            price = 10;
+            price = 15;
             name = "Mandarin";
             description = "Not a language but fruit best for christmas season";
             hunger = 5;

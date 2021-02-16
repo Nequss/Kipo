@@ -9,7 +9,7 @@ namespace KipoBot.Game.Items.Toys
         public Forknite()
         {
             type = Type.Toy;
-            price = 10;
+            price = 15;
             name = "Forknite";
             description = "Run around big map full of other pets and enjoy shooting each other  ";
             hapiness = 5;

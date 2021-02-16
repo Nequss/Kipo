@@ -9,7 +9,7 @@ namespace KipoBot.Game.Items.Toys
         public Picture()
         {
             type = Type.Toy;
-            price = 10;
+            price = 15;
             name = "Picture";
             description = "Picture to hang on your wall for pets and look at it";
             hapiness = 5;

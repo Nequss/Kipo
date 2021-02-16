@@ -9,7 +9,7 @@ namespace KipoBot.Game.Items.Fruits
         public Kiwi()
         {
             type = Type.Fruit;
-            price = 10;
+            price = 15;
             name = "Kiwi";
             description = "High in Vitamin C and dietary fiber - also provides a variety of health benefits";
             hunger = 5;

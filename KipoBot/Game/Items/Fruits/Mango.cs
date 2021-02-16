@@ -12,7 +12,7 @@ namespace KipoBot.Game.Items.Fruits
             price = 55;
             name = "Mango";
             description = "You can read it.. Oh wait this is a fruit that is tasty and juicy ";
-            hunger = 35;
+            hunger = 45;
         }
     }
 }

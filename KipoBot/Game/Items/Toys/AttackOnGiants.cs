@@ -11,7 +11,7 @@ namespace KipoBot.Game.Items.Toys
             type = Type.Toy;
             price = 35;
             name = "Attack on giants";
-            description = " ";
+            description = "PETS MISSION IS TO DEFEAT ALL EVIL GIANTS IN THE WORLD ";
             hapiness = 22;
         }
     }

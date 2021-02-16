@@ -9,7 +9,7 @@ namespace KipoBot.Game.Items.Berries
         public Loganberry()
         {
             type = Type.Berry;
-            price = 20;
+            price = 22;
             name = "Loganberry";
             description = "Succulent berries that are delicious eaten out of hand or made into pies, jellies and jams";
             hunger = 12;

@@ -9,7 +9,7 @@ namespace KipoBot.Game.Items.Berries
         public Gooseberry()
         {
             type = Type.Berry;
-            price = 10;
+            price = 15;
             name = "Cranberry";
             description = "Illegal in some coutries but is a great berrry with vitamins and sweet taste inside and sour skin";
             hunger = 5;

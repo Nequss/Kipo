@@ -9,7 +9,7 @@ namespace KipoBot.Game.Items.Toys
         public PaccyMan()
         {
             type = Type.Toy;
-            price = 10;
+            price = 15;
             name = "Paccy Man";
             description = "Yellow little thing runs around from ghosts eating white thingies  ";
             hapiness = 5;
