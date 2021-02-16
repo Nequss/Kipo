@@ -12,7 +12,7 @@ namespace KipoBot.Game.Items.Fruits
             price = 20;
             name = "Jackfruits";
             description = "fruit to get jacked from";
-            hunger = 12;
+            hunger = 10;
         }
     }
 }

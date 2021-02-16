@@ -12,7 +12,7 @@ namespace KipoBot.Game.Items.Fruits
             price = 20;
             name = "Appricorn";
             description = "Plump, fairly firm fruit with as much golden orange as possible, good source of pottasium";
-            hunger = 12;
+            hunger = 10;
         }
     }
 }

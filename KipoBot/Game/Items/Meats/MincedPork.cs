@@ -4,14 +4,14 @@ using KipoBot.Game.Base;
 namespace KipoBot.Game.Items.Meats
 {
     [Serializable]
-    class Beaf : Item
+    class MincedPork : Item
     {
-        public Beaf()
+        public MincedPork()
         {
             type = Type.Meat;
             price = 15;
-            name = "Beaf";
-            description = "Meat from a cow, bull or ox";
+            name = "MincedPork";
+            description = "Pork that was completely destroyed and made into small noodles  ";
             hunger = 5;
         }
     }

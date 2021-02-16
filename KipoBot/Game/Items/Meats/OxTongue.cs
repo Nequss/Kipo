@@ -4,14 +4,14 @@ using KipoBot.Game.Base;
 namespace KipoBot.Game.Items.Meats
 {
     [Serializable]
-    class Fish : Item
+    class OxTongue : Item
     {
-        public Fish()
+        public OxTongue ()
         {
             type = Type.Meat;
             price = 35;
-            name = "Fish";
-            description = "Straight out of cleanest waters in the world, just basically melts in your pets mouths";
+            name = "Ox tongue";
+            description = "Name self explanatory  ";
             hunger = 25;
         }
     }

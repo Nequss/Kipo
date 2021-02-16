@@ -9,7 +9,7 @@ namespace KipoBot.Game.Items.Meats
         public Insects()
         {
             type = Type.Meat;
-            price = 10;
+            price = 15;
             name = "Insects";
             description = "Who the hell likes them? Well whatever! Your pets must have a specific type of taste to eat these ";
             hunger = 5;
