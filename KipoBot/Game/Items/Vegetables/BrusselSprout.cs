@@ -4,15 +4,15 @@ using KipoBot.Game.Base;
 namespace KipoBot.Game.Items.Vegetables
 {
     [Serializable]
-    class Bamboo : Item
+    class BrusselSprout : Item
     {
-        public Bamboo()
+        public BrusselSprout()
         {
             type = Type.Vegetable;
-            price = 50;
+            price = 20;
             name = "Bamboo";
-            description = "Best thing for pandas to eat";
-            hunger = 35;
+            description = "Small little lettuce thingies ";
+            hunger = 10;
         }
     }
 }
