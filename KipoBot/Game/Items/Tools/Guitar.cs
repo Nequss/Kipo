@@ -8,11 +8,10 @@ namespace KipoBot.Game.Items.Toys
     {
         public Guitar()
         {
-            type = Type.Toy;
+            type = Type.Tool;
             price = 200;
             name = "Guitar";
             description = "Let your pet learn how to play guitar and most importantly enjoy doing so";
-            hapiness = 60;
         }
     }
 }

@@ -8,11 +8,10 @@ namespace KipoBot.Game.Items.Toys
     {
         public Piano()
         {
-            type = Type.Toy;
+            type = Type.Tool;
             price = 200;
             name = "Piano";
-            description = "Let your pets earn notes, play songs, become pro pianist, join epic band and earn tons of money… ah what a nice dream";
-            hapiness = 60;
+            description = "Let your pets learn notes, play songs, become pro pianist, join epic band and earn tons of money… ah what a nice dream";
         }
     }
 }
