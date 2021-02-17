@@ -9,7 +9,7 @@ namespace KipoBot.Game.Items.Toys
         public Tetris()
         {
             type = Type.Toy;
-            price = 10;
+            price = 15;
             name = "Tetris";
             description = "Match falling shapes with always increasing speed";
             hapiness = 5;

@@ -9,7 +9,7 @@ namespace KipoBot.Game.Items.Treats
         public IceCream()
         {
             type = Type.Treat;
-            price = 15;
+            price = 20;
             name = "Ice cream";
             description = "Tasty and good but be carefull! Kept warm might melt";
             hapiness = 10;

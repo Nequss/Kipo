@@ -9,7 +9,7 @@ namespace KipoBot.Game.Items.Fruits
         public Banana()
         {
             type = Type.Fruit;
-            price = 10;
+            price = 15;
             name = "Banana";
             description = "Yellow long fruit that is great both in taste and benefits";
             hunger = 5;

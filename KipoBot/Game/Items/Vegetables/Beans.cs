@@ -9,7 +9,7 @@ namespace KipoBot.Game.Items.Vegetables
         public Beans()
         {
             type = Type.Vegetable;
-            price = 20;
+            price = 25;
             name = "Beans";
             description = "Beans… beans… beans… BEANS!!!";
             hunger = 15;

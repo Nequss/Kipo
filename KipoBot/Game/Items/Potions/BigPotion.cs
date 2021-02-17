@@ -12,7 +12,7 @@ namespace KipoBot.Game.Items.Potions
             price = 500;
             name = "Big Potion";
             description = "This somehow weirdly heals a lot of your pets wounds";
-            health = 200;
+            health = 100;
         }
     }
 }

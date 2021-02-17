@@ -9,10 +9,10 @@ namespace KipoBot.Game.Items.Drinks
         public Tea()
         {
             type = Type.Drink;
-            price = 20;
+            price = 22;
             name = "Tea";
             description = "Any tea you want, leave it to your imagination";
-            thirst = 15;
+            thirst = 12;
         }
     }
 }

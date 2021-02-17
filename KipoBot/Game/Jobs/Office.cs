@@ -12,7 +12,7 @@ namespace KipoBot.Game.Jobs
         {
             name = "Office";
             reward = 75;
-            energyCost = 20;
+            energyCost = 30;
             thirstCost = 15;
             hungerCost = 20;
             happinessCost = 22;

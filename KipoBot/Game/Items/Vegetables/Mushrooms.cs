@@ -9,7 +9,7 @@ namespace KipoBot.Game.Items.Vegetables
         public Mushrooms()
         {
             type = Type.Vegetable;
-            price = 10;
+            price = 15;
             name = "Mushrooms";
             description = "Found in forests, they are fleshy and weird shaped ";
             hunger = 5;

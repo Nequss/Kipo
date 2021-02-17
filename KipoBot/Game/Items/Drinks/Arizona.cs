@@ -9,7 +9,7 @@ namespace KipoBot.Game.Items.Drinks
         public Arizona()
         {
             type = Type.Drink;
-            price = 20;
+            price = 25;
             name = "Arizona";
             description = " No. 1 Selling Iced Tea Brand";
             thirst = 15;

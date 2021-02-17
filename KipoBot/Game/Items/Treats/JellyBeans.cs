@@ -9,7 +9,7 @@ namespace KipoBot.Game.Items.Treats
         public JellyBeans()
         {
             type = Type.Treat;
-            price = 20;
+            price = 25;
             name = "JellyBeans";
             description = "Chocolate beans but filled with jelly";
             hapiness = 15;

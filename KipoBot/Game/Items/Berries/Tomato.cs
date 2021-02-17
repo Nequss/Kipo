@@ -9,9 +9,9 @@ namespace KipoBot.Game.Items.Berries
         public Tomato()
         {
             type = Type.Berry;
-            price = 10;
+            price = 15;
             name = "Tomato";
-            description = "Yes, it’s a berry. It's evil in my opinion but someone else will say they are good as hell so to each their own";
+            description = "Yes, it’s a berry, bet you didn't know that :3";
             hunger = 5;
         }
     }

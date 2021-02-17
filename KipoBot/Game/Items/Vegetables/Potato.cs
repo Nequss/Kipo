@@ -10,7 +10,7 @@ namespace KipoBot.Game.Items.Vegetables
         public Potato()
         {
             type = Type.Vegetable;
-            price = 10;
+            price = 15;
             name = "Potato";
             description = "Most favorite food of people, it's amazing everyone knows it - nothing to say there";
             hunger = 5;

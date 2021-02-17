@@ -9,10 +9,10 @@ namespace KipoBot.Game.Items.Drinks
         public Milk()
         {
             type = Type.Drink;
-            price = 20;
+            price = 22;
             name = "Milk";
             description = "Milked straight from a cow, it's deliciuos and good for babies";
-            thirst = 15;
+            thirst = 12;
         }
     }
 }

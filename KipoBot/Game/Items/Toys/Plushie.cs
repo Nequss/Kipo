@@ -9,7 +9,7 @@ namespace KipoBot.Game.Items.Toys
         public Plushie()
         {
             type = Type.Toy;
-            price = 15;
+            price = 20;
             name = "Plushie";
             description = "Little plushie is like a the best friend to any pet";
             hapiness = 10;

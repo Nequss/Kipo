@@ -9,7 +9,7 @@ namespace KipoBot.Game.Items.Berries
         public Raspberry()
         {
             type = Type.Berry;
-            price = 10;
+            price = 15;
             name = "Raspberry";
             description = "Low in calories but high in fiber, vitamins, minerals and antioxidants";
             hunger = 5;

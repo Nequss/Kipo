@@ -9,7 +9,7 @@ namespace KipoBot.Game.Items.Drinks
         public Coffee()
         {
             type = Type.Drink;
-            price = 20;
+            price = 30;
             name = "Coffee";
             description = "Coffee is good for your pet's mind and soul to get some energy and motivation";
             thirst = 10;

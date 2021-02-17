@@ -9,7 +9,7 @@ namespace KipoBot.Game.Items.Meats
         public Beaf()
         {
             type = Type.Meat;
-            price = 10;
+            price = 15;
             name = "Beaf";
             description = "Meat from a cow, bull or ox";
             hunger = 5;

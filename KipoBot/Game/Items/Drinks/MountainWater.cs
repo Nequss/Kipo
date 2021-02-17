@@ -9,7 +9,7 @@ namespace KipoBot.Game.Items.Drinks
         public MountainWater()
         {
             type = Type.Drink;
-            price = 10;
+            price = 15;
             name = "Mountain Water";
             description = "Water from mountains legends says a lot of things were sacrificed for this ";
             thirst = 5;

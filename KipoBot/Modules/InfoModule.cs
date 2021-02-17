@@ -21,7 +21,7 @@ using KipoBot.Utils;
 namespace KipoBot.Modules
 {
     [Name("info")]
-    [Summary("Contains all needed commands get information about servers, users and a kipo.")]
+    [Summary("Contains all needed commands, get information about servers, users and kipo.")]
     public class InfoModule : ModuleBase<SocketCommandContext>
     {
         private readonly CommandService _service;

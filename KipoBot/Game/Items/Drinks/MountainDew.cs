@@ -12,7 +12,7 @@ namespace KipoBot.Game.Items.Drinks
             price = 30;
             name = "Mountain Dew";
             description = "Best drink for true pet gamers, very high in sugar";
-            thirst = 15;
+            thirst = 12;
             energy = 5;
         }
     }

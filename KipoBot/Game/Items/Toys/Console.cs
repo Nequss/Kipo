@@ -9,10 +9,10 @@ namespace KipoBot.Game.Items.Toys
         public Console()
         {
             type = Type.Toy;
-            price = 250;
+            price = 200;
             name = "Console";
             description = "Your pet can play epic games that will get it into true gamer mindset!";
-            hapiness = 45; 
+            hapiness = 85; 
         }
     }
 }

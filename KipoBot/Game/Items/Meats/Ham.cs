@@ -9,7 +9,7 @@ namespace KipoBot.Game.Items.Meats
         public Ham()
         {
             type = Type.Meat;
-            price = 15;
+            price = 20;
             name = "Ham";
             description = "Cured meat from a pig's upper leg";
             hunger = 10;

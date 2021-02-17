@@ -9,7 +9,7 @@ namespace KipoBot.Game.Items.Treats
         public Gummy()
         {
             type = Type.Treat;
-            price = 15;
+            price = 20;
             name = "Gummy";
             description = "Tender and plump, these delicious gummies are sure to surprise and delight with every bite!";
             hapiness = 10;

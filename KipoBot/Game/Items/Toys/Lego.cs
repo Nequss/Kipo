@@ -12,7 +12,7 @@ namespace KipoBot.Game.Items.Toys
             price = 50;
             name = "Lego";
             description = "Let your pets become architects of big worlds in this bricky world";
-            hapiness = 30;
+            hapiness = 40;
         }
     }
 }

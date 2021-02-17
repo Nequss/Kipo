@@ -12,7 +12,7 @@ namespace KipoBot.Game.Items.Meats
             price = 20;
             name = "Fillet Steak";
             description = "A slice of beef from back of cow or whatever";
-            hunger = 20;
+            hunger = 10;
         }
     }
 }
