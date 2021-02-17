@@ -10,8 +10,8 @@ namespace KipoBot.Game.Items.Drinks
         {
             type = Type.Drink;
             price = 25;
-            name = "AppleJuice";
-            description = "Why eat apples when you can drink them  ";
+            name = "Apple juice";
+            description = "Why eat apples when you can drink them";
             thirst = 15;
         }
     }

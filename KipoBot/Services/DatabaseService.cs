@@ -69,6 +69,7 @@ namespace KipoBot.Services
          * [7][y] - treats
          * [8][y] - vegetables */
         public List<List<Item>> shop = new List<List<Item>>();
+        public List<Type> jobs = new List<Type>();
 
         string PATH = Helpers.WORKING_DIRECTORY + @"/data/";
 
@@ -108,6 +109,10 @@ namespace KipoBot.Services
 
                 x++;
             }
+
+            jobs = Assembly.GetExecutingAssembly().GetTypes()
+                    .Where(t => t.Namespace == "KipoBot.Game.Jobs")
+                    .ToList();
 
             _client = client;
 
@@ -317,7 +322,5 @@ namespace KipoBot.Services
                 return null;
             }
         }
-
-
     }
 }

@@ -31,27 +31,38 @@ namespace KipoBot.Modules
             database = _database;
         }
 
-        [Command("work", RunMode = RunMode.Async)]
-        [Summary("just do it")]
-        public async Task Work()
+        public async Task<Type> FindJob(string name)
         {
-            Player tmp = null;
-            foreach (var player in database.players)
-            {
-                if (player.id == Context.User.Id)
-                {
-                    tmp = player;
-                    break;
-                }
-            }
+            foreach (var job in database.jobs)
+                if (job.Name.ToLower() == name.ToLower().Replace(" ", ""))
+                    return job;
+            return null;
+        }
 
-            if (tmp != null && !tmp.active.hasWork())
+        [Command("work", RunMode = RunMode.Async)]
+        [Summary("Just do it")]
+        public async Task Work([Remainder]string name)
+        {
+            Player tmp = await database.FindPlayer(Context.Message.Author.Id);
+
+            if (tmp != null)
             {
-                new Factory(tmp.active, tmp, Context);
+                if (!tmp.active.hasWork())
+                {
+                    Type job = await FindJob(name);
+                    object[] constructor = { tmp.active, tmp, Context };
+
+                    Activator.CreateInstance(job, constructor);
+                }
+                else
+                {
+                    await Context.Channel.SendMessageAsync("Pet already has a job!");
+                }
             }
             else
             {
-                await Context.Channel.SendMessageAsync("Pet already has a job!");
+                await Context.Channel.SendMessageAsync("You are not a member of the Kipo's tamagotchi club.\n" +
+                    "You can join by choosing your first pet, try +help starters");
             }
         }
     }
