@@ -38,7 +38,6 @@ namespace KipoBot.Utils
                 {
                     foreach (var pet in player.pets)
                     {
-                        Program.Logger.info($"Updating pet: {pet.name}");
                         lock (pet)
                         {
                             pet.performUpdate(currentTime);
@@ -47,8 +46,6 @@ namespace KipoBot.Utils
                         Program.Logger.info($"Finished updating pet: {pet.name}!");
                     }
                 }
-                Program.Logger.info($"Pet update complete! Next update in {new TimeSpan(0,0,0,0,checkIntervalMS)}");
-                
                 
                 Thread.Sleep(checkIntervalMS);
             }
