@@ -10,7 +10,7 @@ namespace KipoBot.Game.Items.Drinks
         {
             type = Type.Drink;
             price = 25;
-            name = "BananaJuice";
+            name = "Banana juice";
             description = "Poor babana it got extracted into good tasting juice ";
             thirst = 15;
         }

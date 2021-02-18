@@ -69,6 +69,7 @@ namespace KipoBot.Services
          * [7][y] - treats
          * [8][y] - vegetables */
         public List<List<Item>> shop = new List<List<Item>>();
+        public List<Type> jobs = new List<Type>();
 
         string PATH = Helpers.WORKING_DIRECTORY + @"/data/";
 
@@ -95,26 +96,34 @@ namespace KipoBot.Services
                     .ToList();
 
                 Program.Logger.info($"Following items' instances will be created from {name} and added to shop list:");
-
-                foreach (Type item in items)
-                    Program.Logger.info(item.ToString() + ".cs");
-
+                
                 shop.Add(new List<Item>());
 
                 foreach (Type item in items)
+                {
+                    Program.Logger.info(item.ToString() + ".cs");
                     shop[x].Add((Item)Activator.CreateInstance(item));
+                }
 
                 Program.Logger.info("Finished!");
 
                 x++;
             }
 
+            Program.Logger.info($"Following jobs' instances will be created from KipoBot.Game.Jobs and added to the job list");
+
+            jobs = Assembly.GetExecutingAssembly().GetTypes()
+                    .Where(t => t.Namespace == "KipoBot.Game.Jobs")
+                    .ToList();
+
+            foreach (Type job in jobs)
+                Program.Logger.info(job.ToString() + ".cs");
+
             _client = client;
 
             _client.UserJoined += UserJoined;
             _client.Connected += Connected;
-            _client.Disconnected += Disconnected;
-            
+            _client.Disconnected += Disconnected; 
         }
         
         private void loadJobs()
@@ -317,7 +326,5 @@ namespace KipoBot.Services
                 return null;
             }
         }
-
-
     }
 }

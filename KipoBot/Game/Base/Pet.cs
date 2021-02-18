@@ -5,6 +5,7 @@ namespace KipoBot.Game.Base
     [Serializable]
     public abstract class Pet
     {
+        public static int updateIntervalMS = 1000*60*60;
         public enum Rarity
         {
             Common,
@@ -42,6 +43,8 @@ namespace KipoBot.Game.Base
         public int xp;
         public Work currentWork = null;
         public Item tool = null;
+        public DateTime nextUpdateTime;
+        public bool isAsleep = false;
          
         //to set
         public string name;
@@ -62,6 +65,7 @@ namespace KipoBot.Game.Base
             hapiness = 25;
             level = 1;
             xp = 0;
+            nextUpdateTime = DateTime.Now + new TimeSpan(0, 0, 0,0 ,updateIntervalMS);
         }
 
         public abstract byte  getMaxHealth(byte level);
@@ -99,6 +103,45 @@ namespace KipoBot.Game.Base
             }
 
             return "Job: None";
+        }
+
+        public void performUpdate(DateTime timeNow)
+        {
+            if (!(DateTime.Compare(timeNow, nextUpdateTime) >= 0))
+                return;
+
+            if (isAsleep)
+            {
+                thirst = (byte) (thirst - 1 >= 0 ? thirst - 1 : 0);
+                hunger = (byte) (hunger - 1 >= 0 ? hunger - 1 : 0);
+                hapiness = (byte) (hapiness - 6 >= 0 ? hapiness - 6 : 0); 
+                
+                if (thirst == 0 || hunger == 0 || hapiness == 0)
+                {
+                    health = (byte) (health - 6 >= 0 ? health - 6 : 0);
+                }
+            }
+            else
+            {
+                thirst = (byte) (thirst - 5 >= 0 ? thirst - 5 : 0);
+                hunger = (byte) (hunger - 5 >= 0 ? hunger - 5 : 0);
+
+                if (thirst == 0 || hunger == 0 || hapiness == 0)
+                {
+                    health = (byte) (health - 10 >= 0 ? health - 10 : 0);
+                    hapiness = (byte) (hapiness - 6 >= 0 ? hapiness - 6 : 0);
+                    
+                }
+                else
+                {
+                    hapiness = (byte) (hapiness - 3 >= 0 ? hapiness - 3 : 0);
+                }
+
+                energy = (byte) (energy + 15 + level / 2 >= getMaxEnergy(level) ? energy + 15 + level / 2 : getMaxEnergy(level));
+            }
+
+            nextUpdateTime = timeNow + new TimeSpan(0, 0, 0, 0, updateIntervalMS);
+            Program.Logger.info($"Next update in: {nextUpdateTime}");
         }
     }
 }

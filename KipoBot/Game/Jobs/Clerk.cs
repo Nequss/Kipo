@@ -19,7 +19,9 @@ namespace KipoBot.Game.Jobs
             timeDuration = 1;
             xpReward = 20;
             reqStage = Pet.Stage.Teenager;
-            proceed(ctx);
+
+            if (pet != null)
+                proceed(ctx);
         }
     }
 }

@@ -8,12 +8,6 @@ using System.Threading.Tasks;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System;
-using System.Diagnostics;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading;
-using KipoBot.Services;
 using System.Collections.Generic;
 
 namespace KipoBot.Game.Base
