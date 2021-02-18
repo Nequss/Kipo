@@ -19,18 +19,21 @@ namespace KipoBot.Game.Base
         public byte timeDuration;
         public Pet worker;
         public Pet.Stage reqStage;
-        public Type reqItem;
+        //public Type reqItem;
         public DateTime timeStarted;
         public DateTime timeEnd;
         public Player workerOwner;
-        public bool markedForDeletion { get; protected set;}
+        public bool markedForDeletion { get; protected set; }
 
         protected Work(Pet pet, Player owner)
         {
-            worker = pet;
-            worker.currentWork = this;
-            workerOwner = owner;
-            markedForDeletion = false;
+            if (pet != null)
+            {
+                worker = pet;
+                worker.currentWork = this;
+                workerOwner = owner;
+                markedForDeletion = false;
+            }
         }
 
         public bool isOldEnough()
@@ -40,18 +43,18 @@ namespace KipoBot.Game.Base
 
         protected void setRequiredItem<T>()
         {
-            reqItem = typeof(T);
+           // reqItem = typeof(T);
         }
 
         public bool hasReqItem()
         {
             foreach (var item in workerOwner.items)
             {
-                Program.Logger.info(item.GetType() + " " + reqItem);
-                if (item.GetType() == reqItem)
-                {
-                    return true;
-                }
+                //Program.Logger.info(item.GetType() + " " + reqItem);
+                //if (item.GetType() == reqItem)
+                //{
+                    //return true;
+                //}
             }
 
             return false;
@@ -124,12 +127,12 @@ namespace KipoBot.Game.Base
                 return;
             }
             
-            if (reqItem != null && !hasReqItem())
-            {
-                context.Channel.SendMessageAsync($"This work requires an item that you currently don't have: {reqItem.Name}\nCome back when you have it!");
-                removeWork();
-                return;
-            }
+           // if (reqItem != null && !hasReqItem())
+            //{
+            //    context.Channel.SendMessageAsync($"This work requires an item that you currently don't have: {reqItem.Name}\nCome back when you have it!");
+             //   removeWork();
+             //   return;
+            //}
 
             if (!satisfiesReqs(context) || !meetsAdditionalReqs(context))
             {

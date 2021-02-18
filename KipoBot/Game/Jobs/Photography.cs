@@ -22,7 +22,9 @@ namespace KipoBot.Game.Jobs
             xpReward = 40;
             reqStage = Pet.Stage.Baby;
             setRequiredItem<Camera>();
-            proceed(ctx);
+
+            if (pet != null)
+                proceed(ctx);
         }
     }
 }
