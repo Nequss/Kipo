@@ -10,7 +10,7 @@ namespace KipoBot.Game.Jobs
     {
         public CoffeShop(Pet pet, Player owner, SocketCommandContext ctx) : base(pet, owner)
         {
-            name = "Coffe Shop";
+            name = "Coffee Shop";
             reward = 25;
             energyCost = 10;
             thirstCost = 5;
@@ -19,7 +19,9 @@ namespace KipoBot.Game.Jobs
             timeDuration = 1;
             xpReward = 20;
             reqStage = Pet.Stage.Teenager;
-            proceed(ctx);
+
+            if (pet != null)
+                proceed(ctx);
         }
     }
 }

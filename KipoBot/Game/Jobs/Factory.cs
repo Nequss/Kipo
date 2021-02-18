@@ -21,7 +21,9 @@ namespace KipoBot.Game.Jobs
             xpReward = 20;
             setRequiredItem<Tomato>();
             reqStage = Pet.Stage.Baby;
-            proceed(ctx);
+
+            if (pet != null)
+                proceed(ctx);
         }
     }
 }

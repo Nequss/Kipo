@@ -10,16 +10,14 @@ namespace KipoBot.Utils
 {
     public class PetUpdater : ModuleBase<SocketCommandContext>
     { 
-        private readonly DiscordSocketClient client;
         private readonly DatabaseService database;
         
         public bool running = false;
         public int checkIntervalMS = 10000;
             
-        public PetUpdater(DiscordSocketClient _client, DatabaseService _database)
+        public PetUpdater(DatabaseService _database)
         {
             database = _database;
-            client = _client;
             new Thread(start).Start();
         }
         

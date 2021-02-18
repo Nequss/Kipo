@@ -18,7 +18,9 @@ namespace KipoBot.Game.Jobs
             happinessCost = 10;
             timeDuration = 1;
             reqStage = Pet.Stage.Teenager;
-            proceed(ctx);
+
+            if (pet != null)
+                proceed(ctx);
         }
     }
 }

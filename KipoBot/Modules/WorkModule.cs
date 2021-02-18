@@ -16,6 +16,7 @@ using System.Threading;
 using KipoBot.Game.Base;
 using KipoBot.Game.Jobs;
 using KipoBot.Services;
+using System.Reflection;
 
 namespace KipoBot.Modules
 {
@@ -39,9 +40,9 @@ namespace KipoBot.Modules
             return null;
         }
 
-        [Command("work", RunMode = RunMode.Async)]
-        [Summary("Just do it")]
-        public async Task Work([Remainder]string name)
+        [Command("start", RunMode = RunMode.Async)]
+        [Summary("Sends your pet to work!\n+t start <job name>")]
+        public async Task Start([Remainder]string name)
         {
             Player tmp = await database.FindPlayer(Context.Message.Author.Id);
 
@@ -51,7 +52,6 @@ namespace KipoBot.Modules
                 {
                     Type job = await FindJob(name);
                     object[] constructor = { tmp.active, tmp, Context };
-
                     Activator.CreateInstance(job, constructor);
                 }
                 else
@@ -64,6 +64,72 @@ namespace KipoBot.Modules
                 await Context.Channel.SendMessageAsync("You are not a member of the Kipo's tamagotchi club.\n" +
                     "You can join by choosing your first pet, try +help starters");
             }
+        }
+
+        [Command("job", RunMode = RunMode.Async)]
+        [Summary("Shows information about the job\n+t job <job name>")]
+        public async Task JobInfo([Remainder]string name)
+        {
+            Type job = await FindJob(name);
+
+            if (job != null)
+            {
+                EmbedBuilder embedBuilder = new EmbedBuilder();
+
+                embedBuilder.Color = Color.Purple;
+                embedBuilder.WithAuthor(author =>
+                {
+                    author.WithName("Kipo's Tamagotchi Club");
+                    author.WithIconUrl(Context.Client.CurrentUser.GetAvatarUrl());
+                });
+
+                object[] constructor = { null, null, null };
+                Work work = (Work)Activator.CreateInstance(job, constructor);
+
+                string text = $"Energy -{work.energyCost}\n" +
+                    $"Hapiness -{work.happinessCost}\n" +
+                    $"Hunger -{work.hungerCost}\n" +
+                    $"Thirst -{work.thirstCost}\n\n" +
+                    $"Min. requirements:\n" +
+                    $"Pet's stage: {work.reqStage}\n";
+
+                embedBuilder.AddField($"{work.name} | Info", text);
+
+                await Context.Channel.SendMessageAsync(embed: embedBuilder.Build());
+            }
+            else 
+            {
+                await Context.Channel.SendMessageAsync("Job not found!");
+            }
+        }
+
+        [Command("jobs", RunMode = RunMode.Async)]
+        [Summary("Shows all avaiable jobs")]
+        public async Task ShowJobs()
+        {
+            EmbedBuilder embedBuilder;
+            string text = string.Empty;
+
+            embedBuilder = new EmbedBuilder();
+
+            embedBuilder.Color = Color.Purple;
+            embedBuilder.WithAuthor(author =>
+            {
+                author.WithName("Kipo's Tamagotchi Club");
+                author.WithIconUrl(Context.Client.CurrentUser.GetAvatarUrl());
+            });
+
+            foreach (var job in database.jobs)
+            {
+                object[] constructor = { null, null, null };
+                Work work = (Work)Activator.CreateInstance(job, constructor);
+
+                text += $"{work.name}\n";
+            }
+
+            embedBuilder.AddField("All avaiable jobs | +t job <job name>", text);
+
+            await Context.Channel.SendMessageAsync(embed: embedBuilder.Build());
         }
     }
 }
