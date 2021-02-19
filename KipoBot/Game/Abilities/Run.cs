@@ -10,7 +10,6 @@ namespace KipoBot.Game.Abilities
         {
             name = "Run";
             description = "Runs away from the enemy!";
-            price = 0;
         }
 
         public override int Use(Pet pet)

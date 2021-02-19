@@ -52,7 +52,7 @@ namespace KipoBot.Modules
                         }
                     }
 
-                    if (ability.name.ToLower() == name.ToLower())
+                    if (ability.name.ToLower() == name.ToLower() & ability.name.ToLower() != "run")
                     {
                         if (player.wallet >= ability.price)
                         {
@@ -93,7 +93,10 @@ namespace KipoBot.Modules
                 embedBuilder.Color = Color.Purple;
 
                 foreach (var ability in database.abilities)
-                    embedBuilder.AddField($"{ability.name} | {ability.price} ₭", $"{ability.description}");
+                {
+                    if (ability.name != "Run")
+                        embedBuilder.AddField($"{ability.name} | {ability.price} ₭", $"{ability.description}");
+                }
 
                 await Context.Channel.SendMessageAsync(embed: embedBuilder.Build());
             }
