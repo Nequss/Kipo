@@ -118,27 +118,27 @@ namespace KipoBot.Game.Base
             {
                 thirst = (byte) (thirst - 1 >= 0 ? thirst - 1 : 0);
                 hunger = (byte) (hunger - 1 >= 0 ? hunger - 1 : 0);
-                hapiness = (byte) (hapiness - 6 >= 0 ? hapiness - 6 : 0); 
+                hapiness = (byte) (hapiness - 1 >= 0 ? hapiness - 1 : 0); 
                 
                 if (thirst == 0 || hunger == 0 || hapiness == 0)
                 {
-                    health = (byte) (health - 6 >= 0 ? health - 6 : 0);
+                    health = (byte) (health - 2 >= 0 ? health - 2 : 0);
                 }
             }
             else
             {
-                thirst = (byte) (thirst - 5 >= 0 ? thirst - 5 : 0);
-                hunger = (byte) (hunger - 5 >= 0 ? hunger - 5 : 0);
+                thirst = (byte) (thirst - 2 >= 0 ? thirst - 2 : 0);
+                hunger = (byte) (hunger - 2 >= 0 ? hunger - 2 : 0);
 
                 if (thirst == 0 || hunger == 0 || hapiness == 0)
                 {
-                    health = (byte) (health - 10 >= 0 ? health - 10 : 0);
-                    hapiness = (byte) (hapiness - 6 >= 0 ? hapiness - 6 : 0);
+                    health = (byte) (health - 4 >= 0 ? health - 4 : 0);
+                    hapiness = (byte) (hapiness - 2 >= 0 ? hapiness - 2 : 0);
                     
                 }
                 else
                 {
-                    hapiness = (byte) (hapiness - 3 >= 0 ? hapiness - 3 : 0);
+                    hapiness = (byte) (hapiness - 2 >= 0 ? hapiness - 2 : 0);
                 }
 
                 energy = (byte) (energy + 15 + level / 2 >= getMaxEnergy(level) ? energy + 15 + level / 2 : getMaxEnergy(level));

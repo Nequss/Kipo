@@ -23,7 +23,7 @@ namespace KipoBot.Modules
 {
     [Group("t")]
     [Name("trainer")]
-    [Summary("Train pettos! Get new abilities for pettos and such!")]
+    [Summary("Train new abilities to your pettos!")]
     public class TrainerModule : ModuleBase<SocketCommandContext>
     {
         private readonly DatabaseService database;

@@ -10,13 +10,15 @@ namespace KipoBot.Game.Pets
         {
             type = Type.Cat;
             name = "Cat";
+
             health = 50;
             hunger = 20;
             thirst = 20;
-            energy = 10;
+            energy = 15;
+
             speed = 15;
             inteligence = 10;
-            strength = 5;
+            strength = 10;
             agility = 10;
             accuracy = 10;
         }

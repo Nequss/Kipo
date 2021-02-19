@@ -14,7 +14,7 @@ namespace KipoBot.Game.Pets
             health = 40;
             hunger = 25;
             thirst = 25;
-            energy = 10;
+            energy = 15;
 
             speed = 15;
             inteligence = 15;
