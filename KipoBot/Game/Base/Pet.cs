@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace KipoBot.Game.Base
 {
@@ -45,6 +46,7 @@ namespace KipoBot.Game.Base
         public Item tool = null;
         public DateTime nextUpdateTime;
         public bool isAsleep = false;
+        public List<Ability> abilities = new List<Ability>();
          
         //to set
         public string name;
