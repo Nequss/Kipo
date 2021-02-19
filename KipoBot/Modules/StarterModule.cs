@@ -45,18 +45,19 @@ namespace Kipo.Modules
 
             embedBuilder.Color = Color.Purple;
             embedBuilder.AddField("Choose one of avaiable pets and remember to take care of it!", "\n - Bird" +
+                "\n (Sings pretty songs and always stays close sitting comfy on your shoulder)"+
                 "\n - Dog" +
-                "Mad barker and talker will give you toons of love and kisses"+
+                "\n (Mad barker and talker will give you toons of love and kisses)" +
                 "\n - Cat" +
-                "Sometimes can seem like it's annoyed at you but deep down it loves you" +
+                "\n (Sometimes can seem like it's annoyed at you but deep down it loves you)" +
                 "\n - Lizard" +
-                "A reptile that look cool all the time anywhere it goes" +
+                "\n (A reptile that look cool all the time anywhere it goes)" +
                 "\n - Hamster" +
-                "Small and cute little one that will brighten up your day" +
+                "\n (Small and cute little one that will brighten up your day)" +
                 "\n - Snake" +
-                "Goes hsss and wraps around your neck or arm, makes you look badass" +
+                "\n (Goes hsss and wraps around your neck or arm, makes you look badass)" +
                 "\n - Bunny" +
-                "Quick, full of energy and fluffy, loves to be close to you");
+                "\n (Quick, full of energy and fluffy, loves to be close to you)");
             embedBuilder.AddField("Use command below to choose your pet", "Example: +t choose Dog");
             embedBuilder.WithThumbnailUrl("https://thumbs2.imgbox.com/78/26/OS7ZaXwK_t.png");
 
