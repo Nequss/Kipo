@@ -52,7 +52,7 @@ namespace Kipo.Modules
                 "\n - Snake" +
                 "\n - Bunny");
             embedBuilder.AddField("Use command below to choose your pet", "Example: +t choose Dog");
-            embedBuilder.WithThumbnailUrl("https://images2.imgbox.com/eb/4e/Wp74ahXN_o.png");
+            embedBuilder.WithThumbnailUrl("https://thumbs2.imgbox.com/f8/fd/DKgzUlPc_t.png");
 
             await Context.Channel.SendMessageAsync(embed: embedBuilder.Build());
         }

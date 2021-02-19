@@ -11,8 +11,8 @@ namespace KipoBot.Game.Jobs
         public Bakery(Pet pet, Player owner, SocketCommandContext ctx) : base(pet, owner)
         {
             name = "Bakery";
-            reward = 35;
-            energyCost = 20;
+            reward = 25;
+            energyCost = 15;
             thirstCost = 15;
             hungerCost = 10;
             happinessCost = 13;
