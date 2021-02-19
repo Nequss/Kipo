@@ -69,6 +69,7 @@ namespace KipoBot.Services
          * [7][y] - treats
          * [8][y] - vegetables */
         public List<List<Item>> shop = new List<List<Item>>();
+        public List<Ability> abilities = new List<Ability>();
         public List<Type> jobs = new List<Type>();
 
         string PATH = Helpers.WORKING_DIRECTORY + @"/data/";
@@ -110,7 +111,7 @@ namespace KipoBot.Services
                 x++;
             }
 
-            Program.Logger.info($"Following jobs' instances will be created from KipoBot.Game.Jobs and added to the job list");
+            Program.Logger.info($"Following jobs class types will be created from KipoBot.Game.Jobs and added to the job list");
 
             jobs = Assembly.GetExecutingAssembly().GetTypes()
                     .Where(t => t.Namespace == "KipoBot.Game.Jobs")
@@ -118,6 +119,18 @@ namespace KipoBot.Services
 
             foreach (Type job in jobs)
                 Program.Logger.info(job.ToString() + ".cs");
+
+            Program.Logger.info($"Following abilities instances will be created from KipoBot.Game.Abilities and added to the job list");
+
+            var abilitiesTypes = Assembly.GetExecutingAssembly().GetTypes()
+                    .Where(t => t.Namespace == "KipoBot.Game.Abilities")
+                    .ToList();
+
+            foreach (var ability in abilitiesTypes)
+            {
+                abilities.Add((Ability)Activator.CreateInstance(ability));
+                Program.Logger.info(ability.ToString() + ".cs");
+            }
 
             _client = client;
 
@@ -234,7 +247,6 @@ namespace KipoBot.Services
 
             return null;
         }
-
 
         public async Task<bool> AddPet(ulong id, string pet)
         {

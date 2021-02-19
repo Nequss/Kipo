@@ -24,7 +24,7 @@ namespace KipoBot.Modules
     [Summary("Get food, drinks, accesories and other things for your pets and you.")]
     public class ShopModule : ModuleBase<SocketCommandContext>
     {
-        private static DatabaseService database;
+        private readonly DatabaseService database;
 
         public ShopModule(DatabaseService _database)
         {
