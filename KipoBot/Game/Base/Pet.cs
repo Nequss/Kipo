@@ -69,7 +69,7 @@ namespace KipoBot.Game.Base
             level = 1;
             xp = 0;
             abilities.Add(new Run());
-            nextUpdateTime = DateTime.Now + new TimeSpan(0, 0, 0,0 ,updateIntervalMS);
+            nextUpdateTime = DateTime.Now + new TimeSpan(0, 0, 0, 0, updateIntervalMS);
         }
 
         public abstract byte  getMaxHealth(byte level);

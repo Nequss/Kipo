@@ -149,7 +149,7 @@ namespace KipoBot.Modules
 
         [Command("name", RunMode = RunMode.Async)]
         [Summary("Changes the name of your active pet.\n+t name [name]")]
-        public async Task Name([Remainder]string name = null)
+        public async Task Name([Remainder] string name = null)
         {
             if (name == null)
             {
@@ -237,7 +237,6 @@ namespace KipoBot.Modules
 
                 EmbedBuilder embedBuilder = new EmbedBuilder();
 
-                embedBuilder = new EmbedBuilder();
                 embedBuilder.Color = Color.Purple;
                 embedBuilder.WithAuthor(author =>
                 {
@@ -250,6 +249,34 @@ namespace KipoBot.Modules
 
                 text += $"Free space: {player.items.Count}/20";
                 embedBuilder.AddField("Items", text);
+
+                await Context.Channel.SendMessageAsync(embed: embedBuilder.Build());
+            }
+            else
+            {
+                await Context.Channel.SendMessageAsync("You are not a member of the Kipo's tamagotchi club.\n" +
+                    "You can join by choosing your first pet, try +help starters");
+            }
+        }
+
+        [Command("moves", RunMode = RunMode.Async)]
+        [Summary("backpack summary")]
+        public async Task Moves()
+        {
+            Player player = await database.FindPlayer(Context.Message.Author.Id);
+
+            if (player != null)
+            {
+                string text = "";
+
+                EmbedBuilder embedBuilder = new EmbedBuilder();
+
+                embedBuilder.Color = Color.Purple;
+
+                foreach (var ability in player.active.abilities)
+                    text += $"{ability.name} - {ability.description}\n";
+
+                embedBuilder.AddField($"{player.active.name} moves", text);
 
                 await Context.Channel.SendMessageAsync(embed: embedBuilder.Build());
             }
