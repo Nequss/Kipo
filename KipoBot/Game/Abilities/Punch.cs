@@ -9,7 +9,7 @@ namespace KipoBot.Game.Abilities
         public Punch()
         {
             name = "Punch";
-            description = "Punch your enemy like your desk after raging";
+            description = "Punch enemy like desk after raging";
             price = 20;
         }
 

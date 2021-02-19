@@ -9,7 +9,7 @@ namespace KipoBot.Game.Abilities
         public BodySlam()
         {
             name = "Body Slam";
-            description = "Body slams enemy doubles damege, has chance of impacting you instead ";
+            description = "Body slams enemy, double the damage, has chance of impacting you instead ";
             price = 2000;
         }
 

@@ -9,7 +9,7 @@ namespace KipoBot.Game.Abilities
         public BackFist()
         {
             name = "Back Fist";
-            description = "Little bit more damage and it's like normal punch";
+            description = "Little bit more damage than normal punch";
             price = 70;
         }
 

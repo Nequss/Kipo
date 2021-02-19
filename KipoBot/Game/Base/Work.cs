@@ -19,7 +19,7 @@ namespace KipoBot.Game.Base
         public byte timeDuration;
         public Pet worker;
         public Pet.Stage reqStage;
-        //public Type reqItem;
+        public String reqItem = null;
         public DateTime timeStarted;
         public DateTime timeEnd;
         public Player workerOwner;
@@ -43,18 +43,17 @@ namespace KipoBot.Game.Base
 
         protected void setRequiredItem<T>()
         {
-           // reqItem = typeof(T);
+            reqItem = typeof(T).Name;
         }
 
         public bool hasReqItem()
         {
             foreach (var item in workerOwner.items)
             {
-                //Program.Logger.info(item.GetType() + " " + reqItem);
-                //if (item.GetType() == reqItem)
-                //{
-                    //return true;
-                //}
+                if (item.GetType().Name == reqItem)
+                {
+                    return true;
+                }
             }
 
             return false;
@@ -127,12 +126,12 @@ namespace KipoBot.Game.Base
                 return;
             }
             
-           // if (reqItem != null && !hasReqItem())
-            //{
-            //    context.Channel.SendMessageAsync($"This work requires an item that you currently don't have: {reqItem.Name}\nCome back when you have it!");
-             //   removeWork();
-             //   return;
-            //}
+            if (reqItem != null && !hasReqItem())
+            {
+                context.Channel.SendMessageAsync($"This work requires an item that you currently don't have: {reqItem}\nCome back when you have it!");
+                removeWork();
+                return;
+            }
 
             if (!satisfiesReqs(context) || !meetsAdditionalReqs(context))
             {
