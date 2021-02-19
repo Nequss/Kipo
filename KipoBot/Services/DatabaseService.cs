@@ -235,7 +235,6 @@ namespace KipoBot.Services
             return null;
         }
 
-
         public async Task<bool> AddPet(ulong id, string pet)
         {
             if (players != null && players.Count != 0)
