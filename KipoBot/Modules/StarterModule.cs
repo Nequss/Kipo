@@ -24,7 +24,7 @@ namespace Kipo.Modules
     [Summary("Constains all needed commands to join the game.")]
     public class StarterModule : ModuleBase<SocketCommandContext>
     {
-        private static DatabaseService database;
+        private readonly DatabaseService database;
 
         public StarterModule(DatabaseService _database)
         {

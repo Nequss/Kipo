@@ -25,7 +25,7 @@ namespace KipoBot.Modules
     [Summary("Work module")]
     public class WorkModule : ModuleBase<SocketCommandContext>
     {
-        private static DatabaseService database;
+        private readonly DatabaseService database;
 
         public WorkModule(DatabaseService _database)
         {

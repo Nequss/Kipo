@@ -80,6 +80,34 @@ namespace KipoBot.Modules
             }
         }
 
+        [Command("moves", RunMode = RunMode.Async)]
+        [Summary("backpack summary")]
+        public async Task Moves()
+        {
+            Player player = await database.FindPlayer(Context.Message.Author.Id);
+
+            if (player != null)
+            {
+                string text = "";
+
+                EmbedBuilder embedBuilder = new EmbedBuilder();
+
+                embedBuilder.Color = Color.Purple;
+
+                foreach (var ability in player.active.abilities)
+                    text += $"{ability.name} - {ability.description}\n";
+
+                embedBuilder.AddField($"{player.active.name} moves", text);
+
+                await Context.Channel.SendMessageAsync(embed: embedBuilder.Build());
+            }
+            else
+            {
+                await Context.Channel.SendMessageAsync("You are not a member of the Kipo's tamagotchi club.\n" +
+                    "You can join by choosing your first pet, try +help starters");
+            }
+        }
+
         [Command("abilities", RunMode = RunMode.Async)]
         [Summary("No description")]
         public async Task Abilities()

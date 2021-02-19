@@ -22,7 +22,7 @@ namespace KipoBot.Modules
     [Summary("List your valuable things on market for other players.")]
     public class MarketModule : ModuleBase<SocketCommandContext>
     {
-        private static DatabaseService database;
+        private readonly DatabaseService database;
 
         public MarketModule(DatabaseService _database)
         {

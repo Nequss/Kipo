@@ -14,6 +14,7 @@ using System.Threading;
 using CLI_Sharp;
 using KipoBot.Modules;
 using KipoBot.Utils;
+using Discord.Addons.Interactive;
 using Newtonsoft.Json.Linq;
 
 namespace KipoBot
@@ -99,6 +100,7 @@ namespace KipoBot
                 .AddSingleton<HttpClient>()
                 .AddSingleton<ConfigurationService>()
                 .AddSingleton<DatabaseService>()
+                .AddSingleton<InteractiveService>()
                 .BuildServiceProvider();
         }
     }

@@ -24,7 +24,7 @@ namespace KipoBot.Modules
     [Summary("Commands used to manage your equipment, profile, pets and such.")]
     public class GeneralModule : ModuleBase<SocketCommandContext>
     {
-        private static DatabaseService database;
+        private readonly DatabaseService database;
 
         public GeneralModule(DatabaseService _database)
         {
@@ -249,34 +249,6 @@ namespace KipoBot.Modules
 
                 text += $"Free space: {player.items.Count}/20";
                 embedBuilder.AddField("Items", text);
-
-                await Context.Channel.SendMessageAsync(embed: embedBuilder.Build());
-            }
-            else
-            {
-                await Context.Channel.SendMessageAsync("You are not a member of the Kipo's tamagotchi club.\n" +
-                    "You can join by choosing your first pet, try +help starters");
-            }
-        }
-
-        [Command("moves", RunMode = RunMode.Async)]
-        [Summary("backpack summary")]
-        public async Task Moves()
-        {
-            Player player = await database.FindPlayer(Context.Message.Author.Id);
-
-            if (player != null)
-            {
-                string text = "";
-
-                EmbedBuilder embedBuilder = new EmbedBuilder();
-
-                embedBuilder.Color = Color.Purple;
-
-                foreach (var ability in player.active.abilities)
-                    text += $"{ability.name} - {ability.description}\n";
-
-                embedBuilder.AddField($"{player.active.name} moves", text);
 
                 await Context.Channel.SendMessageAsync(embed: embedBuilder.Build());
             }
