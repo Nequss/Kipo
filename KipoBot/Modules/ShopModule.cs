@@ -65,7 +65,7 @@ namespace KipoBot.Modules
                     if (list[j].thirst != 0)
                         stats += $"+{list[j].thirst} thirst\n";
 
-                    embedBuilders[i].AddField($"{list[j].name} | {list[j].price} gold", $"{stats}{list[j].description}");
+                    embedBuilders[i].AddField($"{list[j].name} | {list[j].price} ₭", $"{stats}{list[j].description}");
                 }
             }
 
@@ -73,7 +73,7 @@ namespace KipoBot.Modules
         }
 
         [Command("buy", RunMode = RunMode.Async)]
-        [Summary("No description")]
+        [Summary(" ")]
         public async Task Buy([Remainder]string name)
         {
             Player player = await database.FindPlayer(Context.Message.Author.Id);
