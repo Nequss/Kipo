@@ -9,7 +9,7 @@ namespace KipoBot.Game.Abilities
         public SideKick()
         {
             name = "Side Kick";
-            description = "Kicks side of your enemy stand";
+            description = "Kicks side of enemy stand";
             price = 200;
         }
 

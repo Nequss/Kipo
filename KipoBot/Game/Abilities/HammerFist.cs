@@ -9,7 +9,7 @@ namespace KipoBot.Game.Abilities
         public HammerFist()
         {
             name = "Hammer Fist";
-            description = "More damage than normal one!";
+            description = "More damage than normal punch!";
             price = 1000;
         }
 

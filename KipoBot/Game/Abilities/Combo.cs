@@ -9,7 +9,7 @@ namespace KipoBot.Game.Abilities
         public Combo()
         {
             name = "Combo";
-            description = "Does double damage but hard to hit";
+            description = "Does double damage, is hard to hit";
             price = 1500;
         }
 
