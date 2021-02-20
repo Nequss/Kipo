@@ -12,9 +12,9 @@ namespace KipoBot.Game.Pets
             name = "Snake";
 
             health = 40;
-            hunger = 20;
+            hunger = 25;
             thirst = 25;
-            energy = 10;
+            energy = 15;
 
             speed = 10;
             inteligence = 10;

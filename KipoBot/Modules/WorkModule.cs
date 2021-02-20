@@ -90,11 +90,11 @@ namespace KipoBot.Modules
                     $"Hapiness -{work.happinessCost}\n" +
                     $"Hunger -{work.hungerCost}\n" +
                     $"Thirst -{work.thirstCost}\n\n" +
+                    $"Reward {work.reward}₭ \n"+
                     $"Min. requirements:\n" +
                     $"Pet's stage: {work.reqStage}\n";
 
                 embedBuilder.AddField($"{work.name} | Info", text);
-
                 await Context.Channel.SendMessageAsync(embed: embedBuilder.Build());
             }
             else 
