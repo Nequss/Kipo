@@ -64,5 +64,30 @@ namespace KipoBot.Modules
 
             await Context.Channel.SendMessageAsync(answers[new Random().Next(answers.Length)]);
         }
+
+        [Command("Roll", RunMode = RunMode.Async)]
+        [Summary("Roll dice 1-10")]
+
+        public async Task Roll()
+        {
+            string[] dice = new string []
+            {
+                   "1",
+                   "2",
+                   "3",
+                   "4",
+                   "5",
+                   "6",
+                   "7",
+                   "8",
+                   "9",
+                   "10"
+            };
+
+            await Context.Channel.SendMessageAsync(dice[new Random().Next(dice.Length)]);
+        }
     }
+
+        
+    
 }
