@@ -15,7 +15,8 @@ namespace KipoBot.Game.Base
             Drink,
             Fruit,
             Treat,
-            Tool
+            Tool,
+            Egg
         }
 
         public string name;
