@@ -74,16 +74,16 @@ namespace KipoBot.Modules
 
         [Command("buy", RunMode = RunMode.Async)]
         [Summary(" ")]
-        public async Task Buy([Remainder]string name)
+        public async Task Buy([Remainder] string name)
         {
             Player player = await database.FindPlayer(Context.Message.Author.Id);
 
             if (player != null)
-            { 
+            {
                 foreach (var category in database.shop)
-                {   
+                {
                     foreach (var item in category)
-                    {    
+                    {
                         if (name.ToLower() == item.name.ToLower())
                         {
                             if (player.wallet >= item.price)
@@ -114,7 +114,7 @@ namespace KipoBot.Modules
         [Summary("Round, juicy, sweet or sour list of variety of berries ")]
         public async Task Berries()
         {
-            foreach(var embed in await MakeEmbeds(database.shop[0], "Berries"))
+            foreach (var embed in await MakeEmbeds(database.shop[0], "Berries"))
                 await Context.Channel.SendMessageAsync(embed: embed.Build());
         }
 
@@ -181,5 +181,15 @@ namespace KipoBot.Modules
             foreach (var embed in await MakeEmbeds(database.shop[8], "Vegetables"))
                 await Context.Channel.SendMessageAsync(embed: embed.Build());
         }
+        [Command("Egg", RunMode = RunMode.Async)]
+        [Summary("Random pets egg to hatch and get a new little one ;)")]
+
+            public async Task Egg()
+        {
+            foreach (var embed in await MakeEmbeds(database.shop[9], "Egg"))
+                await Context.Channel.SendMessageAsync(embed: embed.Build());
+
+        }
+
     }
 }
