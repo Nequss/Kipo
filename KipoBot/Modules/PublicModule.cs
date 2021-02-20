@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using KipoBot.Services;
 using KipoBot.Utils;
+using KipoBot.Game.Base;
 
 namespace KipoBot.Modules
 {
@@ -66,24 +67,11 @@ namespace KipoBot.Modules
         }
 
         [Command("Roll", RunMode = RunMode.Async)]
-        [Summary("Roll dice 1-10")]
+        [Summary("Roll dice from number 1-10")]
 
         public async Task Roll()
         {
-            string[] dice = new string []
-            {
-                   "1",
-                   "2",
-                   "3",
-                   "4",
-                   "5",
-                   "6",
-                   "7",
-                   "8",
-                   "9",
-                   "10"
-            };
-
+            string[] dice = new string[]  {"1", "2", "3","4", "5", "6", "7", "8", "9", "10"};
             await Context.Channel.SendMessageAsync(dice[new Random().Next(dice.Length)]);
         }
     }
