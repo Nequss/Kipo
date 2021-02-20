@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using KipoBot.Services;
 using KipoBot.Utils;
 using KipoBot.Game.Base;
+using Discord.Addons.Interactive;
 
 namespace KipoBot.Modules
 {
@@ -67,12 +68,14 @@ namespace KipoBot.Modules
         }
 
         [Command("Roll", RunMode = RunMode.Async)]
-        [Summary("Roll dice from number 1-10")]
-
-        public async Task Roll()
+        [Summary("Rolls a number between 1-20")]
+        public async Task Roll(InteractiveService _interaction)
         {
-            string[] dice = new string[]  {"1", "2", "3","4", "5", "6", "7", "8", "9", "10"};
-            await Context.Channel.SendMessageAsync(dice[new Random().Next(dice.Length)]);
+           
+            Random rnd = new Random();
+            int dice = rnd.Next(1, 21);
+
+            await Context.Channel.SendMessageAsync("The number is " + ( dice));
         }
     }
 
