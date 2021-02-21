@@ -29,14 +29,16 @@ namespace KipoBot.Game.Base
         public short price;
 
         public int Damage(Pet pet) 
-            => Math.Round((pet.strength * 0.1) + (Speed(pet) * 0.1) + (pet.agility * 0.4) + (pet.level * 0.2));
+            => (int)Math.Round((pet.strength * 0.1) + (Speed(pet) * 0.1) + (pet.agility * 0.4) + (pet.level * 0.2));
 
-        public abstract bool Dodge(Pet pet);
+        public int ChanceDodge(Pet pet)
+            => (int)Math.Round((pet.agility / 5) + (pet.speed / 5) + (pet.inteligence / 5) + (pet.level * 0.2));
 
-        public abstract bool Hit(Pet pet);
+        public int ChanceHit(Pet pet)
+            => (int)Math.Round((pet.accuracy - ChanceDodge(pet)) / pet.accuracy * 100.0);
 
         public abstract int Speed(Pet pet);
 
-        public abstract Task Use(Pet attacker, Pet target);
+        public abstract Task Use(SocketCommandContext ctx, Pet attacker, Pet target);
     }
 }

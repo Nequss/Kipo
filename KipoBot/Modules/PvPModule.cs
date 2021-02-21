@@ -27,7 +27,7 @@ namespace KipoBot.Modules
     public class PvPModule : ModuleBase<SocketCommandContext>
     {
         private readonly DatabaseService database;
-        private readonly InteractiveService interaction;
+        private InteractiveService interaction;
         public PvPModule(DatabaseService _database, InteractiveService _interaction)
         {
             database = _database;

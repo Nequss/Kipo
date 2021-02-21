@@ -66,15 +66,15 @@ namespace KipoBot.Modules
 
             await Context.Channel.SendMessageAsync(answers[new Random().Next(answers.Length)]);
         }
+
         [Command("Roll", RunMode = RunMode.Async)]
         [Summary("Rolls a number between 1-20")]
         public async Task Roll()
         {
-
             Random rnd = new Random();
             int dice = rnd.Next(1, 21);
 
-            await Context.Channel.SendMessageAsync("The number is " + (dice));
+            await Context.Channel.SendMessageAsync("The number is " + dice);
         }
     }
 }

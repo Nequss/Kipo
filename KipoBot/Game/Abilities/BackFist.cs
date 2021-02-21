@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Threading.Tasks;
 using KipoBot.Game.Base;
+using Discord;
+using Discord.Commands;
 
 namespace KipoBot.Game.Abilities
 {
@@ -12,10 +15,16 @@ namespace KipoBot.Game.Abilities
             description = "Little bit more damage than normal punch";
             price = 70;
         }
+        public override int Speed(Pet pet) => pet.speed;
 
-        public override int Use(Pet attacker, Pet target)
+        public override Task Use(SocketCommandContext ctx, Pet attacker, Pet target)
         {
-            throw new NotImplementedException();
+            int damage = Damage(attacker);
+            target.health -= (byte)damage;
+            ctx.Channel.SendMessageAsync($"{attacker.name} attacked {target.name} using {name} ability!\n" +
+                $"{target.name} Health - {target.health}");
+
+            return Task.CompletedTask;
         }
     }
 }

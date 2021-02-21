@@ -15,7 +15,6 @@ using CLI_Sharp;
 using KipoBot.Modules;
 using KipoBot.Utils;
 using Discord.Addons.Interactive;
-using Newtonsoft.Json.Linq;
 
 namespace KipoBot
 {
