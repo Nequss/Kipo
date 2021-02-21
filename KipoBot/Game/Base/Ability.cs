@@ -28,6 +28,15 @@ namespace KipoBot.Game.Base
         public string description;
         public short price;
 
-        public abstract int Use(Pet pet);
+        public int Damage(Pet pet) 
+            => Math.Round((pet.strength * 0.1) + (Speed(pet) * 0.1) + (pet.agility * 0.4) + (pet.level * 0.2));
+
+        public abstract bool Dodge(Pet pet);
+
+        public abstract bool Hit(Pet pet);
+
+        public abstract int Speed(Pet pet);
+
+        public abstract Task Use(Pet attacker, Pet target);
     }
 }

@@ -148,5 +148,7 @@ namespace KipoBot.Game.Base
             nextUpdateTime = timeNow + new TimeSpan(0, 0, 0, 0, updateIntervalMS);
             Program.Logger.info($"Next update in: {nextUpdateTime}");
         }
+
+        public Pet Clone() => (Pet)MemberwiseClone();
     }
 }

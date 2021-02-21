@@ -68,9 +68,7 @@ namespace KipoBot.Modules
                     $"Tell your pet what to do when it's your turn by typing one of pet's abilities' name!\n" +
                     $"{p1.active.name} vs {p2.active.name}");
 
-                PvPLogic pvpLogic = new PvPLogic(database, interaction);
-                await pvpLogic.StartPvP(Context, p1, p2, u1, u2);
-
+                await new PvPLogic(database, interaction).StartPvP(Context, p1, p2, u1, u2);
             }
             else
             {

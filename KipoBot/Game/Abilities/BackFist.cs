@@ -13,7 +13,7 @@ namespace KipoBot.Game.Abilities
             price = 70;
         }
 
-        public override int Use(Pet pet)
+        public override int Use(Pet attacker, Pet target)
         {
             throw new NotImplementedException();
         }

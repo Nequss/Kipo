@@ -12,10 +12,5 @@ namespace KipoBot.Game.Abilities
             description = "Slow but strong!";
             price = 1000;
         }
-
-        public override int Use(Pet pet)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
