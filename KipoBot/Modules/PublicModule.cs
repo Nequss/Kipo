@@ -24,7 +24,7 @@ namespace KipoBot.Modules
 
         [Command("imgur", RunMode = RunMode.Async)]
         [Summary("Searches for a random imgur image\n+imgur [text]")]
-        public async Task Imgur([Remainder]string text) => await imgurApi.GetRandomImage(Context, text);
+        public async Task Imgur([Remainder] string text) => await imgurApi.GetRandomImage(Context, text);
 
         [Command("pokemon", RunMode = RunMode.Async)]
         public async Task Pokemon([Remainder] String name) => await PokeApi.getPokemonInfo(Context, name);
@@ -66,19 +66,15 @@ namespace KipoBot.Modules
 
             await Context.Channel.SendMessageAsync(answers[new Random().Next(answers.Length)]);
         }
-
         [Command("Roll", RunMode = RunMode.Async)]
         [Summary("Rolls a number between 1-20")]
-        public async Task Roll(InteractiveService _interaction)
+        public async Task Roll()
         {
-           
+
             Random rnd = new Random();
             int dice = rnd.Next(1, 21);
 
-            await Context.Channel.SendMessageAsync("The number is " + ( dice));
+            await Context.Channel.SendMessageAsync("The number is " + (dice));
         }
     }
-
-        
-    
 }
