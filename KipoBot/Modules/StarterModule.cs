@@ -85,7 +85,7 @@ namespace Kipo.Modules
             });
 
             embedBuilder.Color = Color.Purple;
-            embedBuilder.AddField(result, "Welcome to the cute and fun game where you can raise a little cutie of a pet and have fun with it competing with other players and have small battles which each other and play some minigames, just don’t forget to take care of your little ones or they will get mad and run away! :3");
+            embedBuilder.AddField(result, "Welcome to the cute and fun game where you can raise a little cutie of a pet, have fun with it competing with other players, have small battles which each other and play some minigames, just don’t forget to take care of your little ones or they will get mad and run away! :3");
             embedBuilder.AddField("Useful commands:", "+help tamagotchi " +
                 "\n" +
                 "+t profile" +
