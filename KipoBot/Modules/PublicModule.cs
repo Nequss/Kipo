@@ -68,11 +68,11 @@ namespace KipoBot.Modules
         }
 
         [Command("Roll", RunMode = RunMode.Async)]
-        [Summary("Rolls a number between 1-20")]
-        public async Task Roll()
+        [Summary("Random number generator")]
+        public async Task Roll(int  x)
         {
             Random rnd = new Random();
-            int dice = rnd.Next(1, 21);
+            int dice = rnd.Next(1, x +1);
 
             await Context.Channel.SendMessageAsync("The number is " + dice);
         }
