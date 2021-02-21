@@ -27,7 +27,7 @@ namespace KipoBot.Modules
     public class PvPModule : ModuleBase<SocketCommandContext>
     {
         private readonly DatabaseService database;
-        private InteractiveService interaction;
+        private readonly InteractiveService interaction;
         public PvPModule(DatabaseService _database, InteractiveService _interaction)
         {
             database = _database;
@@ -68,7 +68,7 @@ namespace KipoBot.Modules
                     $"Tell your pet what to do when it's your turn by typing one of pet's abilities' name!\n" +
                     $"{p1.active.name} vs {p2.active.name}");
 
-                await new PvPLogic(database, interaction).StartPvP(Context, p1, p2, u1, u2);
+                await new PvPLogic(interaction).StartPvP(Context, p1, p2, u1, u2);
             }
             else
             {

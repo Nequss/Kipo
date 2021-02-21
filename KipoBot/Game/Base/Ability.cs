@@ -35,7 +35,7 @@ namespace KipoBot.Game.Base
             => (int)Math.Round((pet.agility / 5) + (pet.speed / 5) + (pet.inteligence / 5) + (pet.level * 0.2));
 
         public int ChanceHit(Pet pet)
-            => (int)Math.Round((pet.accuracy - ChanceDodge(pet)) / pet.accuracy * 100.0);
+            => 75;
 
         public abstract int Speed(Pet pet);
 

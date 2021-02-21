@@ -64,8 +64,6 @@ namespace KipoBot.Game.PvP
 
         public async Task StartPvP(SocketCommandContext ctx, Player p1, Player p2, SocketUser u1, SocketUser u2)
         {
-            Program.Logger.info("PvP Starts");
-
             Pet pet1 = p1.active.Clone();
             Pet pet2 = p2.active.Clone();
 
@@ -79,11 +77,15 @@ namespace KipoBot.Game.PvP
 
                 if (ability1.Speed(pet1) >= ability2.Speed(pet2))
                 {
-                    await ctx.Channel.SendMessageAsync($"{pet1.name} turn to attack!");
+                    await ctx.Channel.SendMessageAsync($".........................\n" +
+                        $"{pet1.name} turn to attack!\n" +
+                        $"Chance to hit: {ability1.ChanceHit(pet1)}\n" +
+                        $"Enemy's chance to dodge: {ability1.ChanceDodge(pet2)}\n" +
+                        $".........................");
 
                     if (new Random().Next(0, 100) < ability1.ChanceHit(pet1))
                     {
-                        if (new Random().Next(0, 100) < ability1.ChanceDodge(pet2))
+                        if (new Random().Next(0, 100) > ability1.ChanceDodge(pet2))
                         {
                             await ability1.Use(ctx, pet1, pet2);
                         }
@@ -97,11 +99,15 @@ namespace KipoBot.Game.PvP
                         await ctx.Channel.SendMessageAsync($"{pet1.name} missed the attack!");
                     }
 
-                    await ctx.Channel.SendMessageAsync($"{pet2.name} turn to attack!");
+                    await ctx.Channel.SendMessageAsync($".........................\n" +
+                        $"{pet2.name} turn to attack!\n" +
+                        $"Chance to hit: {ability2.ChanceHit(pet2)}\n" +
+                        $"Enemy's chance to dodge: {ability2.ChanceDodge(pet1)}\n" +
+                        $".........................\n");
 
                     if (new Random().Next(0, 100) < ability2.ChanceHit(pet2))
                     {
-                        if (new Random().Next(0, 100) < ability2.ChanceDodge(pet1))
+                        if (new Random().Next(0, 100) > ability2.ChanceDodge(pet1))
                         {
                             await ability2.Use(ctx, pet2, pet1);
                         }
@@ -117,7 +123,7 @@ namespace KipoBot.Game.PvP
                 }
                 else
                 {
-                    await ctx.Channel.SendMessageAsync($"{pet2.name} turn to attack!");
+                    await ctx.Channel.SendMessageAsync($"\n{pet2.name} turn to attack!");
 
                     if (new Random().Next(0, 100) < ability2.ChanceHit(pet2))
                     {
@@ -135,8 +141,6 @@ namespace KipoBot.Game.PvP
                         await ctx.Channel.SendMessageAsync($"{pet2.name} missed the attack!");
                     }
 
-                    await ctx.Channel.SendMessageAsync($"{pet1.name} turn to attack!");
-
                     if (new Random().Next(0, 100) < ability1.ChanceHit(pet1))
                     {
                         if (new Random().Next(0, 100) < ability1.ChanceDodge(pet2))
@@ -147,6 +151,7 @@ namespace KipoBot.Game.PvP
                         {
                             await ctx.Channel.SendMessageAsync($"{pet2.name} dodged!");
                         }
+                        
                     }
                     else
                     {
@@ -154,7 +159,7 @@ namespace KipoBot.Game.PvP
                     }
                 }
 
-            } while (pet1.health <= 0 | pet2.health <= 0);
+            } while (pet1.health >= 0 | pet2.health >= 0);
 
             if (pet1.health <= 0)
                 await ctx.Channel.SendMessageAsync($"{pet1.name} has won!");
