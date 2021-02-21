@@ -107,7 +107,7 @@ namespace KipoBot.Modules
             await Context.Channel.SendMessageAsync(embed: embed.Build());
         }
 
-        private static async Task<EmbedBuilder> CreateEmbedWithImage(String title, String url)
+        private static async Task<EmbedBuilder> CreateEmbedWithImage(string title, string url)
         {
             NekosLifeApi api = JsonSerializer.Deserialize<NekosLifeApi>(await Helpers.getHttpResponseString(url));
 

@@ -16,25 +16,29 @@ using KipoBot.Services;
 using KipoBot.Game.Base;
 using KipoBot.Utils;
 using Discord.Addons.Interactive;
+using KipoBot.Game.PvP;
+using Discord;
 
 namespace KipoBot.Modules
 {
     [Group("t")]
     [Name("pvp")]
-    [Summary("Fight with pettos!")]
+    [Summary("Pet versus Per! Fight with your pettos!")]
     public class PvPModule : ModuleBase<SocketCommandContext>
     {
         private readonly DatabaseService database;
-
-        public PvPModule(DatabaseService _database)
+        private readonly InteractiveService interaction;
+        public PvPModule(DatabaseService _database, InteractiveService _interaction)
         {
             database = _database;
+            interaction = _interaction;
         }
 
         [Command("challenge", RunMode = RunMode.Async)]
         [Summary("Fight with other owners\n+t challenge [user]")]
-        public async Task Challenge([Remainder] string message)
+        public async Task Challenge([Remainder]string message)
         {
+            SocketUser u1 = Context.Message.Author;
             Player p1 = await database.FindPlayer(Context.Message.Author.Id);
 
             if (p1 == null)
@@ -44,7 +48,8 @@ namespace KipoBot.Modules
                 return;
             }
 
-            Player p2 = await database.FindPlayer(Helpers.extractUser(Context, message).Id);
+            SocketUser u2 = Helpers.extractUser(Context, message);
+            Player p2 = await database.FindPlayer(u2.Id);
 
             if (p2 == null)
             {
@@ -52,41 +57,25 @@ namespace KipoBot.Modules
                 return;
             }
 
-            //new PvPLogic(Context, p1, p2);
-        }
+            await Context.Channel.SendMessageAsync($"Hey, {u2.Mention}! Wanna fight with {Context.Message.Author.Mention}?\n" +
+                $"Type +accept in chat and let's see what happens! Remember you fight with your active pet.");
 
-        [Command("pvp", RunMode = RunMode.Async)]
-        [Summary("leaderboard")]
-        public async Task PvP()
-        {
+            SocketMessage response = await interaction.NextMessageAsync(Context, new EnsureFromUserCriterion(u2));
 
-        }
+            if (response.Content == "+accept")
+            {
+                await Context.Channel.SendMessageAsync($"Pet vs Pet competition has started!\n" +
+                    $"Tell your pet what to do when it's your turn by typing one of pet's abilities' name!\n" +
+                    $"{p1.active.name} vs {p2.active.name}");
 
-        [Command("testasync", RunMode = RunMode.Async)]
-        public async Task Test_NextMessageAsync() => new PvPLogic(Context);
-    }
+                PvPLogic pvpLogic = new PvPLogic(database, interaction);
+                await pvpLogic.StartPvP(Context, p1, p2, u1, u2);
 
-    public class PvPLogic : InteractiveBase
-    {
-        Task Fight(SocketCommandContext ctx, Player p1, Player p2)
-        {
-            var response = NextMessageAsync();
-
-            return Task.CompletedTask;
-        }
-        //public PvPLogic(SocketCommandContext ctx, Player p1, Player p2) => Fight(ctx, p1, p2);
-        public PvPLogic(SocketCommandContext ctx) => Test(ctx);
-
-        async Task Test(SocketCommandContext ctx)
-        {
-            await ctx.Channel.SendMessageAsync("type somethnig");
-
-            var response = await NextMessageAsync();
-
-            if (response != null)
-                await ReplyAsync($"You replied: {response.Content}");
+            }
             else
-                await ReplyAsync("PvP cancelled");
+            {
+                await Context.Channel.SendMessageAsync($"Challenge declined or ignored!");
+            }
         }
     }
 }

@@ -55,6 +55,7 @@ namespace KipoBot
                 var client = services.GetRequiredService<DiscordSocketClient>();
                 var config = services.GetRequiredService<ConfigurationService>();
                 var database = services.GetRequiredService<DatabaseService>();
+                var interactive = services.GetRequiredService<InteractiveService>();
 
                 client.Log += LogAsync;
                 services.GetRequiredService<CommandService>().Log += LogAsync;

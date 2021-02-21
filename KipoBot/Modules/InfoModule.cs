@@ -42,8 +42,6 @@ namespace KipoBot.Modules
 
             if (arg == "tamagotchi")
             {
-                embedBuilder = new EmbedBuilder();
-
                 embedBuilder.Color = Color.Purple;
                 embedBuilder.WithAuthor(author =>
                 {

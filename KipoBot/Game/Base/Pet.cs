@@ -68,7 +68,8 @@ namespace KipoBot.Game.Base
             hapiness = 25;
             level = 1;
             xp = 0;
-            abilities.Add(new Run());
+            abilities.Add(new Bite());
+            abilities.Add(new Punch());
             nextUpdateTime = DateTime.Now + new TimeSpan(0, 0, 0, 0, updateIntervalMS);
         }
 
