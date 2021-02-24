@@ -21,7 +21,7 @@ namespace KipoBot.Game.Abilities
         public override Task Use(SocketCommandContext ctx, Pet attacker, Pet target)
         {
             int damage = Damage(attacker);
-            target.health -= (short)damage;
+            target.health -= (short)Damage(attacker);
 
             if (target.health <= 0)
                 target.health = 0;

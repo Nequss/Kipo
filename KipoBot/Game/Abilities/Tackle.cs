@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using KipoBot.Game.Base;
 using Discord;
 using Discord.Commands;
-using KipoBot.Game.Base;
 
 namespace KipoBot.Game.Abilities
 {
@@ -22,7 +21,7 @@ namespace KipoBot.Game.Abilities
         public override Task Use(SocketCommandContext ctx, Pet attacker, Pet target)
         {
             int damage = Damage(attacker);
-            target.health -= (byte)damage;
+            target.health -= (short)Damage(attacker);
             ctx.Channel.SendMessageAsync($"{attacker.name} attacked {target.name} using {name} ability!\n" +
                 $"{target.name} Health - {target.health}");
 
