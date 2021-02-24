@@ -82,6 +82,32 @@ namespace KipoBot.Modules
                
             }
         }
+
+        [Command("Friends", RunMode = RunMode.Async)]
+        [Summary("Says how much you and your friend like each other ")]
+        public async Task Friends(SocketUser user2)
+        {
+            SocketUser user1 = Context.Message.Author;
+
+            await Context.Channel.SendMessageAsync( user1.Mention + " and " + user2.Mention + " your friendship is... ");
+            
+            string[] message = new string[] {
+            "**0%** You should not be friends it almost feels like you hate each other",
+            "**10%** VERY, VERY SLIM precent of liking you might as well be just strangers",
+            "**20%**  Do you two even talk with each other you sure you didnt just met? ",
+            "**30% **Well meh you both are still basically on the level of acquaintances",
+            "**40%** are you classmates who dont talk or what? ",
+            "**50%** Welllllll your friendship is half good",
+            "**60%** tiny little bit more than half but hey you getting there",
+            "**70% **ohohohoho very nice average friendship",
+            "**80%** your friendship is very strong it's nice to see :3",
+            "**90%** The heck you guys how do you stay such good friends you practically soulmates ",
+            "**100%** YOUR FRIENDSHIP IS TOO STRONG FOR THIS WORLD AAAAAAAAAA" };
+            
+            await Context.Channel.SendMessageAsync(message[new Random().Next(message.Length)]);
+
+
+        }
     }
 }
 
