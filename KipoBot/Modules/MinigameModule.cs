@@ -35,46 +35,51 @@ namespace KipoBot.Modules
         [Summary("Play a number guesing game agaisnt Kipo +guess (your number)")]
         public async Task Guess(int x)
         {
-            await ReplyAsync("Kipo is thinking of a number between 1 to "+x+" try to guess it in 3 attempts");
+            await ReplyAsync("Kipo is thinking of a number between 1 to "+x+" try to guess ");
 
-            SocketMessage answer = await interaction.NextMessageAsync(Context);
-            if (answer == null)
-            {
-                await ReplyAsync("You didn't pick a number before the timeout");
-                return;
-            }
+           
 
             int parseResult;
             Random rnd = new Random();
-            int num = rnd.Next(1, x+1);
+            int num = rnd.Next(1, x + 1);
             int playertries = 3;
-
-            bool result = Int32.TryParse(answer.Content, out  parseResult);
-
-            if (result == false)
-            {
-                await Context.Channel.SendMessageAsync("Your guess has to be a number");
-                return;
-            }
-            while (result == true)
+            bool end = true; 
+            
+            while (end == true)
             {
                 playertries--;
+                SocketMessage answer = await interaction.NextMessageAsync(Context);
+                if (answer == null)
+                {
+                    await ReplyAsync("You didn't pick a number before the timeout");
+                    return;
+                }
+                bool result = Int32.TryParse(answer.Content, out parseResult);
 
-                if (playertries == 0)
+                if (result == false)
                 {
-                    await Context.Channel.SendMessageAsync("You ran out of attemts lost the game :c");
-                    result = false;
-                }
-                else if (parseResult == num)
-                {
-                    await Context.Channel.SendMessageAsync("You win! CONGRATS");
-                    result = false;
-                }
-                else
-                {
-                    await Context.Channel.SendMessageAsync("Kipo is thinking of a different number try again you have " + playertries + " attemts left");
+                    await Context.Channel.SendMessageAsync("Your guess has to be a number");
+                    return;
                 }
 
+                if (result == true)
+                {
+                    if (playertries == 0)
+                    {
+                        await Context.Channel.SendMessageAsync("You lost the game :c");
+                        return;
+                    }
+                    if (parseResult == num)
+                    {
+                        await Context.Channel.SendMessageAsync("You win! CONGRATS");
+                        return;
+                    }
+                    else
+                    {
+                        await ReplyAsync("Kipo is thinking of a different number try again you have " + playertries + " attemts left");
+                    }
+                }
+               
             }
         }
     }
