@@ -72,7 +72,7 @@ namespace KipoBot.Modules
         public async Task Roll(int  x)
         {
             Random rnd = new Random();
-            int dice = rnd.Next(1, x +1);
+            int dice = rnd.Next(1, x + 1);
 
             await Context.Channel.SendMessageAsync("The number is " + dice);
         }

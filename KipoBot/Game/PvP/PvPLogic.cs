@@ -29,6 +29,13 @@ namespace KipoBot.Game.PvP
             interaction = _interaction;
         }
 
+        public async Task<Embed> PetCard()
+        {
+            EmbedBuilder embedBuilder = new EmbedBuilder();
+
+            return embedBuilder.Build();
+        }
+
         public async Task<Ability> FindAbility(string message, Pet pet)
         {
             if (message == null)
@@ -51,7 +58,7 @@ namespace KipoBot.Game.PvP
         {
             await ctx.Channel.SendMessageAsync($"It's {pet.name} turn | Choose ability");
             SocketMessage response = await interaction.NextMessageAsync(ctx, new EnsureFromUserCriterion(u));
-            Ability ability = await FindAbility(response.Content, pet);
+            Ability? ability = await FindAbility(response.Content, pet);
 
             if (ability == null)
             {
@@ -60,6 +67,31 @@ namespace KipoBot.Game.PvP
             }
 
             return ability;
+        }
+
+        public async Task Attack(SocketCommandContext ctx, Ability ability, Pet pet1, Pet pet2)
+        {
+            await ctx.Channel.SendMessageAsync($".........................\n" +
+                       $"{pet1.name} turn to attack!\n" +
+                       $"Chance to hit: {ability.ChanceHit(pet1)}\n" +
+                       $"Enemy's chance to dodge: {ability.ChanceDodge(pet2)}\n" +
+                       $".........................");
+
+            if (new Random().Next(0, 100) < ability.ChanceHit(pet1))
+            {
+                if (new Random().Next(0, 100) > ability.ChanceDodge(pet2))
+                {
+                    await ability.Use(ctx, pet1, pet2);
+                }
+                else
+                {
+                    await ctx.Channel.SendMessageAsync($"{pet2.name} dodged!");
+                }
+            }
+            else
+            {
+                await ctx.Channel.SendMessageAsync($"{pet1.name} missed the attack!");
+            }
         }
 
         public async Task StartPvP(SocketCommandContext ctx, Player p1, Player p2, SocketUser u1, SocketUser u2)
@@ -77,95 +109,28 @@ namespace KipoBot.Game.PvP
 
                 if (ability1.Speed(pet1) >= ability2.Speed(pet2))
                 {
-                    await ctx.Channel.SendMessageAsync($".........................\n" +
-                        $"{pet1.name} turn to attack!\n" +
-                        $"Chance to hit: {ability1.ChanceHit(pet1)}\n" +
-                        $"Enemy's chance to dodge: {ability1.ChanceDodge(pet2)}\n" +
-                        $".........................");
-
-                    if (new Random().Next(0, 100) < ability1.ChanceHit(pet1))
-                    {
-                        if (new Random().Next(0, 100) > ability1.ChanceDodge(pet2))
-                        {
-                            await ability1.Use(ctx, pet1, pet2);
-                        }
-                        else
-                        {
-                            await ctx.Channel.SendMessageAsync($"{pet2.name} dodged!");
-                        }
-                    }
-                    else
-                    {
-                        await ctx.Channel.SendMessageAsync($"{pet1.name} missed the attack!");
-                    }
-
-                    await ctx.Channel.SendMessageAsync($".........................\n" +
-                        $"{pet2.name} turn to attack!\n" +
-                        $"Chance to hit: {ability2.ChanceHit(pet2)}\n" +
-                        $"Enemy's chance to dodge: {ability2.ChanceDodge(pet1)}\n" +
-                        $".........................\n");
-
-                    if (new Random().Next(0, 100) < ability2.ChanceHit(pet2))
-                    {
-                        if (new Random().Next(0, 100) > ability2.ChanceDodge(pet1))
-                        {
-                            await ability2.Use(ctx, pet2, pet1);
-                        }
-                        else
-                        {
-                            await ctx.Channel.SendMessageAsync($"{pet2.name} dodged!");
-                        }
-                    }
-                    else
-                    {
-                        await ctx.Channel.SendMessageAsync($"{pet2.name} missed the attack!");
-                    }
+                    await Attack(ctx, ability1, pet1, pet2);
+                    await Attack(ctx, ability2, pet2, pet1);
                 }
                 else
                 {
-                    await ctx.Channel.SendMessageAsync($"\n{pet2.name} turn to attack!");
-
-                    if (new Random().Next(0, 100) < ability2.ChanceHit(pet2))
-                    {
-                        if (new Random().Next(0, 100) < ability2.ChanceDodge(pet1))
-                        {
-                            await ability2.Use(ctx, pet2, pet1);
-                        }
-                        else
-                        {
-                            await ctx.Channel.SendMessageAsync($"{pet2.name} dodged!");
-                        }
-                    }
-                    else
-                    {
-                        await ctx.Channel.SendMessageAsync($"{pet2.name} missed the attack!");
-                    }
-
-                    if (new Random().Next(0, 100) < ability1.ChanceHit(pet1))
-                    {
-                        if (new Random().Next(0, 100) < ability1.ChanceDodge(pet2))
-                        {
-                            await ability1.Use(ctx, pet1, pet2);
-                        }
-                        else
-                        {
-                            await ctx.Channel.SendMessageAsync($"{pet2.name} dodged!");
-                        }
-                        
-                    }
-                    else
-                    {
-                        await ctx.Channel.SendMessageAsync($"{pet1.name} missed the attack!");
-                    }
+                    await Attack(ctx, ability1, pet1, pet2);
+                    await Attack(ctx, ability2, pet2, pet1);
                 }
 
-            } while (pet1.health >= 0 | pet2.health >= 0);
+                if (pet1.health == 0)
+                {
+                    await ctx.Channel.SendMessageAsync($"{pet1.name} has won!");
+                    break;
+                }
 
-            if (pet1.health <= 0)
-                await ctx.Channel.SendMessageAsync($"{pet1.name} has won!");
+                if (pet2.health == 0)
+                {
+                    await ctx.Channel.SendMessageAsync($"{pet2.name} has won!");
+                    break;
+                }
 
-            if (pet2.health <= 0)
-                await ctx.Channel.SendMessageAsync($"{pet2.name} has won!");
+            } while (true);
         }
     }
 }

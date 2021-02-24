@@ -51,7 +51,7 @@ namespace KipoBot.Game.Base
          
         //to set
         public string name;
-        public byte health;
+        public short health;
         public short hunger;
         public short thirst;
         public short energy;
