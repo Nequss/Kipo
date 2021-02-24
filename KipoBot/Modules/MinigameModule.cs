@@ -33,43 +33,47 @@ namespace KipoBot.Modules
 
         [Command("Guess", RunMode = RunMode.Async)]
         [Summary("Play a number guesing game agaisnt Kipo +guess (your number)")]
-
-        public async Task Guess(int x, SocketUser a)
+        public async Task Guess(int x)
         {
             await ReplyAsync("Kipo is thinking of a number between 1 to "+x+" try to guess it in 3 attempts");
 
-            SocketMessage answer = await interaction.NextMessageAsync(Context, new EnsureFromUserCriterion(a));
+            SocketMessage answer = await interaction.NextMessageAsync(Context);
+            if (answer == null)
+            {
+                await ReplyAsync("You didn't pick a number before the timeout");
+                return;
+            }
 
-            int attempts = 3;
+            int parseResult;
             Random rnd = new Random();
-            int num = rnd.Next(1, 11);
+            int num = rnd.Next(1, x+1);
+            int playertries = 3;
 
-            bool result = Int32.TryParse(answer.Content, out int parseResult);
-           
+            bool result = Int32.TryParse(answer.Content, out  parseResult);
+
             if (result == false)
+            {
                 await Context.Channel.SendMessageAsync("Your guess has to be a number");
-
+                return;
+            }
             while (result == true)
             {
-                attempts--;
+                playertries--;
 
-                if (attempts == 0)
+                if (playertries == 0)
                 {
-                    await ReplyAsync("You ran out of attempts and lost the game :c");
+                    await Context.Channel.SendMessageAsync("You ran out of attemts lost the game :c");
                     result = false;
                 }
-                if (parseResult == num)
+                else if (parseResult == num)
                 {
                     await Context.Channel.SendMessageAsync("You win! CONGRATS");
                     result = false;
                 }
-                if (parseResult > num && parseResult < num)
-                {
-                    await Context.Channel.SendMessageAsync("Kipo is thinking of a different number try again you have" + attempts + " left ");
-                }
-
                 else
-                    await ReplyAsync("You didn't pick a number before the timeout");
+                {
+                    await Context.Channel.SendMessageAsync("Kipo is thinking of a different number try again you have " + playertries + " attemts left");
+                }
 
             }
         }
