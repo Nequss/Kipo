@@ -20,8 +20,12 @@ namespace KipoBot.Game.Abilities
 
         public override Task Use(SocketCommandContext ctx, Pet attacker, Pet target)
         {
-            int damage = Damage(attacker);
+            int agil = attacker.accuracy -2 ;
+            double damage = Math.Round(Damage(attacker) + (Damage(attacker)*0.5));
             target.health -= (short)Damage(attacker);
+            attacker.accuracy += (byte)attacker.accuracy;
+
+
             ctx.Channel.SendMessageAsync($"{attacker.name} attacked {target.name} using {name} ability!\n" +
                 $"{target.name} Health - {target.health}");
 

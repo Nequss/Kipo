@@ -12,16 +12,18 @@ namespace KipoBot.Game.Abilities
         public SuckerPunch()
         {
             name = "Sucker Punch";
-            description = "More damage, it can surprise enemy and hit first next round";
-            price = 700;
+            description = "Punch so strong even gods fear it ";
+            price = 3000;
         }
 
         public override int Speed(Pet pet) => pet.speed;
 
         public override Task Use(SocketCommandContext ctx, Pet attacker, Pet target)
         {
-            int damage = Damage(attacker);
+            double damage = Math.Round(Damage(attacker) +( Damage(attacker)*0.8));
             target.health -= (short)Damage(attacker);
+            
+
             ctx.Channel.SendMessageAsync($"{attacker.name} attacked {target.name} using {name} ability!\n" +
                 $"{target.name} Health - {target.health}");
 

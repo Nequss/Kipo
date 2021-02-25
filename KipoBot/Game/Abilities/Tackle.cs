@@ -13,15 +13,17 @@ namespace KipoBot.Game.Abilities
         {
             name = "Tackle";
             description = "Can make enemy paralized - has very low chance of hiting";
-            price = 1000;
+            price = 3300;
         }
 
         public override int Speed(Pet pet) => pet.speed;
 
         public override Task Use(SocketCommandContext ctx, Pet attacker, Pet target)
         {
-            int damage = Damage(attacker);
-            target.health -= (short)Damage(attacker);
+
+             double damage = Math.Round (Damage(attacker) + Damage(attacker)*0.9);
+             target.health -= (short)Damage(attacker);
+           
             ctx.Channel.SendMessageAsync($"{attacker.name} attacked {target.name} using {name} ability!\n" +
                 $"{target.name} Health - {target.health}");
 

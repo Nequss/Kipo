@@ -13,15 +13,18 @@ namespace KipoBot.Game.Abilities
         {
             name = "Quick Hit";
             description = "Fast as heck!";
-            price = 200;
+            price = 500;
         }
 
         public override int Speed(Pet pet) => pet.speed;
 
         public override Task Use(SocketCommandContext ctx, Pet attacker, Pet target)
         {
+            int agil = attacker.accuracy + 1;
             int damage = Damage(attacker);
             target.health -= (short)Damage(attacker);
+            attacker.accuracy += (byte)attacker.accuracy;
+
             ctx.Channel.SendMessageAsync($"{attacker.name} attacked {target.name} using {name} ability!\n" +
                 $"{target.name} Health - {target.health}");
 
