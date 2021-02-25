@@ -18,8 +18,8 @@ namespace KipoBot.Game.Pets
 
             speed = 10;
             inteligence = 10;
-            strength = 10;
-            agility = 10;
+            strength = 5;
+            agility = 15;
             accuracy = 15;
         }
 
