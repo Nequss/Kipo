@@ -26,9 +26,6 @@ namespace KipoBot.Game.Abilities
             if (target.health <= 0)
                 target.health = 0;
 
-            ctx.Channel.SendMessageAsync($"{attacker.name} attacked {target.name} using {name} ability!\n" +
-                $"{target.name} Health - {target.health}");
-
             return Task.CompletedTask;
         }
     }

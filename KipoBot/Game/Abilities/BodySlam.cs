@@ -22,8 +22,6 @@ namespace KipoBot.Game.Abilities
         {
             int damage = Damage(attacker)*2;
             target.health -= (short)Damage(attacker);
-            ctx.Channel.SendMessageAsync($"{attacker.name} attacked {target.name} using {name} ability!\n" +
-                $"{target.name} Health - {target.health}");
 
             return Task.CompletedTask;
         }

@@ -26,9 +26,6 @@ namespace KipoBot.Game.Abilities
 
              attacker.accuracy += (byte)attacker.accuracy;
 
-            ctx.Channel.SendMessageAsync($"{attacker.name} attacked {target.name} using {name} ability!\n" +
-                $"{target.name} Health - {target.health}");
-
             return Task.CompletedTask;
         }
     }
