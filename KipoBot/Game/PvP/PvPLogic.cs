@@ -69,13 +69,21 @@ namespace KipoBot.Game.PvP
             return ability;
         }
 
-        public async Task Attack(SocketCommandContext ctx, Ability ability, Pet pet1, Pet pet2)
+        public async Task  Attack (SocketCommandContext ctx, Ability ability, Pet pet1, Pet pet2)
         {
-            await ctx.Channel.SendMessageAsync($".........................\n" +
-                       $"{pet1.name} turn to attack!\n" +
-                       $"Chance to hit: {ability.ChanceHit(pet1)}\n" +
-                       $"Enemy's chance to dodge: {ability.ChanceDodge(pet2)}\n" +
-                       $".........................");
+            EmbedBuilder embedBuilder = new EmbedBuilder();
+            embedBuilder.Color = Color.Purple;
+            
+            embedBuilder.WithAuthor(author =>
+            {
+                author.WithName($"{pet1.name}");
+                author.WithIconUrl(ctx.Client.CurrentUser.GetAvatarUrl());
+            });
+
+            embedBuilder.AddField("Fight",
+                $"{pet1.name} Health = {pet1.health}\n" +
+                $"{pet1.name} turn to attack!\n" +
+                 $"{pet1.name} attacked {pet2.name} using {ability.name} ability!");
 
             if (new Random().Next(0, 100) < ability.ChanceHit(pet1))
             {
@@ -85,23 +93,28 @@ namespace KipoBot.Game.PvP
                 }
                 else
                 {
-                    await ctx.Channel.SendMessageAsync($"{pet2.name} dodged!");
+                    embedBuilder.AddField(".........................", $"{pet2.name} dodged!");
                 }
             }
             else
             {
-                await ctx.Channel.SendMessageAsync($"{pet1.name} missed the attack!");
+                embedBuilder.AddField(".........................", $"{pet1.name} missed the attack!");
             }
+            embedBuilder.WithImageUrl("https://images2.imgbox.com/eb/4e/Wp74ahXN_o.png");
+            await ctx.Channel.SendMessageAsync(embed: embedBuilder.Build());
         }
 
         public async Task StartPvP(SocketCommandContext ctx, Player p1, Player p2, SocketUser u1, SocketUser u2)
         {
+            EmbedBuilder embedBuilder = new EmbedBuilder();
+            embedBuilder.Color = Color.Purple;
+
             Pet pet1 = p1.active.Clone();
             Pet pet2 = p2.active.Clone();
 
             Ability ability1;
             Ability ability2;
-
+           
             do
             {
                 ability1 = await ChooseAbility(ctx, pet1, u1);
@@ -120,17 +133,20 @@ namespace KipoBot.Game.PvP
 
                 if (pet1.health == 0)
                 {
-                    await ctx.Channel.SendMessageAsync($"{pet1.name} has won!");
+                    embedBuilder.AddField("Congrats!", $"{pet1.name} has won!");
                     break;
                 }
 
                 if (pet2.health == 0)
                 {
-                    await ctx.Channel.SendMessageAsync($"{pet2.name} has won!");
+                    embedBuilder.AddField("Congrats!", $"{pet2.name} has won!");
                     break;
                 }
 
             } while (true);
+
+            embedBuilder.WithImageUrl("https://images2.imgbox.com/eb/4e/Wp74ahXN_o.png");
+            await ctx.Channel.SendMessageAsync(embed: embedBuilder.Build());
         }
     }
 }

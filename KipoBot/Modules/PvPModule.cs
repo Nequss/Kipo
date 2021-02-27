@@ -66,7 +66,7 @@ namespace KipoBot.Modules
             {
                 await Context.Channel.SendMessageAsync($"Friendly Pet vs Pet competition has started!\n" +
                     $"Tell your pet what to do when it's your turn by typing one of pet's abilities' name!\n" +
-                    $"Your pets will be healed after the battle for free! We got vets ready to help so don't worry :3" +
+                    $"Your pets will be healed after the battle for free! We got vets ready to help so don't worry :3 " +
                     $"{p1.active.name} vs {p2.active.name}");
 
                 await new PvPLogic(interaction).StartPvP(Context, p1, p2, u1, u2);
