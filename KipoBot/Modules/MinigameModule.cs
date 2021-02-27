@@ -24,27 +24,29 @@ namespace KipoBot.Modules
     [Summary("Contains all fun minigames to play")]
     public class MinigameModule : ModuleBase<SocketCommandContext>
     {
+        private readonly DatabaseService database;
         private readonly InteractiveService interaction;
 
-        public MinigameModule(InteractiveService _interaction)
+        public MinigameModule(DatabaseService _database, InteractiveService _interaction)
         {
             interaction = _interaction;
+            database = _database;
         }
 
         [Command("Guess", RunMode = RunMode.Async)]
         [Summary("Play a number guesing game agaisnt Kipo +guess (your number)")]
         public async Task Guess(int x)
         {
-            await ReplyAsync("Kipo is thinking of a number between 1 to "+x+" try to guess ");
+            await ReplyAsync("Kipo is thinking of a number between 1 to " + x + " try to guess ");
 
-           
+
 
             int parseResult;
             Random rnd = new Random();
             int num = rnd.Next(1, x + 1);
             int playertries = 3;
-            bool end = true; 
-            
+            bool end = true;
+
             while (end == true)
             {
                 playertries--;
@@ -79,7 +81,7 @@ namespace KipoBot.Modules
                         await ReplyAsync("Kipo is thinking of a different number try again you have " + playertries + " attemts left");
                     }
                 }
-               
+
             }
         }
 
@@ -89,8 +91,8 @@ namespace KipoBot.Modules
         {
             SocketUser user1 = Context.Message.Author;
 
-            await Context.Channel.SendMessageAsync( user1.Mention + " and " + user2.Mention + " your friendship is... ");
-            
+            await Context.Channel.SendMessageAsync(user1.Mention + " and " + user2.Mention + " your friendship is... ");
+
             string[] message = new string[] {
             "**0%** You should not be friends it almost feels like you hate each other",
             "**10%** VERY, VERY SLIM precent of liking you might as well be just strangers",
@@ -103,11 +105,87 @@ namespace KipoBot.Modules
             "**80%** your friendship is very strong it's nice to see :3",
             "**90%** The heck you guys how do you stay such good friends you practically soulmates ",
             "**100%** YOUR FRIENDSHIP IS TOO STRONG FOR THIS WORLD AAAAAAAAAA" };
-            
+
             await Context.Channel.SendMessageAsync(message[new Random().Next(message.Length)]);
 
 
         }
+        [Command("RPS", RunMode = RunMode.Async)]
+        [Summary("Play a game of rock, paper, scissors against Kipo")]
+        public async Task RPS()
+        {
+            await Context.Channel.SendMessageAsync("**You have started a game of Rock, Paper, Scissors\n**"+"Choose:\n"+
+                "+rock\n"+"+paper\n"+"+scissors");
+           
+            SocketUser user = Context.Message.Author;
+            SocketMessage response = await interaction.NextMessageAsync(Context, new EnsureFromUserCriterion(user));
+
+            string[] Choices = new string[] { "Rock", "Paper", "Scissors" };
+            String KipoChoice = (Choices[new Random().Next(Choices.Length)]);
+
+            if (response.Content == "+rock")
+            {
+                await Context.Channel.SendMessageAsync("You chose Rock");
+
+                if (KipoChoice == "Paper")
+                {
+                    await Context.Channel.SendMessageAsync("Kipo chose paper\n" + "it beats rock! You lose!");
+                }
+                else if (KipoChoice == "Rock")
+                {
+                    await Context.Channel.SendMessageAsync("Kipo chose Rock\n" + " ITS A TIE");
+                }
+                else
+                {
+                    await Context.Channel.SendMessageAsync("Kipo chose Scissors\n" + "You win Congrats!");
+                }
+                return;
+            }
+            if (response.Content == "+paper")
+            {
+                await Context.Channel.SendMessageAsync("You chose Paper");
+
+                if (KipoChoice == "Scissors")
+                {
+                    await Context.Channel.SendMessageAsync("Kipo chose Scissors\n" + "it cuts trough paper! You lose!");
+                }
+                else if (KipoChoice == "Paper")
+                {
+                    await Context.Channel.SendMessageAsync("Kipo chose Paper\n" + " ITS A TIE");
+                }
+                else
+                {
+                    await Context.Channel.SendMessageAsync("Kipo chose Rock\n" + "Paper covers Rock! You win Congrats!");
+                }
+                return;
+            }
+            if (response.Content == "+scissors")
+            {
+                await Context.Channel.SendMessageAsync("You chose Scissors");
+
+                if (KipoChoice == "Rock")
+                {
+                    await Context.Channel.SendMessageAsync("Kipo chose Rock\n" + "Rock breaks Scissors! You lose!");
+                }
+                else if (KipoChoice == "Scissors")
+                {
+                    await Context.Channel.SendMessageAsync("Kipo chose Scissors\n" + " ITS A TIE");
+                }
+                else
+                {
+                    await Context.Channel.SendMessageAsync("Kipo chose Papar\n" + "Scissors cut trough Paper! You win Congrats!");
+
+                }
+                return;
+            }
+            if (response.Content != "+rock" || response.Content != "+paper" || response.Content != "+scissors")
+            {
+                await Context.Channel.SendMessageAsync("You can only choose: +rock\n"+"+paper\n"+"+scissors");
+                return;
+            }
+
+        }
     }
 }
+
 
