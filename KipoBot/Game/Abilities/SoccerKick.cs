@@ -24,7 +24,7 @@ namespace KipoBot.Game.Abilities
             double damage = Math.Round(Damage(attacker)+ (Damage(attacker)*0.5));
             target.health -= (short)Damage(attacker);
 
-             attacker.accuracy += (byte)attacker.accuracy;
+             attacker.accuracy -= (byte)attacker.accuracy;
 
             return Task.CompletedTask;
         }

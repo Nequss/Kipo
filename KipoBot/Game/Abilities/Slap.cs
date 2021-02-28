@@ -13,7 +13,7 @@ namespace KipoBot.Game.Abilities
         {
             name = "Slap";
             description = "Nice slap across the cheek";
-            price = 500;
+            price = 400;
         }
 
         public override int Speed(Pet pet) => pet.speed;
