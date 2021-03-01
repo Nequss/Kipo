@@ -90,7 +90,7 @@ namespace Kipo.Modules
                 "\n" +
                 "+t profile" +
                 "\n" +
-                "+t pet profile " +
+                "+t active " +
                 "\n");
             embedBuilder.AddField("Your pet:", "\u200b");
             embedBuilder.WithImageUrl("https://images2.imgbox.com/eb/4e/Wp74ahXN_o.png");
