@@ -31,13 +31,14 @@ namespace KipoBot.Modules
         {
             interaction = _interaction;
             database = _database;
+       
         }
 
-        [Command("Guess", RunMode = RunMode.Async)]
-        [Summary("Play a number guesing game agaisnt Kipo +guess (your number)")]
-        public async Task Guess(int x)
+        [Command("guess", RunMode = RunMode.Async)]
+        [Summary("Play a number guesing game agaisnt your pet, type +guess (your number)")]
+        public async Task Guess(int x, Pet pet)
         {
-            await ReplyAsync("Kipo is thinking of a number between 1 to " + x + " try to guess ");
+            await ReplyAsync($"{pet.name} is thinking of a number between 1 to " + x + " try to guess ");
 
 
 
@@ -78,14 +79,14 @@ namespace KipoBot.Modules
                     }
                     else
                     {
-                        await ReplyAsync("Kipo is thinking of a different number try again you have " + playertries + " attemts left");
+                        await ReplyAsync($"{pet.name} is thinking of a different number try again you have " + playertries + " attemts left");
                     }
                 }
 
             }
         }
 
-        [Command("Friends", RunMode = RunMode.Async)]
+        [Command("friends", RunMode = RunMode.Async)]
         [Summary("Says how much you and your friend like each other ")]
         public async Task Friends(SocketUser user2)
         {
@@ -110,9 +111,9 @@ namespace KipoBot.Modules
 
 
         }
-        [Command("RPS", RunMode = RunMode.Async)]
+        [Command("rps", RunMode = RunMode.Async)]
         [Summary("Play a game of rock, paper, scissors against Kipo")]
-        public async Task RPS()
+        public async Task RPS(Pet pet)
         {
             await Context.Channel.SendMessageAsync("**You have started a game of Rock, Paper, Scissors\n**"+"Choose:\n"+
                 "+rock\n"+"+paper\n"+"+scissors");
@@ -129,15 +130,15 @@ namespace KipoBot.Modules
 
                 if (KipoChoice == "Paper")
                 {
-                    await Context.Channel.SendMessageAsync("Kipo chose paper\n" + "it beats rock! You lose!");
+                    await Context.Channel.SendMessageAsync($"{pet.name} chose paper\n" + "it beats rock! You lose!");
                 }
                 else if (KipoChoice == "Rock")
                 {
-                    await Context.Channel.SendMessageAsync("Kipo chose Rock\n" + " ITS A TIE");
+                    await Context.Channel.SendMessageAsync($"{pet.name} chose Rock\n" + " ITS A TIE");
                 }
                 else
                 {
-                    await Context.Channel.SendMessageAsync("Kipo chose Scissors\n" + "You win Congrats!");
+                    await Context.Channel.SendMessageAsync($"{pet.name} chose Scissors\n" + "You win Congrats!");
                 }
                 return;
             }
@@ -147,15 +148,15 @@ namespace KipoBot.Modules
 
                 if (KipoChoice == "Scissors")
                 {
-                    await Context.Channel.SendMessageAsync("Kipo chose Scissors\n" + "it cuts trough paper! You lose!");
+                    await Context.Channel.SendMessageAsync($"{pet.name} chose Scissors\n" + "it cuts trough paper! You lose!");
                 }
                 else if (KipoChoice == "Paper")
                 {
-                    await Context.Channel.SendMessageAsync("Kipo chose Paper\n" + " ITS A TIE");
+                    await Context.Channel.SendMessageAsync($"{pet.name} chose Paper\n" + " ITS A TIE");
                 }
                 else
                 {
-                    await Context.Channel.SendMessageAsync("Kipo chose Rock\n" + "Paper covers Rock! You win Congrats!");
+                    await Context.Channel.SendMessageAsync($"{pet.name} chose Rock\n" + "Paper covers Rock! You win Congrats!");
                 }
                 return;
             }
@@ -165,15 +166,15 @@ namespace KipoBot.Modules
 
                 if (KipoChoice == "Rock")
                 {
-                    await Context.Channel.SendMessageAsync("Kipo chose Rock\n" + "Rock breaks Scissors! You lose!");
+                    await Context.Channel.SendMessageAsync($"{pet.name} chose Rock\n" + "Rock breaks Scissors! You lose!");
                 }
                 else if (KipoChoice == "Scissors")
                 {
-                    await Context.Channel.SendMessageAsync("Kipo chose Scissors\n" + " ITS A TIE");
+                    await Context.Channel.SendMessageAsync($"{pet.name} chose Scissors\n" + " ITS A TIE");
                 }
                 else
                 {
-                    await Context.Channel.SendMessageAsync("Kipo chose Papar\n" + "Scissors cut trough Paper! You win Congrats!");
+                    await Context.Channel.SendMessageAsync($"{pet.name} chose Papar\n" + "Scissors cut trough Paper! You win Congrats!");
 
                 }
                 return;
@@ -185,6 +186,8 @@ namespace KipoBot.Modules
             }
 
         }
+        
+
     }
 }
 
