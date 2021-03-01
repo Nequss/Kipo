@@ -20,7 +20,7 @@ using Discord;
 
 namespace KipoBot.Modules
 {
-    [Name("Minigames")]
+    [Name("minigames")]
     [Summary("Contains all fun minigames to play")]
     public class MinigameModule : ModuleBase<SocketCommandContext>
     {
@@ -33,13 +33,11 @@ namespace KipoBot.Modules
             database = _database;
         }
 
-        [Command("Guess", RunMode = RunMode.Async)]
+        [Command("guess", RunMode = RunMode.Async)]
         [Summary("Play a number guesing game agaisnt Kipo +guess (your number)")]
         public async Task Guess(int x)
         {
             await ReplyAsync("Kipo is thinking of a number between 1 to " + x + " try to guess ");
-
-
 
             int parseResult;
             Random rnd = new Random();
@@ -85,7 +83,7 @@ namespace KipoBot.Modules
             }
         }
 
-        [Command("Friends", RunMode = RunMode.Async)]
+        [Command("friends", RunMode = RunMode.Async)]
         [Summary("Says how much you and your friend like each other ")]
         public async Task Friends(SocketUser user2)
         {
@@ -107,10 +105,9 @@ namespace KipoBot.Modules
             "**100%** YOUR FRIENDSHIP IS TOO STRONG FOR THIS WORLD AAAAAAAAAA" };
 
             await Context.Channel.SendMessageAsync(message[new Random().Next(message.Length)]);
-
-
         }
-        [Command("RPS", RunMode = RunMode.Async)]
+
+        [Command("rps", RunMode = RunMode.Async)]
         [Summary("Play a game of rock, paper, scissors against Kipo")]
         public async Task RPS()
         {
@@ -183,7 +180,6 @@ namespace KipoBot.Modules
                 await Context.Channel.SendMessageAsync("You can only choose: +rock\n"+"+paper\n"+"+scissors");
                 return;
             }
-
         }
     }
 }

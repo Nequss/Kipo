@@ -245,7 +245,7 @@ namespace KipoBot.Modules
                 });
 
                 for (int i = 0; i < player.items.Count; i++)
-                    text += $"{i + 1}. {player.items[i].name} | Type: {player.items[i].type}\n";
+                    text += $"ID: {i}. {player.items[i].name} | Type: {player.items[i].type}\n";
 
                 text += $"Free space: {player.items.Count}/20";
                 embedBuilder.AddField("Items", text);

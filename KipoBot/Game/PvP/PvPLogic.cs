@@ -100,6 +100,7 @@ namespace KipoBot.Game.PvP
             {
                 embedBuilder.AddField(".........................", $"{pet1.name} missed the attack!");
             }
+
             embedBuilder.WithImageUrl("https://images2.imgbox.com/eb/4e/Wp74ahXN_o.png");
             await ctx.Channel.SendMessageAsync(embed: embedBuilder.Build());
         }

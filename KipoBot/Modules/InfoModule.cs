@@ -73,7 +73,7 @@ namespace KipoBot.Modules
                     foreach (var command in module.Commands)
                         if (command.Name != "help")
                             embedBuilder.AddField(_config.prefix + (module.Group == null ? string.Empty : (module.Group + " ")) + command.Name, command.Summary == null ? "No Summary" : command.Summary, true);
-
+                    
                     await Context.Channel.SendMessageAsync(embed: embedBuilder.Build());
                     return;
                 }
@@ -81,8 +81,9 @@ namespace KipoBot.Modules
 
             //if module not found, list modules avaiable
             foreach (var module in _service.Modules)
-                if (module.Group != "t")
+                if (module.Group != "t" & module.Name != "updater")
                     embedBuilder.AddField(char.ToUpper(module.Name[0]) + module.Name.Substring(1) + " Module | " + _config.prefix + "help " + module.Name, module.Summary, false);
+
             embedBuilder.AddField("Tamagotchi Module | " + _config.prefix + "help tamagotchi", "Contains everything about kipo's game module", false);
 
             await Context.Channel.SendMessageAsync(embed: embedBuilder.Build());

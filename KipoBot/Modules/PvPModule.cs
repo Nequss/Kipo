@@ -23,7 +23,7 @@ namespace KipoBot.Modules
 {
     [Group("t")]
     [Name("pvp")]
-    [Summary("Pet versus Per! Fight with your pettos!")]
+    [Summary("Pet versus Pet! Fight with your pettos!")]
     public class PvPModule : ModuleBase<SocketCommandContext>
     {
         private readonly DatabaseService database;

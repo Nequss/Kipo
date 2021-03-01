@@ -118,7 +118,7 @@ namespace Kipo.Modules
             }
             else
             {
-                Context.Channel.SendMessageAsync("Pet already has a job!");
+                await Context.Channel.SendMessageAsync("Pet already has a job!");
             }
         }
     }
