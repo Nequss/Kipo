@@ -8,7 +8,7 @@ namespace KipoBot.Game.Hunt.Loots
     {
         public PlasticKnife()
         {
-            type = Type.Weapons;
+            type = Type.Weapon;
             price = 200;
             name = "Plastic knife";
             description = "Tiny cheap knife";

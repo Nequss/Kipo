@@ -8,7 +8,7 @@ namespace KipoBot.Game.Hunt.Loots
     {
         public RealGun()
         {
-            type = Type.Weapons;
+            type = Type.Weapon;
             price = 300;
             name = "Real gun";
             description = "Yeah its defiently real and dangerous yes sure sure";

@@ -8,7 +8,7 @@ namespace KipoBot.Game.Hunt.Loots
     {
         public NerfGun()
         {
-            type = Type.Weapons;
+            type = Type.Weapon;
             price = 200;
             name = "Nerf gun";
             description = "Time to get nerfed";
