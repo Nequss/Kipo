@@ -1,4 +1,4 @@
-﻿usingusing KipoBot.Game.Base;
+﻿using KipoBot.Game.Base;
 using System;
 
 namespace KipoBot.Game.Hunt.Enemies
