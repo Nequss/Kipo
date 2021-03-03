@@ -16,7 +16,7 @@ namespace KipoBot.Game.Base
             Fruit,
             Treat,
             Tool,
-            Egg
+            Weapons
         }
 
         public string name;
