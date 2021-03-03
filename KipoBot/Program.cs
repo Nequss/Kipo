@@ -29,9 +29,8 @@ namespace KipoBot
         public async Task MainAsync()
         {
             c.title = "KipoBot";
-            //c.start();
             
-            String[] reqPaths = {"data","fonts","banners"};
+            string[] reqPaths = {"data","fonts","banners"};
 
             foreach (var path in reqPaths)
             {

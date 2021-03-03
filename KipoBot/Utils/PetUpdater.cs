@@ -8,6 +8,7 @@ using KipoBot.Services;
 
 namespace KipoBot.Utils
 {
+    [Name("updater")]
     public class PetUpdater : ModuleBase<SocketCommandContext>
     { 
         private readonly DatabaseService database;

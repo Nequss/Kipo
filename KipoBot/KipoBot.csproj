@@ -24,4 +24,10 @@
     </Reference>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Assets\" />
+    <Folder Include="Game\Hunt\Enemies\" />
+    <Folder Include="Game\Hunt\Loots\" />
+  </ItemGroup>
+
 </Project>

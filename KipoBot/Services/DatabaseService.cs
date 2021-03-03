@@ -57,6 +57,7 @@ namespace KipoBot.Services
         /* Serializable/Deserializable */
         public List<Server> servers;
         public List<Player> players;
+        public List<Item> market;
 
         /* Shop list indexes [x][y] | x - category | y - items
          * [0][y] - berries
@@ -120,7 +121,7 @@ namespace KipoBot.Services
             foreach (Type job in jobs)
                 Program.Logger.info(job.ToString() + ".cs");
 
-            Program.Logger.info($"Following abilities instances will be created from KipoBot.Game.Abilities and added to the job list");
+            Program.Logger.info($"Following abilities instances will be created from KipoBot.Game.Abilities and added to the abilities list");
 
             var abilitiesTypes = Assembly.GetExecutingAssembly().GetTypes()
                     .Where(t => t.Namespace == "KipoBot.Game.Abilities")
@@ -162,6 +163,9 @@ namespace KipoBot.Services
             using (stream = File.Open(Path.Combine(PATH, "players.bin"), FileMode.OpenOrCreate))
                 binaryformatter.Serialize(stream, players);
 
+            using (stream = File.Open(Path.Combine(PATH, "market.bin"), FileMode.OpenOrCreate))
+                binaryformatter.Serialize(stream, market);
+
             return Task.CompletedTask;
         }
 
@@ -192,6 +196,18 @@ namespace KipoBot.Services
             else
             {
                 players = new List<Player>();
+            }
+
+            if (Helpers.FileExists($"{PATH}market.bin"))
+            {
+                stream = File.Open(Path.Combine(PATH, "market.bin"), FileMode.Open);
+                market = (List<Item>)binaryformatter.Deserialize(stream);
+                Program.Logger.info($"Succesfully loaded DB: {PATH}market.bin");
+                stream.Close();
+            }
+            else
+            {
+                market = new List<Item>();
             }
 
             loadJobs();

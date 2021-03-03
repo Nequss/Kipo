@@ -20,7 +20,7 @@ using Discord;
 
 namespace KipoBot.Modules
 {
-    [Name("Minigames")]
+    [Name("minigames")]
     [Summary("Contains all fun minigames to play")]
     public class MinigameModule : ModuleBase<SocketCommandContext>
     {
@@ -35,12 +35,10 @@ namespace KipoBot.Modules
         }
 
         [Command("guess", RunMode = RunMode.Async)]
-        [Summary("Play a number guesing game agaisnt your pet, type +guess (your number)")]
-        public async Task Guess(int x )
+        [Summary("Play a number guesing game agaisnt Kipo +guess (your number)")]
+        public async Task Guess(int x)
         {
             await ReplyAsync("Kipo thinking of a number between 1 to " + x + " try to guess ");
-
-            Player p1 = await database.FindPlayer(Context.Message.Author.Id);
 
             int parseResult;
             Random rnd = new Random();
@@ -107,9 +105,8 @@ namespace KipoBot.Modules
             "**100%** YOUR FRIENDSHIP IS TOO STRONG FOR THIS WORLD AAAAAAAAAA" };
 
             await Context.Channel.SendMessageAsync(message[new Random().Next(message.Length)]);
-
-
         }
+
         [Command("rps", RunMode = RunMode.Async)]
         [Summary("Play a game of rock, paper, scissors against Kipo")]
         public async Task RPS()

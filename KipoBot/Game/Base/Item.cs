@@ -23,6 +23,7 @@ namespace KipoBot.Game.Base
         public string description;
         public Type   type;
         public short  price;
+        public ulong? owner = null;
 
         public byte hapiness = 0;
         public byte health   = 0;

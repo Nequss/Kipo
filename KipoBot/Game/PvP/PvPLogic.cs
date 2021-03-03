@@ -100,6 +100,7 @@ namespace KipoBot.Game.PvP
             {
                 embedBuilder.AddField(".........................", $"{pet1.name} missed the attack!");
             }
+
             embedBuilder.WithImageUrl("https://images2.imgbox.com/eb/4e/Wp74ahXN_o.png");
             await ctx.Channel.SendMessageAsync(embed: embedBuilder.Build());
         }
@@ -144,6 +145,9 @@ namespace KipoBot.Game.PvP
                 }
 
             } while (true);
+
+            p1.active = pet1;
+            p2.active = pet2;
 
             embedBuilder.WithImageUrl("https://images2.imgbox.com/eb/4e/Wp74ahXN_o.png");
             await ctx.Channel.SendMessageAsync(embed: embedBuilder.Build());

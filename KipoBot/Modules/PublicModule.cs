@@ -67,7 +67,7 @@ namespace KipoBot.Modules
             await Context.Channel.SendMessageAsync(answers[new Random().Next(answers.Length)]);
         }
 
-        [Command("Roll", RunMode = RunMode.Async)]
+        [Command("roll", RunMode = RunMode.Async)]
         [Summary("Random number generator")]
         public async Task Roll(int  x)
         {
