@@ -5,7 +5,7 @@ namespace KipoBot.Game.Hunt.Enemies
 {
     public class Boss : Pet
     {
-        public Bosss()
+        public Boss()
         {
             name = "Boss";
             health = 50;
