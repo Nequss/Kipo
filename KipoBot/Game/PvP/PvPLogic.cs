@@ -57,8 +57,16 @@ namespace KipoBot.Game.PvP
         public async Task<Ability> ChooseAbility(SocketCommandContext ctx, Pet pet, SocketUser u)
         {
             await ctx.Channel.SendMessageAsync($"It's {pet.name} turn | Choose ability");
+
             SocketMessage response = await interaction.NextMessageAsync(ctx, new EnsureFromUserCriterion(u));
-            Ability? ability = await FindAbility(response.Content, pet);
+
+            if (response == null)
+            {
+                await ctx.Channel.SendMessageAsync($"Ability not found or you were thinking too long! Your pet will decide on its own!");
+                return pet.abilities[new Random().Next(pet.abilities.Count)];
+            }
+
+            Ability ability = await FindAbility(response.Content, pet);
 
             if (ability == null)
             {

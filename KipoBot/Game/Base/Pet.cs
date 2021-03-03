@@ -61,6 +61,10 @@ namespace KipoBot.Game.Base
         public byte agility;
         public byte accuracy;
 
+        //hunt
+        public byte damage;
+        public byte reward;
+
         protected Pet()
         {
             rarity = Rarity.Common;
