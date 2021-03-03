@@ -1,24 +1,9 @@
-﻿using Discord;
-using Discord.Webhook;
+﻿using Discord.Commands;
 using Discord.WebSocket;
-using Discord.Commands;
-using System.IO;
-using System.Net.Http;
-using System.Threading.Tasks;
-using System.Text.Json;
-using System.Text.Json.Serialization;
-using System;
-using System.Diagnostics;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading;
-using ImageMagick;
 using KipoBot.Services;
 using KipoBot.Utils;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Configuration;
-using KipoBot.Modules;
+using System.IO;
+using System.Threading.Tasks;
 
 namespace KipoBot.Modules
 {
@@ -32,35 +17,6 @@ namespace KipoBot.Modules
         public WelcomeModule(DatabaseService _database)
         {
             database = _database;
-        }
-
-        [Command("enable", RunMode = RunMode.Async)]
-        [Summary("Enables welcome module.\n+welcome enable [#channel]")]
-        public async Task Enable(SocketTextChannel channel = null)
-        {
-
-            if (channel == null)
-            {
-                await Context.Channel.SendMessageAsync("Channel not found!\n+enable <#channel>");
-            }
-            else
-            {
-                if (database.servers != null && database.servers.Count != 0)
-                {
-                    foreach (var server in database.servers)
-                    {
-                        if (server.id == Context.Guild.Id)
-                        {
-                            await Context.Channel.SendMessageAsync("Welcome module is already enabled!");
-                        }
-                    }
-                }
-                else
-                {
-                    await database.AddServer(Context.Guild.Id, channel.Id);
-                    await Context.Channel.SendMessageAsync("Welcome module has been enabled! Check other commands to configure the caption on the image and the text message.");
-                }
-            }
         }
 
         [Command("disable", RunMode = RunMode.Async)]
@@ -85,6 +41,33 @@ namespace KipoBot.Modules
             }
         }
 
+        [Command("enable", RunMode = RunMode.Async)]
+        [Summary("Enables welcome module.\n+welcome enable [#channel]")]
+        public async Task Enable(SocketTextChannel channel = null)
+        {
+            if (channel == null)
+            {
+                await Context.Channel.SendMessageAsync("Channel not found!\n+enable <#channel>");
+            }
+            else
+            {
+                if (database.servers != null && database.servers.Count != 0)
+                {
+                    foreach (var server in database.servers)
+                    {
+                        if (server.id == Context.Guild.Id)
+                        {
+                            await Context.Channel.SendMessageAsync("Welcome module is already enabled!");
+                        }
+                    }
+                }
+                else
+                {
+                    await database.AddServer(Context.Guild.Id, channel.Id);
+                    await Context.Channel.SendMessageAsync("Welcome module has been enabled! Check other commands to configure the caption on the image and the text message.");
+                }
+            }
+        }
         [Command("preview", RunMode = RunMode.Async)]
         [Summary("Sends welcome message to the channel the command is executed in.")]
         public async Task Preview()
@@ -134,9 +117,9 @@ namespace KipoBot.Modules
             }
         }
 
-        [Command("caption", RunMode = RunMode.Async)]
-        [Summary("Sets the text on the image.\n+welcome caption [text]")]
-        public async Task SetWelcomeBannerText([Remainder]string text)
+        [Command("message", RunMode = RunMode.Async)]
+        [Summary("Sets the text message in image describtion.\n+welcome message [text]")]
+        public async Task SetWelcomeBannerDesc([Remainder] string text)
         {
             foreach (var server in database.servers)
             {
@@ -144,7 +127,7 @@ namespace KipoBot.Modules
                 {
                     if (server.channel_id != null)
                     {
-                        server.caption = text;
+                        server.message = text;
                     }
                     else
                     {
@@ -154,9 +137,9 @@ namespace KipoBot.Modules
             }
         }
 
-        [Command("message", RunMode = RunMode.Async)]
-        [Summary("Sets the text message in image describtion.\n+welcome message [text]")]
-        public async Task SetWelcomeBannerDesc([Remainder]string text)
+        [Command("caption", RunMode = RunMode.Async)]
+        [Summary("Sets the text on the image.\n+welcome caption [text]")]
+        public async Task SetWelcomeBannerText([Remainder] string text)
         {
             foreach (var server in database.servers)
             {
@@ -164,7 +147,7 @@ namespace KipoBot.Modules
                 {
                     if (server.channel_id != null)
                     {
-                        server.message = text;
+                        server.caption = text;
                     }
                     else
                     {
