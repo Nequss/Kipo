@@ -18,6 +18,7 @@ using KipoBot.Utils;
 using Discord.Addons.Interactive;
 using KipoBot.Game.PvP;
 using Discord;
+using KipoBot.Game.Hunt;
 
 namespace KipoBot.Modules
 {
@@ -74,6 +75,23 @@ namespace KipoBot.Modules
             else
             {
                 await Context.Channel.SendMessageAsync($"Challenge declined or ignored!");
+            }
+        }
+
+        [Command("hunt", RunMode = RunMode.Async)]
+        [Summary("hunting mode! get some rewards kiana")]
+        public async Task Hunt()
+        {
+            Player player = await database.PlayerInfo(Context.User.Id);
+
+            if (player != null)
+            {
+                await new HuntLogic().Hunt(Context, player.active);
+            }
+            else
+            {
+                await Context.Channel.SendMessageAsync("You are not a member of the Kipo's tamagotchi club.\n" +
+                    "You can join by choosing your first pet, try +help starters");
             }
         }
     }
