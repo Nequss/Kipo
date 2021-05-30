@@ -12,7 +12,7 @@ namespace KipoBot.Game.Hunt.Loots
             price = 400;
             name = "Metal sword";
             description = "Finally a decent sword";
-            damage 3;
+            damage = 3;
         }
     }
 }

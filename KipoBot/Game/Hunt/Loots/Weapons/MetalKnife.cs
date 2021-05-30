@@ -12,7 +12,7 @@ namespace KipoBot.Game.Hunt.Loots
             price = 400;
             name = "Metal Knife";
             description = "Normal kitchen knife";
-            damage 3;
+            damage = 3;
         }
     }
 }

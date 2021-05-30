@@ -30,5 +30,6 @@ namespace KipoBot.Game.Base
         public byte hunger   = 0;
         public byte thirst   = 0;
         public byte energy   = 0;
+        public byte damage = 0;
     }
 }
