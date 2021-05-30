@@ -7,7 +7,7 @@ namespace KipoBot.Game.Hunt.Loots
     {
         public Mace()
         {
-            type = Type.Weapons;
+            type = Type.Weapon;
             price = 500;
             name = "Mace";
             description = "Spiky boyyyyy";

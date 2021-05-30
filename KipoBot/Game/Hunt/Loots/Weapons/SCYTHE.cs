@@ -8,7 +8,7 @@ namespace KipoBot.Game.Hunt.Loots
     {
         public SCYTHE()
         {
-            type = Type.Weapons;
+            type = Type.Weapon;
             price = 600;
             name = "SCYTHE";
             description = "Let your pet become grim reaper!!";

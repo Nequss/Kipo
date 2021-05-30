@@ -76,5 +76,10 @@ namespace KipoBot.Modules
 
             await Context.Channel.SendMessageAsync("The number is " + dice);
         }
+    
+      [Command("free", RunMode = RunMode.Async)]
+      [Summary("Sends you a free game link of available platform")]
+
+
     }
 }

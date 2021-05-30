@@ -8,7 +8,7 @@ namespace KipoBot.Game.Hunt.Loots
     {
         public PlasticSword()
         {
-            type = Type.Weapons;
+            type = Type.Weapon;
             price = 200;
             name = "Plastic sword";
             description = "Sword made out of strong plastic not safe for turtles ";

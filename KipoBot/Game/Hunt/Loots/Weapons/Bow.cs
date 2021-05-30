@@ -8,7 +8,7 @@ namespace KipoBot.Game.Hunt.Loots
     {
         public Bow()
         {
-            type = Type.Weapons;
+            type = Type.Weapon;
             name = "Bow";
             description = " Shoot enemies from a far with bow and arrow";
             price = 100;
