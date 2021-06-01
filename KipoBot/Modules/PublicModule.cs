@@ -76,10 +76,33 @@ namespace KipoBot.Modules
 
             await Context.Channel.SendMessageAsync("The number is " + dice);
         }
-    
-      [Command("free", RunMode = RunMode.Async)]
-      [Summary("Sends you a free game link of available platform")]
 
+        [Command("freebies", RunMode = RunMode.Async)]
+        [Summary("Shows platforms with free game")]
+        public async Task Freebies()
+        {
+            var response = await new HttpClient().GetStringAsync("https://www.cheapshark.com/api/1.0/deals?storeID=25&upperPrice=0");
+            Deal[] freebies = JsonSerializer.Deserialize<Deal[]>(response);
 
+            var re = await new HttpClient().GetStringAsync("https://www.cheapshark.com/api/1.0/stores?fbclid=IwAR1yQFIVqo8SLVv9X3qw21nk_4cLzbYL2wtPIBZOLFBFhIWsxGYHQbaq4HE");
+            Store[] store = JsonSerializer.Deserialize<Store[]>(re);
+
+            await Context.Channel.SendMessageAsync(store[0].storeName + freebies[0].title);
+        }
+
+        public class Deal
+        {
+            [JsonPropertyName("title")]
+            public string title { get; set; }
+            
+            [JsonPropertyName("storeID")]
+            public string storeID { get; set; }
+        }
+
+        public class Store
+        {
+            [JsonPropertyName("storeName")]
+            public string storeName { get; set; }
+        }
     }
 }

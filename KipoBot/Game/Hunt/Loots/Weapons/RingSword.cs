@@ -8,7 +8,7 @@ namespace KipoBot.Game.Items.Vegetables
     {
         public RingSword()
         {
-            type = Type.Weapons;
+            type = Type.Weapon;
             price = 300;
             name = "Ring sword";
             description = "Holly molly this circle is whole blades";
