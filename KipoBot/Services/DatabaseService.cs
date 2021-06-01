@@ -69,6 +69,7 @@ namespace KipoBot.Services
          * [6][y] - toys
          * [7][y] - treats
          * [8][y] - vegetables */
+
         public List<List<Item>> shop = new List<List<Item>>();
         public List<Ability> abilities = new List<Ability>();
         public List<Type> jobs = new List<Type>();

@@ -35,7 +35,7 @@ namespace KipoBot.Game.Hunt
         public async Task<Ability> GetAbility(Pet pet)
             => pet.abilities[new Random().Next(pet.abilities.Count - 1)];
 
-        public async Task Hunt(SocketCommandContext ctx, InteractiveService interaction, Pet pet)
+        public async Task Hunt(SocketCommandContext ctx, Pet pet)
         {
             await ctx.Channel.SendMessageAsync($"Quick battle start");
 
@@ -45,10 +45,10 @@ namespace KipoBot.Game.Hunt
             {
                 var ability = await GetAbility(pet);
 
-                await ctx.Channel.SendMessageAsync($"turn has started!\nAbility chosen by pet: {ability.name}");
-
-                await ctx.Channel.SendMessageAsync($"Enemy HP: {enemy.health}");
-                await ctx.Channel.SendMessageAsync($"Pet HP: {pet.health}");
+                await ctx.Channel.SendMessageAsync($"Pet's turn has started!\n" +
+                    $"Ability chosen by pet: {ability.name}\n" +
+                    $"Enemy HP: {enemy.health}\n" +
+                    $"Pet HP: {pet.health}");
 
                 if (new Random().Next(0, 100) < ability.ChanceHit(pet))
                     if (new Random().Next(0, 100) > ability.ChanceDodge(pet))
@@ -56,8 +56,9 @@ namespace KipoBot.Game.Hunt
 
                 pet.health -= enemy.damage;
 
-                await ctx.Channel.SendMessageAsync($"Enemy HP: {enemy.health}");
-                await ctx.Channel.SendMessageAsync($"Pet HP: {pet.health}");
+                await ctx.Channel.SendMessageAsync($"Enemy's turn has started!\n" +
+                    $"Enemy HP: {enemy.health}\n" +
+                    $"Pet HP: {pet.health}");
 
                 if (pet.health == 0)
                 {
@@ -70,6 +71,7 @@ namespace KipoBot.Game.Hunt
                     await ctx.Channel.SendMessageAsync($"{enemy.name} has been killed!");
                     break;
                 }
+
             } while (true);
         }
     }
