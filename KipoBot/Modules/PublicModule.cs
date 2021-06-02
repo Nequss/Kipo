@@ -91,20 +91,18 @@ namespace KipoBot.Modules
             var response = await new HttpClient().GetStringAsync("https://www.cheapshark.com/api/1.0/deals?storeID=" +i+ "&upperPrice=0");
             Deal[] freebies = JsonSerializer.Deserialize<Deal[]>(response);
 
-                    if (freebies[0] == null)
-                    {
-                        continue;
-                    }
+                if (freebies.Length == 0)
+                {
+                    continue;
+                }
 
-                    else if (freebies[0].storeID == store[i].storeID2)
+                    else if (freebies[0].storeID == store[i-1].storeID2)
                     {
-                        for (int j = 0; j < 12; j++)
+                        for (int j = 0; j <= freebies.Length; j++)
                         {
-                            await Context.Channel.SendMessageAsync(store[i].storeName + ": "
-                            + freebies[j].title);
+                            await Context.Channel.SendMessageAsync(store[i-1].storeName + ": "+ freebies[j].title);
                         }
                     }
-                
             }
         }
 
