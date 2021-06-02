@@ -81,56 +81,30 @@ namespace KipoBot.Modules
         [Summary("Shows platforms with free game")]
         public async Task Freebies()
         {
-            var allStores = new List<string>() {"https://www.cheapshark.com/api/1.0/deals?storeID=1&upperPrice=0",
-               "https://www.cheapshark.com/api/1.0/deals?storeID=2&upperPrice=0",
-              "https://www.cheapshark.com/api/1.0/deals?storeID=3&upperPrice=0",
-             "https://www.cheapshark.com/api/1.0/deals?storeID=4&upperPrice=0",
-              "https://www.cheapshark.com/api/1.0/deals?storeID=5&upperPrice=0",
-                "https://www.cheapshark.com/api/1.0/deals?storeID=6&upperPrice=0",
-              "https://www.cheapshark.com/api/1.0/deals?storeID=7&upperPrice=0",
-             "https://www.cheapshark.com/api/1.0/deals?storeID=8&upperPrice=0",
-              "https://www.cheapshark.com/api/1.0/deals?storeID=9&upperPrice=0",
-                "https://www.cheapshark.com/api/1.0/deals?storeID=10&upperPrice=0",
-              "https://www.cheapshark.com/api/1.0/deals?storeID=11&upperPrice=0",
-             "https://www.cheapshark.com/api/1.0/deals?storeID=12&upperPrice=0",
-              "https://www.cheapshark.com/api/1.0/deals?storeID=13&upperPrice=0",
-                  "https://www.cheapshark.com/api/1.0/deals?storeI4D=1&upperPrice=0",
-              "https://www.cheapshark.com/api/1.0/deals?storeID=15&upperPrice=0",
-             "https://www.cheapshark.com/api/1.0/deals?storeID=16&upperPrice=0",
-              "https://www.cheapshark.com/api/1.0/deals?storeID=17&upperPrice=0",
-               "https://www.cheapshark.com/api/1.0/deals?storeID=18&upperPrice=0",
-              "https://www.cheapshark.com/api/1.0/deals?storeID=19&upperPrice=0",
-             "https://www.cheapshark.com/api/1.0/deals?storeID=20&upperPrice=0",
-              "https://www.cheapshark.com/api/1.0/deals?storeID=21&upperPrice=0",
-                "https://www.cheapshark.com/api/1.0/deals?storeID=22&upperPrice=0",
-              "https://www.cheapshark.com/api/1.0/deals?storeID=23&upperPrice=0",
-             "https://www.cheapshark.com/api/1.0/deals?storeID=24&upperPrice=0",
-              "https://www.cheapshark.com/api/1.0/deals?storeID=25&upperPrice=0",
-             "https://www.cheapshark.com/api/1.0/deals?storeID=26&upperPrice=0",
-              "https://www.cheapshark.com/api/1.0/deals?storeID=27&upperPrice=0",
-             "https://www.cheapshark.com/api/1.0/deals?storeID=28&upperPrice=0",
-              "https://www.cheapshark.com/api/1.0/deals?storeID=29&upperPrice=0",
-                "https://www.cheapshark.com/api/1.0/deals?storeID=30&upperPrice=0",
-            "https://www.cheapshark.com/api/1.0/deals?storeID=31&upperPrice=0" };
-            
-
-            var response = await new HttpClient().GetStringAsync(allStores[24]);
-            Deal[] freebies = JsonSerializer.Deserialize<Deal[]>(response);
 
             var re = await new HttpClient().GetStringAsync("https://www.cheapshark.com/api/1.0/stores");
             Store[] store = JsonSerializer.Deserialize<Store[]>(re);
 
             for (int i = 0; i < 31; i++)
             {
-                if (freebies[0].storeID == store[i].storeID2)
-                {
-                    for (int j = 0; j < 12; j++)
+              
+            var response = await new HttpClient().GetStringAsync("https://www.cheapshark.com/api/1.0/deals?storeID=" +i+ "&upperPrice=0");
+            Deal[] freebies = JsonSerializer.Deserialize<Deal[]>(response);
+
+                    if (freebies[0] == null)
                     {
-                     await Context.Channel.SendMessageAsync(store[i].storeName + ": "
-                     + freebies[j].title);
+                        continue;
                     }
-                    
-                }
+
+                    else if (freebies[0].storeID == store[i].storeID2)
+                    {
+                        for (int j = 0; j < 12; j++)
+                        {
+                            await Context.Channel.SendMessageAsync(store[i].storeName + ": "
+                            + freebies[j].title);
+                        }
+                    }
+                
             }
         }
 
