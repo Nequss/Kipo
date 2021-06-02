@@ -100,7 +100,7 @@ namespace KipoBot.Modules
                     {
                         for (int j = 0; j <= freebies.Length; j++)
                         {
-                            await Context.Channel.SendMessageAsync(store[i-1].storeName + ": "+ freebies[j].title);
+                            await Context.Channel.SendMessageAsync("List of the free games today!/n" + store[i-1].storeName + ": "+ freebies[j].title);
                         }
                     }
             }
