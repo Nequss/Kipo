@@ -81,7 +81,10 @@ namespace KipoBot.Modules
         [Summary("Shows platforms with free game")]
         public async Task Freebies()
         {
+            EmbedBuilder embedBuilder = new EmbedBuilder();
+            embedBuilder.Color = Color.Purple;
 
+            string message = "";
             var re = await new HttpClient().GetStringAsync("https://www.cheapshark.com/api/1.0/stores");
             Store[] store = JsonSerializer.Deserialize<Store[]>(re);
 
@@ -100,10 +103,15 @@ namespace KipoBot.Modules
                     {
                         for (int j = 0; j <= freebies.Length; j++)
                         {
-                            await Context.Channel.SendMessageAsync("List of the free games today!/n" + store[i-1].storeName + ": "+ freebies[j].title);
+                            message += store[i-1].storeName + ":   "+ freebies[j].title;
+
+                            embedBuilder.AddField("**List of free games today!**", message);
+                            await Context.Channel.SendMessageAsync(embed: embedBuilder.Build());
+
                         }
                     }
             }
+            
         }
 
         public class Deal
