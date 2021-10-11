@@ -79,10 +79,12 @@ namespace KipoBot.Modules
         public async Task Purge(string i = null)
         {
             IEnumerable<IMessage> messages;
+            
 
             if (Int32.TryParse(i, out _))
             {
-                messages = await Context.Channel.GetMessagesAsync(Int32.Parse(i)).FlattenAsync();
+                messages = await Context.Channel.GetMessagesAsync(Int32.Parse(i)+1).FlattenAsync();
+                
             }
             else
             {
