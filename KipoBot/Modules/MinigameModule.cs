@@ -65,12 +65,22 @@ namespace KipoBot.Modules
 
                 if (result == true)
                 {
-                    if (playertries == 0)
+                    if (num > parseResult)
+                    {
+                        await Context.Channel.SendMessageAsync("Kipo is thinking of a higher number~");
+                    }
+
+                   else  if (num < parseResult)
+                    {
+                        await Context.Channel.SendMessageAsync("Kipo is thinking of a lower number~");
+                    }
+
+                    else if (playertries == 0)
                     {
                         await Context.Channel.SendMessageAsync("You lost the game :c");
                         return;
                     }
-                    if (parseResult == num)
+                    else if (parseResult == num)
                     {
                         await Context.Channel.SendMessageAsync("You win! CONGRATS");
                         return;

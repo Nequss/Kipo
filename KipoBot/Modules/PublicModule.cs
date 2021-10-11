@@ -84,7 +84,7 @@ namespace KipoBot.Modules
             EmbedBuilder embedBuilder = new EmbedBuilder();
             embedBuilder.Color = Color.Purple;
 
-            string message = "";
+            string message = " ";
             var re = await new HttpClient().GetStringAsync("https://www.cheapshark.com/api/1.0/stores");
             Store[] store = JsonSerializer.Deserialize<Store[]>(re);
 
@@ -103,14 +103,15 @@ namespace KipoBot.Modules
                     {
                         for (int j = 0; j <= freebies.Length; j++)
                         {
-                            message += store[i-1].storeName + ":   "+ freebies[j].title;
+                         message += store[i-1].storeName + ":   "+ freebies[j].title;
 
-                            embedBuilder.AddField("**List of free games today!**", message);
-                            await Context.Channel.SendMessageAsync(embed: embedBuilder.Build());
-
-                        }
+                        
+                        embedBuilder.AddField("**Free game** :heart: \n", message);
+                        await Context.Channel.SendMessageAsync(embed: embedBuilder.Build());
+                        } 
                     }
             }
+            
             
         }
 
@@ -130,6 +131,8 @@ namespace KipoBot.Modules
 
             [JsonPropertyName("storeID")]
             public string storeID2 { get; set; }
+
+
         }
     }
 }
