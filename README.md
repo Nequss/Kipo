@@ -1,4 +1,4 @@
-# Kipo (Not Finished & Outdated)
+# Kipo (Outdated)
 The cutest bot in the universe!
 
 ### Linux Dependencies:
